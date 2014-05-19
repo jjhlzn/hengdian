@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'hengdian.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+	url(r'^lottery/', include('lottery.urls')),
     url(r'^admin/', include(admin.site.urls)),
+	
 )
