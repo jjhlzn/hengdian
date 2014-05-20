@@ -1,3 +1,6 @@
 from django.contrib import admin
+from lottery.models import Question, Prize
 
-# Register your models here.
+
+admin.site.register(Question)
+admin.site.register(Prize)

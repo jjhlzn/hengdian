@@ -6,6 +6,7 @@
 <meta charset="utf-8">
 <title>知识问答赢大奖 百万旅游红包大派送  横店影视城2014年5-6月特惠</title>
 <link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %}">
+<script language="javascript"  type="text/javascript" src="{% static "lottery/js/jquery-1.11.1.min.js"%}"></script>
  <style>
 body{
  font-family:"宋体","微软雅黑",Verdana, Geneva, sans-serif; ;   padding:0; margin:0 ;
@@ -50,10 +51,10 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <!---->
 <div style="width:1039px; height:60px;   text-align:center;margin-top:8px; padding-top:14px; background-image:url({% static "lottery/images/cj_sj.jpg" %});">
 <div style="display:block; margin-left:120px; width:285px; height:43px; text-align:left; float:left;">
-<input type="text"  maxlength="11" style="width:285px; " ></div>
+<input id="mobile" type="text"  maxlength="11" style="width:285px; " ></div>
 <div style="display:block; margin-left:120px; width:185px; height:43px; text-align:left; float:left;">
-<input type="text"  maxlength="11" style="width:190px;" ></div>
-<a href="choujiang_step.html"><img src="{% static "lottery/images/cj_12.jpg" %}" width="296" height="41"  alt=""/></a> </div>
+<input id="name" type="text"  maxlength="11" style="width:190px;" ></div>
+<a href="#" onclick='return check_form();'><img src="{% static "lottery/images/cj_12.jpg" %}" width="296" height="41"  alt=""/></a> </div>
 
 <!---->
 <div style="margin:0 auto; padding-top:20px; padding-bottom:20px; background-color:#ea5c50; text-align:center; margin-top:8px;">
@@ -73,4 +74,16 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9ff376f3594e8e228b3b84e549ce332e' type='text/javascript'%3E%3C/script%3E"));
+
+function check_form()
+{
+	var name = $.trim($('#name').val());
+	var mobile = $.trim($('#mobile').val());
+	if(name.length < 1 || mobile.length < 1){
+		alert('请提供姓名和手机号码');
+		return false;
+	}
+	window.location = '/lottery/choujiang_step/?name='+name+'&mobile='+mobile;
+	//return true;
+}
 </script>

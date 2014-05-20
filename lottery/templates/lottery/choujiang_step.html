@@ -1,0 +1,93 @@
+{% load static from staticfiles %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>知识问答赢大奖 百万旅游红包大派送  横店影视城2014年5-6月特惠</title>
+<link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %}">
+<script language="javascript"  type="text/javascript" src="{% static "lottery/js/jquery-1.11.1.min.js"%}"></script>
+ <style>
+body{
+ font-family:"宋体","微软雅黑",Verdana, Geneva, sans-serif; ;   padding:0; margin:0 ;
+}
+span{display:block; float:left; margin-left:10px;  }
+
+.zjDiv{width:375px; float:left; margin-top:10px;}
+.fontQS{font-size:16px; line-height:40px; font-family:"微软雅黑","宋体";} 
+.tm{margin-top:30px;}
+ </style>
+
+</head>
+
+<body>
+<div  style="width:1480px;  background-image:url({% static "lottery/images/background.jpg" %})  ; height:2127px; margin:0 auto;">
+
+<div style="padding-top:606px; width:1039px;margin:0 auto;">
+<!---->
+<div style="height:55px; background-color:#953d4d; color:#fff; font-size:16px; text-align:center; font-weight:bold; padding-top:24px;">
+姓名：{{name}}  手机号：{{mobile}}
+</div>
+<!---->
+<div style=" background-color:#FFF; height:auto; padding-top:50px; padding-left:80px; padding-right:80px;">
+<div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:30px;">第一关</div>
+<!---->
+
+{% for key,question in question_map.items %}
+<div id="tm1" style="height:auto;   " class="tm" >
+	<div class="fontQS">
+
+	{{key}}.{{question.question}}</div>
+	<div class="fontQS">
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_1" value='A'> </span><span>A:{{question.option1}}</span>
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_2" value='B'> </span><span>B:{{question.option2}}</span> 
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_3" value='C'> </span><span>C:{{question.option3}}</span>
+		<input type="hidden" id="answer{{key}}" value="{{question.answer}}" />
+	</div>
+</div>
+<div class="clear"></div>
+{% endfor %}
+<!---->
+
+<div id="tm1" style="height:auto; text-align:right; padding-bottom:20px;   " class="tm" > 
+	<a href="#" onclick="return check_form();"><img src="{% static "lottery/images/cj_tj.jpg" %}" width="186" height="42"  alt=""/></a> 
+</div>
+<!---->
+
+</div>
+
+<!---->
+
+</div>
+
+</div>
+
+<div style="width:1480px; height:96px;   text-align:center; margin:0 auto; background-color:#ad4137;">
+<img src="{% static "lottery/images/btm.jpg" %}" width="934" height="96"  alt=""/> 
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9ff376f3594e8e228b3b84e549ce332e' type='text/javascript'%3E%3C/script%3E"));
+
+//检查回答问题是否对
+function check_form()
+{
+	var i = 1;
+	for(i = 1; i<={{question_count}}; i++){
+		console.log($("input[type='radio'][name='option"+i+"']:checked"));
+		console.log($("input[type='radio'][name='option"+i+"']:checked").length);
+		if ($("input[type='radio'][name='option"+i+"']:checked").length == 0 ){
+			alert("请先选择答案");
+			return;
+		}
+		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
+			alert("答案错误");
+			return;
+		}
+		window.location = "/lottery/choujiang_handle/";
+		return;
+	}
+}
+</script>
