@@ -35,14 +35,9 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <div style="background: url( {% static "lottery/images/cj_hjzmd.jpg" %}); width:750px; height:246px; margin:0 auto;">
 <div style="padding-top:40px;">
 <!--中奖名单-->
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
-<div  class="zjDiv" ><span>获奖者姓名</span><span>手机号码</span><span>奖品名称</span></div>
+{% for record in has_prize_records %}
+<div  class="zjDiv" ><span>{{record.username}}</span><span>{{record.mobile}}</span><span>{{record.prize_name}}</span></div>
+{% endfor %}
 <!--中奖名单-->
 </div>
 </div>

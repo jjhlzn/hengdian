@@ -25,7 +25,7 @@ span{display:block; float:left; margin-left:10px;  }
 <div style="padding-top:606px; width:1039px;margin:0 auto;">
 <!---->
 <div style="height:55px; background-color:#953d4d; color:#fff; font-size:16px; text-align:center; font-weight:bold; padding-top:24px;">
-姓名：{{name}}  手机号：{{mobile}}
+姓名：<span id='name'>{{name}}</span>  手机号：<span id='mobile'>{{mobile}}</span>
 </div>
 <!---->
 <div style=" background-color:#FFF; height:auto; padding-top:50px; padding-left:80px; padding-right:80px;">
@@ -80,14 +80,16 @@ function check_form()
 		console.log($("input[type='radio'][name='option"+i+"']:checked").length);
 		if ($("input[type='radio'][name='option"+i+"']:checked").length == 0 ){
 			alert("请先选择答案");
+			$("input[type='radio'][name='option"+i+"']").focus();
 			return;
 		}
 		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
 			alert("答案错误");
 			return;
 		}
-		window.location = "/lottery/choujiang_handle/";
-		return;
+		
 	}
+	window.location = "/lottery/choujiang_handle/?name="+$('#name').html()+'&mobile='+$('#mobile').html();
+	return;
 }
 </script>

@@ -25,3 +25,5 @@ class LotteryRecord(models.Model):
 	prize_name =  models.CharField(max_length=500,default='')
 	def has_prize(self):
 		return self.prize_name != ''
+	def __unicode__(self):
+		return self.username + ',' + self.mobile + ','+self.prize_name
