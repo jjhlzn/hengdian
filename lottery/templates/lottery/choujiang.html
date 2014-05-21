@@ -29,7 +29,7 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <div style="width:1039px; height:auto; background-color:#584797; margin:0 auto; text-align:center;">
 <div>
   <p>&nbsp;</p>
-  <p><img src="{% static "lottery/images/cj_zjz.jpg" %}" width="170" height="47"  alt=""/>&nbsp;&nbsp;<a href="choujiang_search.html"><img src="{%static "lottery/images/cj_s.jpg" %}" width="134" height="41"  alt=""/></a></p>
+  <p><img src="{% static "lottery/images/cj_zjz.jpg" %}" width="170" height="47"  alt=""/>&nbsp;&nbsp;<a href="/lottery/choujiang_search/"><img src="{%static "lottery/images/cj_s.jpg" %}" width="134" height="41"  alt=""/></a></p>
   <p>&nbsp;</p>
 </div>
 <div style="background: url( {% static "lottery/images/cj_hjzmd.jpg" %}); width:750px; height:246px; margin:0 auto;">
@@ -78,6 +78,13 @@ function check_form()
 		alert('请提供姓名和手机号码');
 		return false;
 	}
+	//验证手机号格式
+	var reg = /(^13\d{9}$)|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^18[0,2,5,6,7,8,9]\d{8}$)|(^147\d{8}$)/g ;  
+    if(!reg.test(mobile)){
+		alert("手机号码格式错误！");
+		$('#mobile').focus();
+		return false;
+	}	
 	window.location = '/lottery/choujiang_step/?name='+name+'&mobile='+mobile;
 	//return true;
 }

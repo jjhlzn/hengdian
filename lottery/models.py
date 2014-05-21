@@ -16,6 +16,17 @@ class Prize(models.Model):
 	expire_date = models.DateTimeField()
 	def __unicode__(self):
 		return self.name
+	
+
+class PrizeConfiguration(models.Model):
+	prize = models.ForeignKey(Prize)
+	date = models.DateField()
+	count = models.IntegerField(default=0)
+	use_count = models.IntegerField(default=0)
+	def remain_cnt(self):
+		return self.count - self.use_count
+	def __unicode__(self):
+		return self.prize.name
 
 class LotteryRecord(models.Model):
 	ip = models.CharField(max_length=100)
@@ -27,3 +38,13 @@ class LotteryRecord(models.Model):
 		return self.prize_name != ''
 	def __unicode__(self):
 		return self.username + ',' + self.mobile + ','+self.prize_name
+	
+class Coupon(models.Model):
+	name = models.CharField(max_length=100)
+	code = models.CharField(max_length=100)
+	status = models.BooleanField(default=False)
+	has_send = models.BooleanField(default=False)
+	lotteryRecord = models.ForeignKey(LotteryRecord,null=True,blank=True)
+	def __unicode__(self):
+		return self.name + ', ' + self.code
+	
