@@ -13,7 +13,8 @@ class Question(models.Model):
 class Prize(models.Model):
 	name = models.CharField(max_length=500)
 	quantity =  models.IntegerField(default=0)
-	expire_date = models.DateTimeField()
+	expire_date = models.DateField()
+	use_count = models.IntegerField(default=0)
 	def __unicode__(self):
 		return self.name
 	
@@ -32,6 +33,7 @@ class LotteryRecord(models.Model):
 	ip = models.CharField(max_length=100)
 	username = models.CharField(max_length=100)
 	mobile = models.CharField(max_length=100)
+	level = models.IntegerField(default=1)
 	lottery_time = models.DateTimeField()
 	prize_name =  models.CharField(max_length=500,default='')
 	def has_prize(self):

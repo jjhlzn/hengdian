@@ -58,3 +58,21 @@ insert into lottery_question(question, option1, option2, option3, answer) values
 insert into lottery_question(question, option1, option2, option3, answer) values ('周星驰电影《西游·降魔篇》中哪句台词让“横店群演大妈”一炮而红？', '你怎么不早说？', '在我面前装什么野兽啊！', '不撒也要发工资！','A');
 insert into lottery_question(question, option1, option2, option3, answer) values ('以“万园之园”和“世界园林之王”之称的圆明园为背景而建设的大型旅游项目是？', '梦想王国', '万花园', '梦上海','B');
 insert into lottery_question(question, option1, option2, option3, answer) values ('横店影视城官网客服电话？', '4009999141', '4009999142', '4009999143','A');
+
+
+
+
+INSERT INTO `lottery_prize` VALUES (1,'秦王宫门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (2,'清明上河图门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (3,'明清宫苑门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (4,'广州街香港街门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (5,'华夏文化园门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (6,'明清民居博览城门票',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (7,'30元套餐抵金券',200,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (8,'50元套餐抵金券',200,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (9,'100元套餐抵金券',200,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (10,'贵宾楼六一亲子自助餐',100,'2014-06-01',0);
+INSERT INTO `lottery_prize` VALUES (11,'旅游大厦亲子餐',100,'2014-06-30',0);
+INSERT INTO `lottery_prize` VALUES (12,'影视MV双人微电影',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (13,'IPad mini2',0,'2014-05-20',0);
+

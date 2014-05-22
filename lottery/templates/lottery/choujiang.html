@@ -26,7 +26,16 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <!---->
 <div><img src="{% static "lottery/images/cj_03.jpg" %}"  alt="" width="1039"   /></div>
 <!---->
-<div style="width:1039px; height:auto; background-color:#584797; margin:0 auto; text-align:center;">
+
+<div style="width:1039px; height:60px;   text-align:center;padding-top:14px; background-image:url({% static "lottery/images/cj_sj.jpg" %});">
+<div style="display:block; margin-left:120px; width:285px; height:43px; text-align:left; float:left;">
+<input id="mobile" type="text"  maxlength="11" style="width:285px; " value='{{mobile}}' ></div>
+<div style="display:block; margin-left:120px; width:185px; height:43px; text-align:left; float:left;">
+<input id="name" type="text"  maxlength="11" style="width:190px;" value='{{name}}' ></div>
+<a href="#" onclick='return check_form();'><img src="{% static "lottery/images/cj_12.jpg" %}" width="296" height="41"  alt=""/></a> </div>
+
+
+<div style="width:1039px; height:auto; background-color:#584797; margin:0 auto; margin-top: 8px; text-align:center;">
 <div>
   <p>&nbsp;</p>
   <p><img src="{% static "lottery/images/cj_zjz.jpg" %}" width="170" height="47"  alt=""/>&nbsp;&nbsp;<a href="/lottery/choujiang_search/"><img src="{%static "lottery/images/cj_s.jpg" %}" width="134" height="41"  alt=""/></a></p>
@@ -44,12 +53,7 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <div  class="clear"  ><img src="{% static "lottery/images/cj_zjzbtm.jpg" %}" width="750" height="21"  alt=""/></div>
 </div>
 <!---->
-<div style="width:1039px; height:60px;   text-align:center;margin-top:8px; padding-top:14px; background-image:url({% static "lottery/images/cj_sj.jpg" %});">
-<div style="display:block; margin-left:120px; width:285px; height:43px; text-align:left; float:left;">
-<input id="mobile" type="text"  maxlength="11" style="width:285px; " ></div>
-<div style="display:block; margin-left:120px; width:185px; height:43px; text-align:left; float:left;">
-<input id="name" type="text"  maxlength="11" style="width:190px;" ></div>
-<a href="#" onclick='return check_form();'><img src="{% static "lottery/images/cj_12.jpg" %}" width="296" height="41"  alt=""/></a> </div>
+
 
 <!---->
 <div style="margin:0 auto; padding-top:20px; padding-bottom:20px; background-color:#ea5c50; text-align:center; margin-top:8px;">
@@ -69,6 +73,9 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9ff376f3594e8e228b3b84e549ce332e' type='text/javascript'%3E%3C/script%3E"));
+
+if ( '{{errmsg}}' )
+	alert('{{errmsg}}')
 
 function check_form()
 {

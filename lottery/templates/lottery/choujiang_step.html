@@ -72,9 +72,13 @@ span{display:block; float:left; margin-left:10px;  }
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9ff376f3594e8e228b3b84e549ce332e' type='text/javascript'%3E%3C/script%3E"));
 
+if ( '{{errmsg}}' )
+	alert('{{errmsg}}')
+	
 //检查回答问题是否对
 function check_form()
 {
+	
 	var i = 1;
 	for(i = 1; i<={{question_count}}; i++){
 		console.log($("input[type='radio'][name='option"+i+"']:checked"));
@@ -86,11 +90,17 @@ function check_form()
 		}
 		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
 			alert("答案错误");
+			if($("#answer"+i).val() == 'A')
+				$("input[type='radio'][name='option1']").focus();
+			if($("#answer"+i).val() == 'B')
+				$("input[type='radio'][name='option2']").focus();
+			if($("#answer"+i).val() == 'B')
+				$("input[type='radio'][name='option1']").focus();
 			return;
 		}
 		
 	}
-	window.location = "/lottery/choujiang_handle/?name="+$('#name').html()+'&mobile='+$('#mobile').html();
+	window.location = "/lottery/choujiang_handle/?name="+$('#name').html()+'&mobile='+$('#mobile').html()+'&next_level={{next_level}}';
 	return;
 }
 </script>

@@ -85,6 +85,7 @@ function check_form()
 		alert('请提供姓名和手机号码');
 		return false;
 	}
+	
 	//验证手机号格式
 	var reg = /(^13\d{9}$)|(^15[0,1,2,3,5,6,7,8,9]\d{8}$)|(^18[0,2,5,6,7,8,9]\d{8}$)|(^147\d{8}$)/g ;  
     if(!reg.test(mobile)){
