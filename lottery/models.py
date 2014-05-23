@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Question(models.Model):
@@ -49,4 +50,9 @@ class Coupon(models.Model):
 	lotteryRecord = models.ForeignKey(LotteryRecord,null=True,blank=True)
 	def __unicode__(self):
 		return self.name + ', ' + self.code
+
+class QuestionCode(models.Model):
+	code = models.CharField(max_length=100)
+	status = models.BooleanField(default=True)
+	time = models.DateTimeField()
 	

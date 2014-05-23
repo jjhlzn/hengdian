@@ -7,6 +7,7 @@ urlpatterns = patterns('',
 	url(r'^choujiang_handle/$', views.choujiang_handle, name='choujiang_handle'),
 	url(r'^choujiang_result/$', views.choujiang_result, name='choujiang_result'),
 	url(r'^choujiang_search/$', views.choujiang_search, name='choujiang_search'),
+	url(r'^choujiang_stat/$', views.choujiang_stat, name='choujiang_stat'),
     url(r'^$', views.index, name='index')
 	
 )

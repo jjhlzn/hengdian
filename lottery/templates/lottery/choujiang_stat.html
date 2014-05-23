@@ -1,0 +1,38 @@
+﻿{% load static from staticfiles %}
+<!doctype html>
+
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>抽奖统计</title>
+<link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %} ">
+ <style>
+body{
+ font-family:"宋体","微软雅黑",Verdana, Geneva, sans-serif; ;   padding:0; margin:0 ;
+}
+span{display:block; float:left; margin-left:10px;  }
+
+.zjDiv{width:375px; float:left; margin-top:10px;}
+.fontQS{font-size:18px; line-height:40px; font-family:"微软雅黑","宋体"; color:#fff;} 
+.tm{margin-top:30px;}
+ </style>
+
+</head>
+
+<body>
+	<div>
+	
+		<p> 设置中奖率：{{set_win_rate}} <p>
+		<p> 实际中奖率：{{win_rate}} </p>
+		<p> 总共抽奖次数：{{lottery_count}} </p>
+		<p> 总共中奖次数：{{win_lottery_count}} </p>
+		<p> 今天抽奖次数: {{today_lottery_count}} </p>
+		<p> 今天中奖次数: {{today_win_lottery_count}} </p>
+		
+		
+	
+	</div>
+</body>
+
+</html>

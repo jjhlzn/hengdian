@@ -1,3 +1,86 @@
+SET SQL_SAFE_UPDATES=0;
+delete from lottery_lotteryrecord;
+delete from lottery_coupon;
+delete from lottery_prizeconfiguration;
+delete from lottery_prize;
+delete from lottery_question;
+
+INSERT INTO `lottery_prize` VALUES (1,'ÇØÍõ¹¬ÃÅÆ±',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (2,'ÇåÃ÷ÉÏºÓÍ¼ÃÅÆ±',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (3,'Ã÷Çå¹¬Ô·ÃÅÆ±',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (4,'¹ãÖÝ½ÖÏã¸Û½ÖÃÅÆ±',50,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (5,'»ªÏÄÎÄ»¯Ô°ÃÅÆ±',200,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (6,'Ã÷ÇåÃñ¾Ó²©ÀÀ³ÇÃÅÆ±',200,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (7,'30ÔªÌ×²ÍµÖ½ðÈ¯',1000,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (8,'50ÔªÌ×²ÍµÖ½ðÈ¯',500,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (9,'100ÔªÌ×²ÍµÖ½ðÈ¯',100,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (10,'¹ó±öÂ¥ÁùÒ»Ç××Ó×ÔÖú²Í',10,'2014-06-01',0);
+INSERT INTO `lottery_prize` VALUES (11,'ÂÃÓÎ´óÏÃÇ××Ó²Í',10,'2014-06-30',0);
+INSERT INTO `lottery_prize` VALUES (12,'Ó°ÊÓMVË«ÈËÎ¢µçÓ°',2,'2014-08-31',0);
+INSERT INTO `lottery_prize` VALUES (13,'IPad mini2',0,'2014-05-20',0);
+
+INSERT INTO `lottery_question` VALUES (62,'ºáµêÓ°ÊÓ³ÇÊÇÊ²Ã´£¿','ÖÐ¹ú×î´óµÄÓ°ÊÓÖ÷Ìâ¹«Ô°','ÊÖËº¹í×ÓµÄºÃµØ·½','Í¨Íù¹Å´úµÄ´©Ô½Ê¤µØ','A');
+INSERT INTO `lottery_question` VALUES (63,'ºáµêµØ´¦ÓÚÄÄ¸öÊÐ£¿','Õã½­¶«Ñô','ÉÏº£','Õã½­º¼ÖÝ','A');
+INSERT INTO `lottery_question` VALUES (64,'ºáµêÓÖ±»Ã÷ÐÇºÍ·ÛË¿ÃÇ³ÆÎª£¿','ºá´ó','ºáÐ¡','ºá¹ú','C');
+INSERT INTO `lottery_question` VALUES (65,'´Óº¼ÖÝ×Ô¼Ý³µÖÁºáµê´óÔ¼ÐèÒª¼¸¸öÐ¡Ê±£¿','2','3','4','A');
+INSERT INTO `lottery_question` VALUES (66,'ÔÚºáµê×¨ÎªÓÎ¿ÍÅÄÎ¢µçÓ°µÄÊÇÄÄ¸öÍÅ¶Ó£¿','ºáµêÓ°ÊÓ³ÇÃ÷ÐÇÃÎ¹¤³¡','»ªÄÉµÏË¹Äá','»ªÒêÐÖµÜ','A');
+INSERT INTO `lottery_question` VALUES (67,'ºáµêÒÔÇ××ÓÎªÖ÷ÒªÌØÉ«µÄ¾ÆµêÊÇ£¿','·á¾°¼ÎÀö´ó¾Æµê','ÂÃÓÎ´óÏÃ','¹úÃ³´óÏÃ','B');
+INSERT INTO `lottery_question` VALUES (68,'±»·ÛË¿³ÆÎªºáµêÕò³¤µÄÊÇ£¿','ºúÒ»·Æ','ºú¸è','ºúÒ»µ¶','B');
+INSERT INTO `lottery_question` VALUES (69,'2014Äê¡°ÃÎ»Ã¹È°ËÄêÇì¡±Æô¶¯ÒÇÊ½¡°µãÁÁÃÎ»Ã¡±ÉúÈÕ¿ñ»¶ÅÉ¶ÔÊÇÔÚÄÄÒ»Ìì¾ÙÐÐ£¿','2014Äê6ÔÂ21ÈÕ','2014Äê6ÔÂ22ÈÕ','2014Äê6ÔÂ23ÈÕ','A');
+INSERT INTO `lottery_question` VALUES (70,'ºáµêÓ°ÊÓ³ÇÒÔÇØºº·ç¸ñÎªÖ÷ÌâµÄ¾°ÇøÊÇ£¿','ÇØÍõ¹¬','ÇØºº½Ö','ÏÌÑô¹¬','A');
+INSERT INTO `lottery_question` VALUES (71,'ÁùÒ»½Ú¿ìµ½ÁË£¬¸÷¼Ò¾Æµê¶¼ÍÆ³öÇ××ÓÌØÉ«×ÔÖúÍí²Í£¬ÒÔÏÂÄÄ¼Ò¾Æµê³ýÍâ£¿','¹ó±öÂ¥','¹úÃ³´óÏÃ','ÂÃÓÎ´óÏÃ','B');
+INSERT INTO `lottery_question` VALUES (72,'ºáµêÓ°ÊÓ³ÇÊÇ¹ú¼Ò¼¸A¼¶¾°Çø£¿','3A','4A','5A','C');
+INSERT INTO `lottery_question` VALUES (73,'ÒÔ¹Ê¹¬µÄÊ¢Ë¥Îª±³¾°µÄÊ·Ê«°ãµçÓ°ÎèÌ¨ÐãÊÇ½ÐÊ²Ã´Ãû×Ö£¿','×Ï½û´óµä','ÁúµÛ¾ªÁÙ','ÇØ»´°ËÑÞ','A');
+INSERT INTO `lottery_question` VALUES (74,'´´°ìÓÚ2012ÄêµÄÖÐ¹ú£¨ºáµê£©Ó°ÊÓ¡°½ðÅ£½±¡±Á½ÄêÆÀÑ¡Ò»´Î£¬½ñÄêÊÇµÚ¼¸½ì£¿','¶þ','Èý','ËÄ','A');
+INSERT INTO `lottery_question` VALUES (75,'ÒÔÏÂÄÄ¸ö²»ÊÇ¡°¹ãÖÝ½Ö¡¤Ïã¸Û½Ö¡±µÄÍ·ÏÎ£¿','»ª¶«µØÇø×î´óµÄ»éÉ´ÉãÓ°»ùµØ','Õã½­Ê×ÅúÃÛÔÂÂÃÓÎÊ×Ñ¡¾°µã','ÖÐ¹ú¿¹ÈÕ¸ù¾ÝµØ','C');
+INSERT INTO `lottery_question` VALUES (76,'ÒÔÏÂÄÄ²¿µçÓ°²»ÊÇÔÚºáµêÈ¡¾°ÅÄÉãµÄ£¿','Ó¢ÐÛ','Ä¾ÄËÒÁ3','ÎÔ»¢²ØÁú','C');
+INSERT INTO `lottery_question` VALUES (77,'ºáµêÓ°ÊÓ³ÇµÚÒ»×ù½¨ÔìµÄÓ°ÊÓ»ùµØÊÇ£¿','ÇØÍõ¹¬','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','ÇåÃ÷ÉÏºÓÍ¼','B');
+INSERT INTO `lottery_question` VALUES (78,'ÒòÏ·Éú°®£¬¶¨ÇéÓÚºáµêµÄÃ÷ÐÇÇéÂÂ±È±È½ÔÊÇ£¬ÒÔÏÂÄÄ¶Ô³ýÍâ£¿','ÑîÃÝ£¦ÁõâýÍþ','ÁõÊ«Ê«£¦ÎâÆæÂ¡','ÎÄÕÂ£¦ÂíÒÁÀþ','C');
+INSERT INTO `lottery_question` VALUES (79,'±»³ÆÎª¡°È«Çò×î´ó»ðÉ½Êµ¾°ÑÝ³ö¡±µÄÊÇ£¿','ÃÎ»ÃÌ«¼«','±©ÓêÉ½ºé','ÇØ»´°ËÑÞ','A');
+INSERT INTO `lottery_question` VALUES (80,'ºáµêÓ°ÊÓ³ÇÒÔÃû»­ÎªÀ¶±¾¶ø½¨µÄ¾°ÇøÊÇ£¿','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','ÇåÃ÷ÉÏºÓÍ¼','ÆÁÑÒ¶´¸®','B');
+INSERT INTO `lottery_question` VALUES (81,'ºáµêÓ°ÊÓ³Ç±»ÃÀ¹ú¡¶ºÃÀ³Îë¡·ÔÓÖ¾³ÆÎª£¿','ÖÐ¹úºÃÀ³Îë','ÖÐ¹ú´ïÈËÐã','ÖÐ¹úºÃÉùÒô','A');
+INSERT INTO `lottery_question` VALUES (82,'¡¶´ó»°·Éºè¡·ºÍ¡¶Å­º£Õù·ç¡·ÊÇÄÄ¸ö¾°ÇøµÄÑÝÒÕ½ÚÄ¿£¿','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','Ã÷Çå¹¬Ô·','ÇåÃ÷ÉÏºÓÍ¼','A');
+INSERT INTO `lottery_question` VALUES (83,'ºáµêÎ¨Ò»Ò»¸öÒ¹ÓÎ¾°ÇøÊÇÖ¸£¿','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','ÃÎ»Ã¹È','Ã÷Çå¹¬Ô·','B');
+INSERT INTO `lottery_question` VALUES (84,'ÌÆÈËµçÓ°µÄÄÄ²¿µçÊÓ¾ç²»ÊÇÔÚºáµêÈ¡¾°Íê³ÉµÄ£¿','²½²½¾ªÐÄ','ÏÉ½£ÆæÏÀ´«','²½²½¾ªÇé','C');
+INSERT INTO `lottery_question` VALUES (85,'µØ´¦ÕòÖÐÐÄ·±»ªµØ¶Î£¬ÒÔË«×ÓÂ¥Îª±êÖ¾µÄ¾ÆµêÊÇ£¿','ÂÃÓÎ´óÏÃ','¹úÃ³´óÏÃ','Ó°ÐÇ¾Æµê','A');
+INSERT INTO `lottery_question` VALUES (86,'±»¡¶¿ìÀÖ´ó±¾Óª¡·¹ÚÃûÎª¡°ºáµêÒ»¸ç¡±µÄÊÇ£¿','º«¶°','º«º®','º«ÀÚ','A');
+INSERT INTO `lottery_question` VALUES (87,'ÒÔÇØ»´ºÓÅÏ¡°ÇØ»´°ËÑÞ¡±ÎªÌâ²ÄµÄ´óÐÍÊÒÄÚÔ°ÁÖÊ½Ï·Çú¸èÎèÐãÊÇÖ¸ÄÄÌ¨ÑÝ³ö£¿','ÃÎ»ÃÌ«¼«','ÇØ»´°ËÑÞ','ãêÁºÒ»ÃÎ','B');
+INSERT INTO `lottery_question` VALUES (88,'ºáµêÃÎ»Ã¹ÈË®ÊÀ½ç½«ÓÚÄÄ¸öÔÂ·Ý¿ª·Å£¿','ÁùÔÂ','¾ÅÔÂ','Ê®¶þÔÂ','A');
+INSERT INTO `lottery_question` VALUES (89,'ÒÔÏÂÄÄ¼Ò¾ÆµêÊôÓÚËÄÐÇ¾Æµê£¿','¹úÃ³´óÏÃ','Ó°ÐÇ¾Æµê','ÂÃÓÎ´óÏÃ','A');
+INSERT INTO `lottery_question` VALUES (90,'2014Äê¶ËÎç½ÚÇ××ÓÁúÖÛÈüÊÇÔÚÄÄ¸ö¾°Çø¾Ù°ì£¿','ÇØÍõ¹¬','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','ÇåÃ÷ÉÏºÓÍ¼','B');
+INSERT INTO `lottery_question` VALUES (91,'Ë®ÉÏ·ÉÐÐÆ÷¡¢µ¥ÈËÄ¦ÍÐÍ§¡¢Æøµæ´¬³öÏÖÔÚÒÔÏÂÄÄ¸ö½ÚÄ¿ÖÐ£¿','Å­º£Õù·ç','ÃÎ»ÃÌ«¼«','ãêÁºÒ»ÃÎ','A');
+INSERT INTO `lottery_question` VALUES (92,'ÒÔÏÂ³ÉÁúµçÓ°ÖÐÄÄ²¿²»ÊÇÔÚºáµêÅÄµÄ£¿','¹¦·òÖ®Íõ','Ìì½«ÐÛÊ¦','Éñ»°','C');
+INSERT INTO `lottery_question` VALUES (93,'ÔÚºáµêÃ÷Çå¹¬Ô·¾°ÇøÅÄÉãµÄÓ°ÊÓ¾çÖÐ£¬ÒÔÏÂÄÄ²¿²»ÊÇ´©Ô½¾ç£¿','²½²½¾ªÐÄ','Õç‹Ö´«','¹¬ËøÐÄÓñ','B');
+INSERT INTO `lottery_question` VALUES (94,'ºáµêµÚÒ»¼ÒÒÔÊÀ½ç·ç¾°ÎªÖ÷ÌâµÄ¾ÆµêÊÇ£¿','ÂÃÓÎ´óÏÃ','·á¾°¼ÎÀö´ó¾Æµê','¹úÃ³´óÏÃ','B');
+INSERT INTO `lottery_question` VALUES (95,'Í¨¹ýÄÄÖÖ·½Ê½¹ººáµêÃÅÆ±²»ÄÜÏíÊÜÓÅ»ÝÕÛ¿Û£¿','ÊÖ»ú¹ºÆ±','¹ÙÍø¹ºÆ±','¾°Çø´°¿Ú¹ºÆ±','C');
+INSERT INTO `lottery_question` VALUES (96,'ºáµê¼Æ»®¿ª·¢¶à¸öÂÃÓÎÏîÄ¿£¬ÒÔÏÂÄÄ¸ö²»ÊÇºáµêÄ¿Ç°ÔÚ½¨ÏîÄ¿£¿','ÃÎÉÏº£','Íò»¨Ô°','ÃÎÏëÍõ¹ú','C');
+INSERT INTO `lottery_question` VALUES (97,'Îª¹ÄÀøºáµêÓ°ÊÓ²úÒµÊµÑéÇøÓ°ÊÓ´´×÷¶øÉèÖÃµÄ½±ÏîÊÇ£¿','½ðÂí½±','½ðÅ£½±','½ðÏñ½±','B');
+INSERT INTO `lottery_question` VALUES (98,'ÔÚÇØÍõ¹¬ÅÄÉãÍê³ÉµÄµçÓ°¡¶Ó¢ÐÛ¡·ÊÇÄÄÎ»µ¼ÑÝµÄ×ªÐÍÖ®×÷£¿','Àî°²','ÕÅÒÕÄ±','³Â¿­¸è','B');
+INSERT INTO `lottery_question` VALUES (99,'ºáµêÓ°ÊÓ³Ç¾ÞÐÇÔÆ¼¯µÄ¾ÆµêÊÇÄÄÒ»¼Ò£¿','¹ó±öÂ¥','Ó°ÐÇ¾Æµê','ÐÇºÓ´ó¾Æµê','A');
+INSERT INTO `lottery_question` VALUES (100,'ºáµêÓ°ÊÓ³ÇÊ×¸ö4D¹ìµÀºÚ°µ³ËÆï¡¢ÒÔµçÓ°¡¶Ä¾ÄËÒÁ3¡·Îª±³¾°µÄÌåÑéÏîÄ¿ÊÇ£¿','ÁúµÛ¾ªÁÙ','ÇØ»´°ËÑÞ','Å­º£Õù·ç','A');
+INSERT INTO `lottery_question` VALUES (101,'»ª¶«µÚÒ»Ðã¡¶ÇØ»´°ËÑÞ¡·ÊÇÄÄ¸ö¾°ÇøµÄÑÝ³ö£¿','»ªÏÄÎÄ»¯Ô°','Ã÷ÇåÃñ¾Ó²©ÀÀ³Ç','Ã÷Çå¹¬Ô·','B');
+INSERT INTO `lottery_question` VALUES (102,'ºáµêÓ°ÊÓ³Ç¹ÙÍøÓÅ»ÝÈ¯¿ÉÓÃÓÚÔ¤¶©ÒÔÏÂÄÄÖÖ²úÆ·Ê¹ÓÃ£¿','ÃÅÆ±','¾Æµê','Ì×²Í£¨ÃÅÆ±+¾Æµê£©','C');
+INSERT INTO `lottery_question` VALUES (103,'ÃÎ»Ã¹È¶ùÍ¯ÓÎÀÖÇøÄÚµÄÒ»Ì¨Ç××Ó»¥¶¯½ÚÄ¿ÊÇ£¿','Ð¡Äñ¼ÓÓÍ','ÃÎ»ÃÌ«¼«','±©ÓêÉ½ºé','A');
+INSERT INTO `lottery_question` VALUES (104,'ÄÄ¸ö¾°ÇøÊÇ»ª¶«µØÇø×î´óµÄ»éÉ´ÉãÓ°»ùµØ£¿','¹ãÖÝ½Ö¡¤Ïã¸Û½Ö','Ã÷Çå¹¬Ô·','ÇØÍõ¹¬','A');
+INSERT INTO `lottery_question` VALUES (105,'»¹Ô­ËÎ´ú´óÐÍ¹Å²ÊÏ··¨µÄÑÝÒÕ½ÚÄ¿ÊÇÖ¸£¿','ÃÎ»ØÇØºº','ãêÁºÒ»ÃÎ','Ó¢ÐÛ±È½£','B');
+INSERT INTO `lottery_question` VALUES (106,'ÔÚºáµê´´×÷Íê³ÉÃÀÈËÏµÁÐºÍ¹¬ÏµÁÐµçÊÓ¾çµÄ±àµ¼ÊÇ£¿','ÓÚÕý','Àî¹úÁ¢','Ö£ÏþÁú','A');
+INSERT INTO `lottery_question` VALUES (107,'½üÏÖ´ú·ç¸ñµÄ¹ãÖÝ½Ö¡¤Ïã¸Û½Ö¾°ÇøÔø¾­ÅÄÉã¡¶Ç±·ü¡·ÅÄÉã×î¶àµÄÌâ²ÄÊÇ£¿','Çå¹¬¾ç','µýÕ½¾ç','ÏÉÏÀ¾ç','B');
+INSERT INTO `lottery_question` VALUES (108,'ºáµêÓ°ÊÓ³Ç¹Ù·½Î¢ÐÅºÅ£¨u_hengdian£©ÉÏÌáÇ°Ô¤¶©ÃÎ»Ã¹ÈÃÅÆ±ÄÜÓÅ»Ý¶àÉÙ£¿','15','30','20','B');
+INSERT INTO `lottery_question` VALUES (109,'ºþÄÏÎÀÊÓ¡¶¿ìÀÖ´ó±¾Óª¡·ÖÐ³ýÁËÂíÀ¼ÆÂÒÔÍâ£¬³öÏÖÆµÂÊ×î¶àµÄµØÃûÊÇ£¿','ºáµê','ÌúÁë','ÐÇÐÇ','A');
+INSERT INTO `lottery_question` VALUES (110,'¡¶²½²½¾ªÐÄ¡·ÖÐÈôêØÓëËÄÒ¯µÚÒ»´ÎÏàÓöÊÇÔÚÃ÷Çå¹¬Ô·¾°ÇøµÄÄÄÀï£¿','¹¬ÊÐ½Ö','Óù»¨Ô°','Ç×Íõ¸®','A');
+INSERT INTO `lottery_question` VALUES (111,'ºáµê²ÍÒûÒÔ¶«Ñô±¾µØ²ËÎªÖ÷£¬ÒÔÏÂÄÄ¸ö²»ÊôÓÚ¶«Ñô±¾µØ²Ë?','ÍÁ¼¦ìÒ','¿¾¶¹¸¯','¶«ÆÂÈâ','C');
+INSERT INTO `lottery_question` VALUES (112,'ºáµêÒ»¶ÈÒò¡°¿¹ÈÕÉñ¾ç¡±¶øÊÜµ½¹Ø×¢£¬ÒÔÏÂÄÄÖÖ¹¦·ò²»ÊôÓÚÉñ¾çÇé½Ú£¿','ÊÖËº¹í×Ó','ÊÖÁñµ¯Õ¨·É»ú','ÐØ¿ÚËé´óÊ¯','C');
+INSERT INTO `lottery_question` VALUES (113,'ÃÎ»Ã¹È¶ùÍ¯ÓÎÀÖÇø³ÆÎª£¿','½­ÄÏË®Ïç','¶ùÍ¯ÃÎ¹¤³¡','Ë®ÊÀ½ç','B');
+INSERT INTO `lottery_question` VALUES (114,'ºáµêÎ¨Ò»Ò»¼Ò·þÎñÓÚÈºÖÚÑÝÔ±×éÖ¯ÊÇ£¿','ÑÝÔ±¹«»á','»ªÒêÐÖµÜ','ÌìÓé´«Ã½','A');
+INSERT INTO `lottery_question` VALUES (115,'ºáµêÓ°ÊÓ³Ç³öÏÖÔÚ´óÁ¿µÄºÃÀ³ÎëµçÓ°ÖÐ£¬ÒÔÏÂÄÄÒ»²¿Ã»ÓÐÔÚºáµêÈ¡¾°£¿','ÉúËÀ¸ñ¶·','Ä¾ÄËÒÁ3','°¢·²´ï','C');
+INSERT INTO `lottery_question` VALUES (116,'ÒÔÀÏÉÏº£Îª±³¾°¶ø¿ª·¢µÄÐÂÒ»´úµÄºáµêÓ°ÊÓÖ÷Ìâ¹«Ô°ÊÇ£¿','ÃÎÉÏº£','Íò»¨Ô°','ÃÎÏëÍõ¹ú','A');
+INSERT INTO `lottery_question` VALUES (117,'ºáµêÓ°ÊÓ³ÇÓÐ¼¸¸öÓ°ÊÓ»ùµØ×é³É£¿','3¸ö','13¸ö','23¸ö','B');
+INSERT INTO `lottery_question` VALUES (118,'ÃÎ»Ã¹ÈµÄÄ¦ÌìÂÖ¡°Ï²ÂíÌìÂÖ¡±¸ß´ï¶àÉÙÃ×£¿','45Ã×','55Ã×','65Ã×','C');
+INSERT INTO `lottery_question` VALUES (119,'ÖÜÐÇ³ÛµçÓ°¡¶Î÷ÓÎ¡¤½µÄ§Æª¡·ÖÐÄÄ¾äÌ¨´ÊÈÃ¡°ºáµêÈºÑÝ´óÂè¡±Ò»ÅÚ¶øºì£¿','ÄãÔõÃ´²»ÔçËµ£¿','ÔÚÎÒÃæÇ°×°Ê²Ã´Ò°ÊÞ°¡£¡','²»ÈöÒ²Òª·¢¹¤×Ê£¡','A');
+INSERT INTO `lottery_question` VALUES (120,'ÒÔ¡°ÍòÔ°Ö®Ô°¡±ºÍ¡°ÊÀ½çÔ°ÁÖÖ®Íõ¡±Ö®³ÆµÄÔ²Ã÷Ô°Îª±³¾°¶ø½¨ÉèµÄ´óÐÍÂÃÓÎÏîÄ¿ÊÇ£¿','ÃÎÏëÍõ¹ú','Íò»¨Ô°','ÃÎÉÏº£','B');
+INSERT INTO `lottery_question` VALUES (121,'ºáµêÓ°ÊÓ³Ç¹ÙÍø¿Í·þµç»°£¿','4009999141','4009999142','4009999143','A');
+
+
 insert into lottery_coupon (code,name,status,has_send) values ('cx562zlwc','30ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
 insert into lottery_coupon (code,name,status,has_send) values ('5thk2wpci','30ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
 insert into lottery_coupon (code,name,status,has_send) values ('yqty3ttso','30ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
@@ -1598,3 +1681,7 @@ insert into lottery_coupon (code,name,status,has_send) values ('ye1ycymiv','100Ô
 insert into lottery_coupon (code,name,status,has_send) values ('40krkuwz0','100ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
 insert into lottery_coupon (code,name,status,has_send) values ('rbdccvqy1','100ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
 insert into lottery_coupon (code,name,status,has_send) values ('xww5kr0f6','100ÔªÌ×²ÍµÖ½ðÈ¯',0,0);
+
+
+
+

@@ -4,9 +4,11 @@ from django.contrib.admin import DateFieldListFilter
 
 class QuestionAdmin(admin.ModelAdmin):
 	list_display = ('question','answer')
+	ordering = ('id',)
 
 class PrizeAdmin(admin.ModelAdmin):
 	list_display = ('name','quantity','use_count')
+	ordering = ('id',)
 
 class CouponAdmin(admin.ModelAdmin):
 	list_display = ('name','code','status')
@@ -23,8 +25,8 @@ class LotteryRecordAdmin(admin.ModelAdmin):
 		
 
 class PrizeConfigurationAdmin(admin.ModelAdmin):
-	list_display = ('prize','expire_date','count','use_count')
-	def expire_date(self,obj):
+	list_display = ('prize','lottery_date','count','use_count')
+	def lottery_date(self,obj):
 		return obj.date.strftime('%Y-%m-%d')
 
 

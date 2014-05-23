@@ -1,18 +1,17 @@
 ﻿#coding:UTF-8
 from __future__ import division
 from django.shortcuts import render
-from lottery.models import Question,LotteryRecord,Prize,PrizeConfiguration,Coupon
+from lottery.models import Question,LotteryRecord,Prize,PrizeConfiguration,Coupon,QuestionCode
 from urlparse import urlparse, parse_qs
 import random
 import datetime
 from django.utils import timezone
-
+import string
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 import json
 import urllib2
 import threading
-
 
 LOCK = threading.RLock()
 
@@ -55,19 +54,25 @@ def choujiang_step(request):
 		return render(request, get_html_template(request,'lottery/choujiang.html'), context)
 	questions = Question.objects.all()[(next_level-1) * question_count : next_level * question_count]
 	question_map = dict(zip(range(1,question_count+1),questions))
+	#生成问题码
+	qc = QuestionCode()
+	qc.code = id_generator()
+	qc.time = datetime.datetime.now()
+	qc.save()
 	#print question_map
 	context = {'question_map': question_map,
 			   'name': name,
 			   'mobile': mobile,
 			   'question_count': question_count,
 			   'next_level': next_level,
-			   'errmsg': errmsg}
+			   'errmsg': errmsg,
+			   'question_code':qc.code}
 	return render(request, get_html_template(request,'lottery/choujiang_step.html'), context)
 
 
 def choujiang_handle(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
-	if qs.get('name') is None or qs.get('mobile') is None or qs.get('next_level') is None:
+	if qs.get('name') is None or qs.get('mobile') is None or qs.get('next_level') is None or qs.get('questioncode') is None:
 		print 'required parameters have empty value'
 		return HttpResponseRedirect('/lottery/')
 	next_level = get_next_level(qs['name'][0],qs['mobile'][0])
@@ -79,6 +84,12 @@ def choujiang_handle(request):
 		context = {'errmsg': unicode('你今天已经完成闯关，请明天再来！','UTF-8'),
 				   'has_prize_records':get_latest_lottery_records()}
 		return render(request, get_html_template(request,'lottery/choujiang.html'), context)
+	#检查问题码
+	qc = (QuestionCode.objects.filter(code=qs['questioncode'][0],status=True)[:1] or [None])[0]
+	if qc is None:
+		return HttpResponseRedirect('/lottery/choujiang_step/?name='+qs['name'][0]+'&mobile='+qs['mobile'][0])
+	qc.status = False
+	qc.save()
 	record = handle_lottery_request(request)
 	return HttpResponseRedirect("/lottery/choujiang_result/?id="+str(record.id)+'&name='+qs['name'][0]+'&mobile='+qs['mobile'][0])
 
@@ -112,6 +123,24 @@ def choujiang_search(request):
 														 mobile=qs['mobile'][0]).filter(~Q(prize_name = ''))
 	return render(request, get_html_template(request,'lottery/choujiang_search.html'), {'has_prize_records': has_prize_records})
 	
+def choujiang_stat(request):
+	win_lottery_count =reduce(lambda x,y: x+y,map(lambda x: x.use_count,Prize.objects.all()))
+	lottery_count = len(LotteryRecord.objects.all())
+	win_rate = '%' + str(win_lottery_count / lottery_count * 100)
+	today_win_lottery_count = reduce(lambda x,y:x+y, map(lambda x: x.use_count,PrizeConfiguration.objects.filter(date=datetime.datetime.now().date)))
+	today_lottery_count = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date)
+	
+	context = {
+		'set_win_rate':  '%' + str(WIN_PRIZE_PROB * 100 ),
+		'win_lottery_count': str(win_lottery_count),
+		'lottery_count': str(lottery_count),
+		'win_rate': win_rate,
+		'today_lottery_count': str(today_lottery_count),
+		'today_win_lottery_count': str(today_win_lottery_count),
+		
+	}
+	
+	return render(request, 'lottery/choujiang_stat.html', context)
 	
 ##################################################辅助函数################################################
 #处理抽奖，该方法需要同步，已避免超出奖品数量
@@ -142,7 +171,7 @@ def handle_lottery_request(request):
 	return record
 	
 def get_html_template(request,name):
-	request.mobile = True
+	#request.mobile = True
 	if request.mobile:
 		name = name[0:-5]+'_wap.html'
 	return name;
@@ -211,7 +240,6 @@ def lottery(ip,name,mobile):
 		
 def check_if_win():
 	#每次闯关的中奖概率
-
 	choices = [[1,WIN_PRIZE_PROB],[0,1-WIN_PRIZE_PROB]]
 	return weighted_choice(choices) == 1
 	
@@ -243,6 +271,9 @@ def weighted_choice(choices):
          return c
       upto += w
    assert False, "Shouldn't get here"
+   
+def id_generator(size=15, chars=string.ascii_uppercase + string.digits):
+	return ''.join(random.choice(chars) for _ in range(size))
    
 	
 		
