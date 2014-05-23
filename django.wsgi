@@ -1,7 +1,7 @@
 import os
 import sys
 
-path = 'C:/Users/jjh/Documents/GitHub/hengdian'
+path = 'd:/hengdian'
 if path not in sys.path:
     sys.path.append(path)
 
