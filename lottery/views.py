@@ -13,12 +13,14 @@ import json
 import urllib2
 import threading
 
+
 LOCK = threading.RLock()
 
 #中奖概率
-WIN_PRIZE_PROB = 1
+WIN_PRIZE_PROB = 0.6
 #同一天抽中奖最多
 MAX_WIN_PRIZE_CNT = 6
+IS_SEND_MSG = False
 
 def get_latest_lottery_records():
 	has_prize_records = LotteryRecord.objects.filter(~Q(prize_name = '')).order_by('-lottery_time')[:10]
@@ -26,9 +28,10 @@ def get_latest_lottery_records():
 		record.mobile = record.mobile[:3]+'****'+record.mobile[7:]
 	return has_prize_records
 
+
 def index(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
-	return render(request, 'lottery/choujiang.html', {'has_prize_records':get_latest_lottery_records(),
+	return render(request, get_html_template(request,'lottery/choujiang.html'), {'has_prize_records':get_latest_lottery_records(),
 													  'name': '' if qs.get('name') is None else qs['name'][0],
 													  'mobile': '' if qs.get('mobile') is None else qs['mobile'][0]})
 
@@ -47,20 +50,21 @@ def choujiang_step(request):
 		#该用户已经闯完关了
 		context = {'errmsg': unicode('你今天已经完成闯关，请明天再来！','UTF-8'),
 				   'has_prize_records':get_latest_lottery_records(),
-				   'name': name,
-				   'mobile': mobile}
-		return render(request, 'lottery/choujiang.html', context)
+				   'name': '',
+				   'mobile': ''}
+		return render(request, get_html_template(request,'lottery/choujiang.html'), context)
 	questions = Question.objects.all()[(next_level-1) * question_count : next_level * question_count]
 	question_map = dict(zip(range(1,question_count+1),questions))
-	print question_map
+	#print question_map
 	context = {'question_map': question_map,
 			   'name': name,
 			   'mobile': mobile,
 			   'question_count': question_count,
 			   'next_level': next_level,
 			   'errmsg': errmsg}
-	return render(request, 'lottery/choujiang_step.html', context)
-	
+	return render(request, get_html_template(request,'lottery/choujiang_step.html'), context)
+
+
 def choujiang_handle(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
 	if qs.get('name') is None or qs.get('mobile') is None or qs.get('next_level') is None:
@@ -74,9 +78,10 @@ def choujiang_handle(request):
 		#该用户已经闯完关了
 		context = {'errmsg': unicode('你今天已经完成闯关，请明天再来！','UTF-8'),
 				   'has_prize_records':get_latest_lottery_records()}
-		return render(request, 'lottery/choujiang.html', context)
+		return render(request, get_html_template(request,'lottery/choujiang.html'), context)
 	record = handle_lottery_request(request)
 	return HttpResponseRedirect("/lottery/choujiang_result/?id="+str(record.id)+'&name='+qs['name'][0]+'&mobile='+qs['mobile'][0])
+
 
 def choujiang_result(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
@@ -93,9 +98,10 @@ def choujiang_result(request):
 				   'mobile': qs['mobile'][0],
 				   'prize_name': lottery_record.prize_name}
 		if lottery_record.has_prize():  
-			return render(request, 'lottery/choujiang_result_yes.html', context)
+			return render(request, get_html_template(request,'lottery/choujiang_result_yes.html'), context)
 		else:
-			return render(request, 'lottery/choujiang_result_no.html', context)
+			return render(request, get_html_template(request,'lottery/choujiang_result_no.html'), context)
+			
 			
 def choujiang_search(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
@@ -104,7 +110,7 @@ def choujiang_search(request):
 	else:
 		has_prize_records = LotteryRecord.objects.filter(username=qs['name'][0],
 														 mobile=qs['mobile'][0]).filter(~Q(prize_name = ''))
-	return render(request, 'lottery/choujiang_search.html', {'has_prize_records': has_prize_records})
+	return render(request, get_html_template(request,'lottery/choujiang_search.html'), {'has_prize_records': has_prize_records})
 	
 	
 ##################################################辅助函数################################################
@@ -123,19 +129,24 @@ def handle_lottery_request(request):
 		if unicode('套餐抵金券','UTF-8') in record.prize_name:
 			coupon = get_and_set_coupon(record.prize_name)
 			coupon.lottery_record = record
-			#sms_content = record.prize_name.encode('UTF-8')
-			#print sms_content
 			sms_content = (unicode(name,'UTF-8') + u'，您好，恭喜您抽中了一张' + record.prize_name + u'，优惠码为[' + coupon.code + u']。').encode('UTF-8')
 			url = 'http://e.hengdianworld.com/sendsms.aspx?phone='+mobile+'&content='+sms_content+'&sc=hengdian86547211jjh'
 			#print url
-			js = json.load(urllib2.urlopen(url))
-			#js = {'status':0}
-			print js
+			if IS_SEND_MSG:
+				js = json.load(urllib2.urlopen(url))
+			else:
+				js = {'status':0}
 			if js['status'] == 0:
 				coupon.has_send = 1
 			coupon.save()
 	return record
-
+	
+def get_html_template(request,name):
+	request.mobile = True
+	if request.mobile:
+		name = name[0:-5]+'_wap.html'
+	return name;
+	
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:

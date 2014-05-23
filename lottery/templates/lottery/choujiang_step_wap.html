@@ -1,0 +1,97 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="copyright" content="Copyright &copy; 2013 hengdianworld.com Inc. All Rights Reserved." />
+        <meta name="description" content="掌上横店！掌上横店是国家5A级旅游景区横店影视城的移动门户- m.hengdianworld.com" />
+        <meta name="keywords" content="掌上横店,掌上横店影视城,横店影视城手机版网站" />
+    <title>掌上横店，横店影视城掌上门户！</title>
+	<link href="{% static "lottery/css/mb/mbcss.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "lottery/css/mb/slide.css" %}" rel="stylesheet" type="text/css" />
+	<script language="javascript"  type="text/javascript" src="{% static "lottery/js/jquery-1.11.1.min.js"%}"></script>
+     <style>
+span{display:block; float:left;   }
+   </style>
+
+</head>
+<body>
+<div style="margin:0 auto; text-align:center;">  
+<div> <img src="{% static "lottery/images/w_top.jpg" %}" width="100%"    alt=""/></div>
+<div style="height:55px; background-color:#953d4d; color:#fff; font-size:16px; text-align:center; font-weight:bold; padding-top:24px;">
+	姓名：{{name}} 手机号：{{mobile}}
+	<input id="name" value="{{name}}" type="hidden"/>
+	<input id="mobile" value="{{mobile}}" type="hidden"/>
+</div>
+<!---->
+<div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:20px;">第{{next_level}}关</div>
+<!---->
+{% for key,question in question_map.items %}
+<div id="tm1" style="height:auto;   " class="tm" >
+	<div class="fontQS">
+	<div  style="text-align:left;">{{key}}.{{question.question}}</div>
+	<div >
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_1" value='A'> </span><span>A:{{question.option1}}</span>
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_2" value='B'> </span><span>B:{{question.option2}}</span> 
+		<span><input type="radio" name="option{{key}}" id="option{{key}}_3" value='C'> </span><span>C:{{question.option3}}</span>
+		<input type="hidden" id="answer{{key}}" value="{{question.answer}}" />
+	</div>
+</div>
+<div style="clear:both;"></div><br>
+{% endfor %}
+
+</div> 
+<!---->
+ 
+ <div><img src="{% static "lottery/images/cj_tj.jpg" %}" width="186" height="42" onclick="return check_form();"  alt=""/></div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9cf3075d2f6b03afedf5cf5de9e612bd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+if ( '{{errmsg}}' )
+	alert('{{errmsg}}')
+	
+//检查回答问题是否对
+function check_form()
+{
+	
+	var i = 1;
+	for(i = 1; i<={{question_count}}; i++){
+		console.log($("input[type='radio'][name='option"+i+"']:checked"));
+		console.log($("input[type='radio'][name='option"+i+"']:checked").length);
+		if ($("input[type='radio'][name='option"+i+"']:checked").length == 0 ){
+			alert("请先选择答案");
+			$("input[type='radio'][name='option"+i+"']").focus();
+			return false;
+		}
+		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
+			alert("答案错误");
+			if($("#answer"+i).val() == 'A')
+				$("input[type='radio'][name='option1']").focus();
+			if($("#answer"+i).val() == 'B')
+				$("input[type='radio'][name='option2']").focus();
+			if($("#answer"+i).val() == 'B')
+				$("input[type='radio'][name='option1']").focus();
+			return false;
+		}
+		
+	}
+	window.location = "/lottery/choujiang_handle/?name="+$('#name').val()+'&mobile='+$('#mobile').val()+'&next_level={{next_level}}';
+	return true;
+}
+</script>
+
+ 
+</body>
+</html>

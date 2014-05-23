@@ -30,7 +30,7 @@ span{display:block; float:left; margin-left:10px;  }
 </div>
 <!---->
 <div style=" background-color:#FFF; height:auto; padding-top:50px; padding-left:80px; padding-right:80px;">
-<div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:30px;">第一关</div>
+<div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:30px;">第{{next_level}}关</div>
 <!---->
 
 {% for key,question in question_map.items %}
@@ -86,7 +86,7 @@ function check_form()
 		if ($("input[type='radio'][name='option"+i+"']:checked").length == 0 ){
 			alert("请先选择答案");
 			$("input[type='radio'][name='option"+i+"']").focus();
-			return;
+			return false;
 		}
 		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
 			alert("答案错误");
@@ -96,11 +96,11 @@ function check_form()
 				$("input[type='radio'][name='option2']").focus();
 			if($("#answer"+i).val() == 'B')
 				$("input[type='radio'][name='option1']").focus();
-			return;
+			return false;
 		}
 		
 	}*/
 	window.location = "/lottery/choujiang_handle/?name="+$('#name').html()+'&mobile='+$('#mobile').html()+'&next_level={{next_level}}';
-	return;
+	return true;
 }
 </script>

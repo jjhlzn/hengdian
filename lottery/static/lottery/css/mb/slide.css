@@ -1,0 +1,20 @@
+ @-webkit-keyframes hidding {0% {opacity: 1;}100% {opacity: 0;}}
+@keyframes hidding {0% {opacity: 1;}100% {opacity: 0;}}
+@-webkit-keyframes showing {0% {opacity: 0;}100% {opacity: 1;}}
+@keyframes showing {0% {opacity: 0;}100% {opacity: 1;}}
+ @media screen and (max-width: 640px){
+ #icon_text img,#app_link img{width:90%;}
+ }
+ /** cui-slide **/
+.cui-slide{ width:100%; height:100%; position:relative;}
+.cui-slide-imgsouter{ width:100%; height:100%; overflow:hidden; position:relative; }
+.cui-slide-imgsinter{ height:100%; position:absolute; left:0px; top:0px;  }
+.cui-slide-img-item{ height:100%; overflow:hidden; float:left; }
+.cui-slide-img-item img{ width:100%; }
+.cui-slide-nav{ height:4px; position:absolute; bottom:0; left:0px; text-align:center; width: 100%;}
+.cui-slide-nav-padding{display: -webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex;}
+.cui-slide-nav-item{display:block; -webkit-box-flex: 1;-moz-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;height: 4px;background: rgba(0, 0, 0, .5);width: 50% \0;float: left\0;}
+body .cui-slide-nav-item-current{ background:#ff9913;  opacity:1;}
+.cui-slide-img-item-empey{ background:#ccc; position:relative;}
+.cui-slide-img-item-empey:after{ position:absolute; content:'无图片'; width:100%; text-align:center; top:45%; }
+.cui-slide-img-item a{display:block; height:100%;}

@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="copyright" content="Copyright &copy; 2013 hengdianworld.com Inc. All Rights Reserved." />
+        <meta name="description" content="掌上横店！掌上横店是国家5A级旅游景区横店影视城的移动门户- m.hengdianworld.com" />
+        <meta name="keywords" content="掌上横店,掌上横店影视城,横店影视城手机版网站" />
+    <title>{{name}}, 恭喜你！抽中了一张【{{prize_name}}】，请在有效期内使用！</title>
+    <link href="{% static "lottery/css/mb/mbcss.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "lottery/css/mb/slide.css" %}" rel="stylesheet" type="text/css" />
+     <style>
+span{display:block; float:left;   }
+   </style>
+
+</head>
+<body>
+<div style="margin:0 auto; text-align:center;">  
+<div> <img src="{% static "lottery/images/w_top.jpg" %}" width="100%"    alt=""/></div>
+<div style="height:55px; background-color:#953d4d; color:#fff; font-size:16px; text-align:center; font-weight:bold; padding-top:24px;">
+姓名：{{name}}  手机号：{{mobile}}
+</div>
+<!---->
+<div id="tm1" style="height:auto; text-align:center;background-color:#ea5c50;" class="tm"  >
+<div class="fontQS"  style=" height:80px; padding-top:20px; color:#FFF; text-align:left;">恭喜你！抽中了一张【{{prize_name}}】，请在有效期内使用！赶快分享给你们的小伙伴吧！</div>
+<div class="fontQS"></div>
+</div>
+
+<div id="tm1" style="height:auto; text-align:center;" class="tm"  >
+<div  style="background-color:#ea5c50; height:250px;">
+ 
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_cqq"></a>
+	<a class="jiathis_button_tieba"></a>
+	<a class="jiathis_button_taobao"></a>
+	<a class="jiathis_button_tifeng"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1399081888326607" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+ 
+<br><br> <br><a href="/lottery/choujiang_step/?name={{name}}&mobile={{mobile}}"><img src="{% static "lottery/images/jixu.jpg" %}" width="140" height="37"  alt=""/></a><br><br>
+
+</div>
+ 
+</div>
+<!---->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9cf3075d2f6b03afedf5cf5de9e612bd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+ 
+</body>
+</html>
