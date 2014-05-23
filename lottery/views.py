@@ -11,6 +11,14 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 import json
 import urllib2
+import threading
+
+LOCK = threading.RLock()
+
+#中奖概率
+WIN_PRIZE_PROB = 1
+#同一天抽中奖最多
+MAX_WIN_PRIZE_CNT = 6
 
 def get_latest_lottery_records():
 	has_prize_records = LotteryRecord.objects.filter(~Q(prize_name = '')).order_by('-lottery_time')[:10]
@@ -99,36 +107,33 @@ def choujiang_search(request):
 	return render(request, 'lottery/choujiang_search.html', {'has_prize_records': has_prize_records})
 	
 	
-##################################################辅助函数#####################################################################
-
+##################################################辅助函数################################################
 #处理抽奖，该方法需要同步，已避免超出奖品数量
 def handle_lottery_request(request):
-	qs = parse_qs(request.META['QUERY_STRING']) 
-	name = qs['name'][0]
-	mobile = qs['mobile'][0]
-	#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次,  同一人总体中奖次数6次，每天都是重新冲关的
-	MAX_WIN_PRIZE_CNT = 6
-	win_prize_cnt = len(LotteryRecord.objects.filter(username=name,mobile=mobile).filter(~Q(prize_name = '')))
-	if win_prize_cnt > MAX_WIN_PRIZE_CNT:
-		#print name+','+mobile+' has win too many prizes'
-		return HttpResponseRedirect('/lottery/')
-	record = lottery(get_client_ip(request),name,mobile)
-	#如果是优惠券，还需要挑选优惠券，并且发送该优惠券
-	if unicode('套餐抵金券','UTF-8') in record.prize_name:
-		coupon = get_and_set_coupon(record.prize_name)
-		coupon.lottery_record = record
-		#sms_content = record.prize_name.encode('UTF-8')
-		#print sms_content
-		sms_content = (unicode(name,'UTF-8') + u'，您好，恭喜您抽中了一张' + record.prize_name + u'，优惠码为[' + coupon.code + u']。').encode('UTF-8')
-		url = 'http://e.hengdianworld.com/sendsms.aspx?phone='+mobile+'&content='+sms_content+'&sc=hengdian86547211jjh'
-		#print url
-		#js = json.load(urllib2.urlopen(url))
-		js = {'status':0}
-		print js
-		if js['status'] == 0:
-			coupon.has_send = 1
-		coupon.save()
-		
+	with LOCK:
+		qs = parse_qs(request.META['QUERY_STRING']) 
+		name = qs['name'][0]
+		mobile = qs['mobile'][0]
+		record = lottery(get_client_ip(request),name,mobile)
+		#如果是优惠券，还需要挑选优惠券，并且发送该优惠券
+		if len(record.prize_name) == 0:
+			print 'NO PRIZE'
+		else:
+			print 'WIN PRIZE'
+		if unicode('套餐抵金券','UTF-8') in record.prize_name:
+			coupon = get_and_set_coupon(record.prize_name)
+			coupon.lottery_record = record
+			#sms_content = record.prize_name.encode('UTF-8')
+			#print sms_content
+			sms_content = (unicode(name,'UTF-8') + u'，您好，恭喜您抽中了一张' + record.prize_name + u'，优惠码为[' + coupon.code + u']。').encode('UTF-8')
+			url = 'http://e.hengdianworld.com/sendsms.aspx?phone='+mobile+'&content='+sms_content+'&sc=hengdian86547211jjh'
+			#print url
+			js = json.load(urllib2.urlopen(url))
+			#js = {'status':0}
+			print js
+			if js['status'] == 0:
+				coupon.has_send = 1
+			coupon.save()
 	return record
 
 def get_client_ip(request):
@@ -160,6 +165,7 @@ def check_has_prize():
 	print 'INFO:  there in no prize today'
 	return False;
 
+#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次,  同一人总体中奖次数6次，每天都是重新冲关的
 def lottery(ip,name,mobile):
 	record = LotteryRecord()
 	record.username = name
@@ -167,29 +173,34 @@ def lottery(ip,name,mobile):
 	record.ip = ip
 	record.lottery_time = timezone.now()
 	record.level = get_next_level(name,mobile)
-	if  check_has_prize():
-		#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次, 同一人总体中奖次数6次，每天都是重新冲关的
-		if check_if_win() : #win prize
-			#lottery prize
-			prize_config = choose_prize()
-			prize = prize_config.prize
-			record.prize_name = prize.name
-			prize_config.use_count = prize_config.use_count + 1
-			prize_config.save()
-			
-			prize.use_count += 1
-			prize.save()
-			
+	win_prize_cnt = len(LotteryRecord.objects.filter(username=name,mobile=mobile,lottery_time__startswith=datetime.datetime.now().date).filter(~Q(prize_name = '')))
+	if win_prize_cnt > MAX_WIN_PRIZE_CNT:
+		print 'WARN: '+mobile+' has win too many prizes'
+		record.prize_name = ''
+	else:
+		if  check_has_prize():
+			#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次, 同一人总体中奖次数6次，每天都是重新冲关的
+			if check_if_win() : #win prize
+				#lottery prize
+				prize_config = choose_prize()
+				prize = prize_config.prize
+				record.prize_name = prize.name
+				prize_config.use_count = prize_config.use_count + 1
+				prize_config.save()
+				
+				prize.use_count += 1
+				prize.save()
+				
+			else:
+				record.prize_name = ''
 		else:
 			record.prize_name = ''
-	else:
-		record.prize_name = ''
 	record.save()	
 	return record
 		
 def check_if_win():
 	#每次闯关的中奖概率
-	WIN_PRIZE_PROB = 0.2
+
 	choices = [[1,WIN_PRIZE_PROB],[0,1-WIN_PRIZE_PROB]]
 	return weighted_choice(choices) == 1
 	
@@ -204,8 +215,6 @@ def choose_prize():
 #需要同步
 def get_and_set_coupon(prize_name):
 	coupons = Coupon.objects.filter(name=prize_name, status=False)
-	#print 'Coupons:'
-	#print coupons
 	if len(coupons) == 0:
 		raise Exception(prize_name+': there is no this type coupon')
 	coupon = coupons[0]

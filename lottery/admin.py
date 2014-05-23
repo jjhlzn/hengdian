@@ -10,6 +10,7 @@ class PrizeAdmin(admin.ModelAdmin):
 
 class CouponAdmin(admin.ModelAdmin):
 	list_display = ('name','code','status')
+	search_fields = ('name','code', 'status')
 
 class LotteryRecordAdmin(admin.ModelAdmin):
 	list_display = ('username','mobile','level','ip','format_lottery_time','prize_name')
