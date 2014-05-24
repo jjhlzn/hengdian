@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>抽奖统计</title>
-<link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %} ">
+
  <style>
 body{
  font-family:"宋体","微软雅黑",Verdana, Geneva, sans-serif; ;   padding:0; margin:0 ;
@@ -23,12 +23,40 @@ span{display:block; float:left; margin-left:10px;  }
 <body>
 	<div>
 	
-		<p> 设置中奖率：{{set_win_rate}} <p>
-		<p> 实际中奖率：{{win_rate}} </p>
-		<p> 总共抽奖次数：{{lottery_count}} </p>
+		<p> 当前中奖率：{{set_win_rate}} <p>
 		<p> 总共中奖次数：{{win_lottery_count}} </p>
-		<p> 今天抽奖次数: {{today_lottery_count}} </p>
+		<p> 总共抽奖次数：{{lottery_count}} </p>
+		<p> 总体中奖率：{{win_rate}} </p>
+		
 		<p> 今天中奖次数: {{today_win_lottery_count}} </p>
+		<p> 今天抽奖次数: {{today_lottery_count}} </p>
+		<p> 今天中奖率：{{today_win_rate}}</p>
+		<p>
+			今天抽奖IP统计：
+			<ol>
+				{% for record in today_ip_summary %}
+					<li>{{record.ip}}: {{record.count}}</li>
+				{% endfor %}
+			</ol>
+		</p>
+		
+		<p>
+			今天手机抽奖次数统计：
+			<ol>
+				{% for record in mobile_win_summary %}
+					<li>{{record.mobile}}: {{record.count}}, {{record.win_count}}</li>
+				{% endfor %}
+			</ol>
+		</p>
+		
+		<p>
+			今天用户抽奖次数统计：
+			<ol>
+				{% for record in name_mobile_win_summary %}
+					<li>{{record.username}}+{{record.mobile}}: {{record.count}}, {{record.win_count}}</li>
+				{% endfor %}
+			</ol>
+		</p>
 		
 		
 	

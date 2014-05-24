@@ -12,6 +12,7 @@ from django.db.models import Q
 import json
 import urllib2
 import threading
+from django.db.models import Count
 
 LOCK = threading.RLock()
 
@@ -128,7 +129,19 @@ def choujiang_stat(request):
 	lottery_count = len(LotteryRecord.objects.all())
 	win_rate = '%' + str(win_lottery_count / lottery_count * 100)
 	today_win_lottery_count = reduce(lambda x,y:x+y, map(lambda x: x.use_count,PrizeConfiguration.objects.filter(date=datetime.datetime.now().date)))
-	today_lottery_count = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date)
+	today_lottery_count = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date))
+	
+	today_ip_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('ip').annotate(count=Count('ip')).order_by('-count')[:10]
+	mobile_win_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('mobile').annotate(count=Count('mobile')).order_by('-count')[:10]
+	name_mobile_win_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('mobile','username').annotate(count=Count('mobile')).order_by('-count')[:10]
+	
+	for x in mobile_win_summary:
+		x['win_count'] = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date,mobile=x['mobile']).filter(~Q(prize_name='')))
+	for x in name_mobile_win_summary:
+		x['win_count'] = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date,mobile=x['mobile'],username=x['username']).filter(~Q(prize_name='')))
+	
+	#一致性检查
+	win_lottery_count2 = reduce(lambda x,y: x+y, map(lambda x: x.use_count,PrizeConfiguration.objects.all()))
 	
 	context = {
 		'set_win_rate':  '%' + str(WIN_PRIZE_PROB * 100 ),
@@ -137,8 +150,15 @@ def choujiang_stat(request):
 		'win_rate': win_rate,
 		'today_lottery_count': str(today_lottery_count),
 		'today_win_lottery_count': str(today_win_lottery_count),
+		'today_win_rate': '%' + str(today_win_lottery_count / today_lottery_count * 100),
+		'today_ip_summary': today_ip_summary,
+		'mobile_win_summary': mobile_win_summary,
+		'name_mobile_win_summary': name_mobile_win_summary,
+		'Prize_PrizeConf': win_lottery_count2 == win_lottery_count,
 		
 	}
+	
+	
 	
 	return render(request, 'lottery/choujiang_stat.html', context)
 	
@@ -157,7 +177,8 @@ def handle_lottery_request(request):
 			print 'WIN PRIZE'
 		if unicode('套餐抵金券','UTF-8') in record.prize_name:
 			coupon = get_and_set_coupon(record.prize_name)
-			coupon.lottery_record = record
+			coupon.lotteryRecord = record
+			print "coupon.id = " + str(coupon.id)
 			sms_content = (unicode(name,'UTF-8') + u'，您好，恭喜您抽中了一张' + record.prize_name + u'，优惠码为[' + coupon.code + u']。').encode('UTF-8')
 			url = 'http://e.hengdianworld.com/sendsms.aspx?phone='+mobile+'&content='+sms_content+'&sc=hengdian86547211jjh'
 			#print url
