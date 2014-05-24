@@ -65,7 +65,7 @@ if ( '{{errmsg}}' )
 //检查回答问题是否对
 function check_form()
 {
-	
+	/*
 	var i = 1;
 	for(i = 1; i<={{question_count}}; i++){
 		console.log($("input[type='radio'][name='option"+i+"']:checked"));
@@ -86,7 +86,7 @@ function check_form()
 			return false;
 		}
 		
-	}
+	}*/
 	window.location = "/lottery/choujiang_handle/?name="+$('#name').val()+'&mobile='+$('#mobile').val()+'&next_level={{next_level}}'+'&questioncode={{question_code}}';
 	return true;
 }

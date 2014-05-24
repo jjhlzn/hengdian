@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>{{name}}, 恭喜你！抽中了一张【{{prize_name}}】，请在有效期内使用！</title>
+<title>{{name}}, {{msg}} </title>
 <link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %} ">
  <style>
 body{
@@ -32,7 +32,7 @@ span{display:block; float:left; margin-left:10px;  }
 <div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:30px; color:#FFF;">抽奖结果</div>
 <!---->
 <div id="tm1" style="height:auto; text-align:center;" class="tm"  >
-<div class="fontQS">恭喜你！抽中了一张【{{prize_name}}】，请在有效期内使用！赶快分享给你们的小伙伴吧！</div>
+<div class="fontQS">{{msg}}</div>
 <div class="fontQS"></div>
 </div>
 
@@ -54,6 +54,8 @@ span{display:block; float:left; margin-left:10px;  }
 </div>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1399081888326607" charset="utf-8"></script>
 <!-- JiaThis Button END -->
+
+
  
 &nbsp;&nbsp;&nbsp; <a href="/lottery/choujiang_step/?name={{name}}&mobile={{mobile}}"><img src="{% static "lottery/images/jixu.jpg" %}" width="140" height="37"  alt=""/></a></div>
  
@@ -70,6 +72,8 @@ span{display:block; float:left; margin-left:10px;  }
   <a href="http://e.hengdianworld.com/VisitorHotelOrder_1.aspx" target="_blank"><img src="{% static "lottery/images/cjr2.jpg" %}" width="285" height="41"  alt=""/></a>
   <a href="http://e.hengdianworld.com/VisitorInclusiveOrder_1.aspx" target="_blank"><img src="{% static "lottery/images/cjr3.jpg" %}" width="285" height="41"  alt=""/></a>
 <img src="{% static "lottery/images/cjr4.jpg" %}" width="1002" height="378"  alt=""/></div>
+
+
 
 <!---->
 

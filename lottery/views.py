@@ -106,10 +106,19 @@ def choujiang_result(request):
 	if lottery_record == None: #no lottery record
 		return HttpResponseRedirect('/lottery/')
 	else:
+		
+				   
+	   
+		if lottery_record.has_prize():  
+			msg = unicode("恭喜你！抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
+		else:
+			msg = unicode("对不起，没中奖！",'UTF-8')
 		context = {'name': qs['name'][0],
 				   'mobile': qs['mobile'][0],
-				   'prize_name': lottery_record.prize_name}
-		if lottery_record.has_prize():  
+				   'prize_name': lottery_record.prize_name,
+				   'msg': msg,}
+				   
+		if lottery_record.level < 6:
 			return render(request, get_html_template(request,'lottery/choujiang_result_yes.html'), context)
 		else:
 			return render(request, get_html_template(request,'lottery/choujiang_result_no.html'), context)
