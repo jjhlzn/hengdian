@@ -137,7 +137,8 @@ def choujiang_stat(request):
 	win_lottery_count =reduce(lambda x,y: x+y,map(lambda x: x.use_count,Prize.objects.all()))
 	lottery_count = len(LotteryRecord.objects.all())
 	win_rate = '%' + str(win_lottery_count / lottery_count * 100)
-	today_win_lottery_count = reduce(lambda x,y:x+y, map(lambda x: x.use_count,PrizeConfiguration.objects.filter(date=datetime.datetime.now().date)))
+	today_win_lottery_count = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).filter(~Q(prize_name='')))
+	
 	today_lottery_count = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date))
 	
 	today_ip_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('ip').annotate(count=Count('ip')).order_by('-count')[:10]
