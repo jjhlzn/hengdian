@@ -306,10 +306,6 @@ def compute_win_probability(ip,name,mobile):
 	if  now < today8am:
 		print 'today8am is low win probability'
 		win_prob = 0.02
-	today10pm = now.replace(hour=8,minute=0,second=0,microsecond=0)
-	if  now < today10pm:
-		print 'today10pm is low win probability'
-		win_prob = 0.02
 	#如果该用户的手机号中奖次数太多，降低该手机中奖概率
 	win_count = len(LotteryRecord.objects.filter(mobile=mobile,lottery_time__startswith=now.date).filter(~Q(prize_name='')))
 	if win_count >= 3:  
