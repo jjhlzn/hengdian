@@ -28,6 +28,9 @@ class PrizeConfigurationAdmin(admin.ModelAdmin):
 	list_display = ('prize','lottery_date','count','use_count')
 	def lottery_date(self,obj):
 		return obj.date.strftime('%Y-%m-%d')
+	list_filter = (
+        ('date', DateFieldListFilter),
+    )
 
 
 admin.site.register(Question,QuestionAdmin)

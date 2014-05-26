@@ -17,7 +17,7 @@ from django.db.models import Count
 LOCK = threading.RLock()
 
 #中奖概率
-WIN_PRIZE_PROB = 0.5
+WIN_PRIZE_PROB = 0.2
 #同一天抽中奖最多
 MAX_WIN_PRIZE_CNT = 6
 IS_SEND_MSG = True
