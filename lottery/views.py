@@ -110,14 +110,17 @@ def choujiang_result(request):
 				   
 	   
 		if lottery_record.has_prize():  
+			display_attr = 'show'
 			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/> 恭喜你！抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
 		else:
 			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/>本轮抽奖结果：奖品差一点就到手了，再接再励！",'UTF-8')
+			display_attr = 'none'
 		context = {'name': qs['name'][0],
 				   'mobile': qs['mobile'][0],
 				   'prize_name': lottery_record.prize_name,
 				   'msg': msg,
-				   'id_nr': id_generator(9, string.digits),}
+				   'id_nr': id_generator(9, string.digits),
+				   'display_attr':display_attr,}
 				   
 		if lottery_record.level < 6:
 			return render(request, get_html_template(request,'lottery/choujiang_result_yes.html'), context)
@@ -241,7 +244,7 @@ def check_has_prize():
 		return False
 	prize_configs = PrizeConfiguration.objects.filter(date=datetime.datetime.now().date)
 	for prize_config in prize_configs:
-		if prize_config.remain_cnt() > 0:
+		if prize_config.remain_cnt() > 0 and (prize_config.prize.quantity - prize_config.prize.use_count) > 0:
 			#print prize_config.prize.name + ', ' + str(prize_config.remain_cnt()) 
 			return True;
 	print 'INFO:  there in no prize today'
@@ -262,7 +265,7 @@ def lottery(ip,name,mobile):
 	else:
 		if  check_has_prize():
 			#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次, 同一人总体中奖次数6次，每天都是重新冲关的
-			if check_if_win() : #win prize
+			if check_if_win(name,mobile) : #win prize
 				#lottery prize
 				prize_config = choose_prize()
 				prize = prize_config.prize
@@ -280,9 +283,14 @@ def lottery(ip,name,mobile):
 	record.save()	
 	return record
 		
-def check_if_win():
+def check_if_win(name,mobile):
+	win_prob = WIN_PRIZE_PROB
+	#win_count = LotteryRecord.objects.filter(mobile=mobile).filter(lottery_time__startswith=datetime.datetime.now().date).filter(~Q(prize_name))
+	#if win_count > 4:
+	#	win_prob = 0.01
+	#	print 'win_count = '+str(win_count)+', low win_prob to 0.01'
 	#每次闯关的中奖概率
-	choices = [[1,WIN_PRIZE_PROB],[0,1-WIN_PRIZE_PROB]]
+	choices = [[1,win_prob],[0,1-win_prob]]
 	return weighted_choice(choices) == 1
 	
 def choose_prize():
