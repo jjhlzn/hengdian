@@ -12,7 +12,7 @@
         <meta name="copyright" content="Copyright &copy; 2013 hengdianworld.com Inc. All Rights Reserved." />
         <meta name="description" content="掌上横店！掌上横店是国家5A级旅游景区横店影视城的移动门户- m.hengdianworld.com" />
         <meta name="keywords" content="掌上横店,掌上横店影视城,横店影视城手机版网站" />
-    <title>{{name}}, {{msg}}</title>
+    <title>{{name}}, {{msg|safe}}</title>
     <link href="{% static "lottery/css/mb/mbcss.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "lottery/css/mb/slide.css" %}" rel="stylesheet" type="text/css" />
      <style>
@@ -28,7 +28,7 @@ span{display:block; float:left;   }
 </div>
 <!---->
 <div id="tm1" style="height:auto; text-align:center;background-color:#ea5c50;" class="tm"  >
-<div class="fontQS"  style=" height:80px; padding-top:20px; color:#FFF; text-align:left;">{{msg}}</div>
+<div class="fontQS"  style=" height:80px; padding-top:20px; color:#FFF; text-align:left;">{{msg|safe}}</div>
 <div class="fontQS"></div>
 </div>
 

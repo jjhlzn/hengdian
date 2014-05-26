@@ -17,10 +17,10 @@ from django.db.models import Count
 LOCK = threading.RLock()
 
 #中奖概率
-WIN_PRIZE_PROB = 0.6
+WIN_PRIZE_PROB = 0.5
 #同一天抽中奖最多
 MAX_WIN_PRIZE_CNT = 6
-IS_SEND_MSG = False
+IS_SEND_MSG = True
 
 def get_latest_lottery_records():
 	has_prize_records = LotteryRecord.objects.filter(~Q(prize_name = '')).order_by('-lottery_time')[:10]
@@ -110,17 +110,22 @@ def choujiang_result(request):
 				   
 	   
 		if lottery_record.has_prize():  
-			msg = unicode("恭喜你！抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
+			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/> 恭喜你！抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
 		else:
-			msg = unicode("对不起，没中奖！",'UTF-8')
+			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/>本轮抽奖结果：奖品差一点就到手了，再接再励！",'UTF-8')
 		context = {'name': qs['name'][0],
 				   'mobile': qs['mobile'][0],
 				   'prize_name': lottery_record.prize_name,
-				   'msg': msg,}
+				   'msg': msg,
+				   'id_nr': id_generator(9, string.digits),}
 				   
 		if lottery_record.level < 6:
 			return render(request, get_html_template(request,'lottery/choujiang_result_yes.html'), context)
 		else:
+			if lottery_record.has_prize():  
+				context['msg'] = unicode("抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
+			else:
+				context['msg'] = unicode("奖品差一点就到手了，再接再励！",'UTF-8')
 			return render(request, get_html_template(request,'lottery/choujiang_result_no.html'), context)
 			
 			
@@ -131,6 +136,11 @@ def choujiang_search(request):
 	else:
 		has_prize_records = LotteryRecord.objects.filter(username=qs['name'][0],
 														 mobile=qs['mobile'][0]).filter(~Q(prize_name = ''))
+	for record in has_prize_records:
+		if unicode('套餐抵金券','UTF-8') in record.prize_name:
+			coupon = (Coupon.objects.filter(lotteryRecord=record)[0:1] or [None])[0]
+			if coupon is not None:
+				record.prize_name = record.prize_name + '[' + coupon.code + ']'
 	return render(request, get_html_template(request,'lottery/choujiang_search.html'), {'has_prize_records': has_prize_records})
 	
 def choujiang_stat(request):
@@ -140,6 +150,7 @@ def choujiang_stat(request):
 	today_win_lottery_count = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).filter(~Q(prize_name='')))
 	
 	today_lottery_count = len(LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date))
+	
 	
 	today_ip_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('ip').annotate(count=Count('ip')).order_by('-count')[:10]
 	mobile_win_summary = LotteryRecord.objects.filter(lottery_time__startswith=datetime.datetime.now().date).values('mobile').annotate(count=Count('mobile')).order_by('-count')[:10]

@@ -18,6 +18,9 @@
 	<script language="javascript"  type="text/javascript" src="{% static "lottery/js/jquery-1.11.1.min.js"%}"></script>
      <style>
 span{display:block; float:left;   }
+a:link, a:visited { text-decoration:none;color:blue;}
+a:hover { text-decoration:none; color:blue;}
+
    </style>
 
 </head>
@@ -49,7 +52,9 @@ span{display:block; float:left;   }
 </div> 
 <!---->
  
- <div><img src="{% static "lottery/images/cj_tj.jpg" %}" width="186" height="42" onclick="return check_form();"  alt=""/></div>
+ <div>
+  <a href="http://bbs.hengdianworld.com/forum.php?mod=viewthread&tid=287431&page=1&extra=#pid440087" style="font-color:blue;">偷偷看答案</a>
+ <img src="{% static "lottery/images/cj_tj.jpg" %}" width="186" height="42" onclick="return check_form();"  alt=""/></div>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -65,7 +70,7 @@ if ( '{{errmsg}}' )
 //检查回答问题是否对
 function check_form()
 {
-	/*
+		
 	var i = 1;
 	for(i = 1; i<={{question_count}}; i++){
 		console.log($("input[type='radio'][name='option"+i+"']:checked"));
@@ -78,15 +83,15 @@ function check_form()
 		if ($("input[name='option"+i+"']:checked").val() != $("#answer"+i).val()){
 			alert("答案错误");
 			if($("#answer"+i).val() == 'A')
-				$("input[type='radio'][name='option1']").focus();
+				$("#option"+i+"_1").focus();
 			if($("#answer"+i).val() == 'B')
-				$("input[type='radio'][name='option2']").focus();
+				$("#option"+i+"_2").focus();
 			if($("#answer"+i).val() == 'B')
-				$("input[type='radio'][name='option1']").focus();
+				$("#option"+i+"_3").focus();
 			return false;
 		}
 		
-	}*/
+	}
 	window.location = "/lottery/choujiang_handle/?name="+$('#name').val()+'&mobile='+$('#mobile').val()+'&next_level={{next_level}}'+'&questioncode={{question_code}}';
 	return true;
 }

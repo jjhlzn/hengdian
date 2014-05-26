@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>{{name}}, {{msg}} </title>
+<title>{{name}}, {{msg|safe}} </title>
 <link rel="stylesheet" type="text/css" href="{% static "lottery/css/global.css" %} ">
  <style>
 body{
@@ -32,7 +32,7 @@ span{display:block; float:left; margin-left:10px;  }
 <div style="font-size:24px; font-weight:bold; text-align:center; font-family:'微软雅黑'; margin-bottom:30px; color:#FFF;">抽奖结果</div>
 <!---->
 <div id="tm1" style="height:auto; text-align:center;" class="tm"  >
-<div class="fontQS">{{msg}}</div>
+<div class="fontQS">{{msg|safe}}</div>
 <div class="fontQS"></div>
 </div>
 
