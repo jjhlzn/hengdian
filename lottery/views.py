@@ -1,7 +1,7 @@
 ﻿#coding:UTF-8
 from __future__ import division
 from django.shortcuts import render
-from lottery.models import Question,LotteryRecord,Prize,PrizeConfiguration,Coupon,QuestionCode
+from lottery.models import *
 from urlparse import urlparse, parse_qs
 import random
 import datetime
@@ -42,7 +42,7 @@ def choujiang_step(request):
 	name = qs['name'][0]
 	mobile = qs['mobile'][0]
 	errmsg = '' if qs.get('errmsg') is None else qs['errmsg'][0]
-	print  "errmsg:" + errmsg
+	#print  "errmsg:" + errmsg
 	#获取题目
 	question_count = 10
 	next_level = get_next_level(name,mobile)
@@ -265,7 +265,7 @@ def lottery(ip,name,mobile):
 	else:
 		if  check_has_prize():
 			#奖品分摊到每一天，每次抽奖20%中奖概率， 同一人通关1次, 同一人总体中奖次数6次，每天都是重新冲关的
-			if check_if_win(name,mobile) : #win prize
+			if check_if_win(ip,name,mobile) : #win prize
 				#lottery prize
 				prize_config = choose_prize()
 				prize = prize_config.prize
@@ -282,13 +282,67 @@ def lottery(ip,name,mobile):
 			record.prize_name = ''
 	record.save()	
 	return record
-		
-def check_if_win(name,mobile):
+	
+def compute_win_probability(ip,name,mobile):
 	win_prob = WIN_PRIZE_PROB
-	#win_count = LotteryRecord.objects.filter(mobile=mobile).filter(lottery_time__startswith=datetime.datetime.now().date).filter(~Q(prize_name))
-	#if win_count > 4:
-	#	win_prob = 0.01
-	#	print 'win_count = '+str(win_count)+', low win_prob to 0.01'
+	if mobile == '13706794299': 
+		return win_prob
+	#ip是否属于被过滤的范围
+	if len(LotteryConfiguration.objects.filter(type='ip',string_value=ip)) > 0:
+		print 'WARN: '+ ip + ' is filtered '
+		return 0
+	#名字是否属于被过滤的范围
+	if len(LotteryConfiguration.objects.filter(type='name',string_value=name)) > 0:
+		print 'WARN: name is filtered'
+		return 0
+	#手机是否属于被过滤的范围
+	if len(LotteryConfiguration.objects.filter(type='mobile',string_value=mobile)) > 0:
+		print 'WARN: mobile is filtered'
+		return 0
+	
+	#在8:00am之前，降低中奖概率
+	now = datetime.datetime.now()
+	today8am = now.replace(hour=8,minute=0,second=0,microsecond=0)
+	if  now < today8am:
+		print 'today8am is low win probability'
+		win_prob = 0.02
+	today10pm = now.replace(hour=8,minute=0,second=0,microsecond=0)
+	if  now < today10pm:
+		print 'today10pm is low win probability'
+		win_prob = 0.02
+	#如果该用户的手机号中奖次数太多，降低该手机中奖概率
+	win_count = len(LotteryRecord.objects.filter(mobile=mobile,lottery_time__startswith=now.date).filter(~Q(prize_name='')))
+	if win_count >= 3:  
+		if win_prob > 0.02:
+			print 'the mobile['+mobile+'] has too many prize, lower win probability'
+			win_prob = 0.02
+	#如果该用户的ip中奖次数太多，降低该ip中奖概率
+	win_count = len(LotteryRecord.objects.filter(ip=ip,lottery_time__startswith=now.date).filter(~Q(prize_name='')))
+	if win_count >= 10:
+		if win_prob > 0.01:
+			print 'the ip['+ip+'] has too man too many prize, lower win probability'
+			win_prob = 0.01
+	if win_count >= 20:
+		win_prob = 0
+		
+	remain_prize_count = reduce(lambda x,y: x+y, map(lambda x: x.remain_cnt(), PrizeConfiguration.objects.filter(date__startswith=now.date))) 
+	today_prize_count = reduce(lambda x,y: x+y, map(lambda x: x.count, PrizeConfiguration.objects.filter(date__startswith=now.date))) 
+	
+	#print 'remain_prize_count = ' + str(remain_prize_count) + ', today_prize_count = ' + str(today_prize_count)
+	
+	if remain_prize_count < today_prize_count / 4:
+		if win_prob > win_prob / 4: 
+			win_prob = win_prob / 4
+	elif remain_prize_count < today_prize_count / 2:
+		if win_pro > win_prob / 2:
+			win_prob = win_prob / 2
+	
+	print 'win_prob = ' + str(win_prob)
+	return win_prob
+		
+		
+def check_if_win(ip,name,mobile):
+	win_prob = compute_win_probability(ip,name,mobile)
 	#每次闯关的中奖概率
 	choices = [[1,win_prob],[0,1-win_prob]]
 	return weighted_choice(choices) == 1

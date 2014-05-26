@@ -56,3 +56,9 @@ class QuestionCode(models.Model):
 	status = models.BooleanField(default=True)
 	time = models.DateTimeField()
 	
+class LotteryConfiguration(models.Model):
+	type = models.CharField(max_length=500)
+	string_value = models.CharField(max_length=500)
+	int_value = models.IntegerField(default=0)
+	
+	

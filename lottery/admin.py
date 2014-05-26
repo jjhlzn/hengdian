@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lottery.models import Question, Prize, LotteryRecord,PrizeConfiguration,Coupon
+from lottery.models import Question, Prize, LotteryRecord,PrizeConfiguration,Coupon, LotteryConfiguration
 from django.contrib.admin import DateFieldListFilter
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -31,6 +31,11 @@ class PrizeConfigurationAdmin(admin.ModelAdmin):
 	list_filter = (
         ('date', DateFieldListFilter),
     )
+	
+class LotteryConfigurationAdmin(admin.ModelAdmin):
+	list_display = ('type','string_value','int_value')
+	search_fields = ('type','string_value','int_value')
+	
 
 
 admin.site.register(Question,QuestionAdmin)
@@ -38,3 +43,4 @@ admin.site.register(Prize,PrizeAdmin)
 admin.site.register(LotteryRecord,LotteryRecordAdmin)
 admin.site.register(PrizeConfiguration,PrizeConfigurationAdmin)
 admin.site.register(Coupon,CouponAdmin)
+admin.site.register(LotteryConfiguration,LotteryConfigurationAdmin);
