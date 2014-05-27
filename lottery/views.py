@@ -327,7 +327,7 @@ def compute_win_probability(ip,name,mobile):
 		if win_prob > win_prob / 4: 
 			win_prob = win_prob / 4
 	elif remain_prize_count < today_prize_count / 2:
-		if win_pro > win_prob / 2:
+		if win_prob > win_prob / 2:
 			win_prob = win_prob / 2
 	
 	print 'win_prob = ' + str(win_prob)
