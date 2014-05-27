@@ -24,7 +24,14 @@ input{height:43px; background-color:transparent; font-family:Verdana,Geneva, san
 
 <div style="padding-top:606px; width:1039px;margin:0 auto;">
 <!---->
-<div><img src="{% static "lottery/images/cj_03.jpg" %}"  alt="" width="1039"   /></div>
+<div>
+
+<img src="{% static "lottery/images/cj_03.jpg" %}"  alt="" width="1039"  usemap="#prizemap"   />
+ <map name="prizemap">
+	<area shape="rect" coords="71,446,413,489" href="http://bbs.hengdianworld.com/forum.php?mod=viewthread&tid=287604&extra=" alt="奖品使用说明">	
+</map>
+
+</div>
 <!---->
 
 <div style="width:1039px; height:60px;   text-align:center;padding-top:14px; background-image:url({% static "lottery/images/cj_sj.jpg" %});">

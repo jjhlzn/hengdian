@@ -36,7 +36,9 @@ class LotteryRecord(models.Model):
 	mobile = models.CharField(max_length=100)
 	level = models.IntegerField(default=1)
 	lottery_time = models.DateTimeField()
-	prize_name =  models.CharField(max_length=500,default='')
+	prize_name =  models.CharField(max_length=500,default='',blank=True)
+	comedate = models.DateField(null=True,blank=True)
+	identity = models.CharField(max_length=100,null=True,blank=True)
 	def has_prize(self):
 		return self.prize_name != ''
 	def __unicode__(self):

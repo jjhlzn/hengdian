@@ -15,13 +15,23 @@ class CouponAdmin(admin.ModelAdmin):
 	search_fields = ('name','code', 'status')
 
 class LotteryRecordAdmin(admin.ModelAdmin):
-	list_display = ('username','mobile','level','ip','format_lottery_time','prize_name')
+	list_display = ('username','mobile','level','ip','format_lottery_time','prize_name','format_comedate','format_identity')
 	search_fields = ('username','mobile', 'prize_name')
 	list_filter = (
         ('lottery_time', DateFieldListFilter),
     )
 	def format_lottery_time(self,obj):
 		return obj.lottery_time.strftime('%Y-%m-%d, %H:%M:%S')
+	def format_comedate(self,obj):
+		if obj.comedate is None:
+			return ''
+		else:
+			return obj.comedate.strftime('%Y-%m-%d')
+	def format_identity(self,obj):
+		if obj.identity is None:
+			return ''
+		else:
+			return obj.identity
 		
 
 class PrizeConfigurationAdmin(admin.ModelAdmin):

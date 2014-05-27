@@ -92,23 +92,19 @@ def choujiang_handle(request):
 	qc.status = False
 	qc.save()
 	record = handle_lottery_request(request)
-	return HttpResponseRedirect("/lottery/choujiang_result/?id="+str(record.id)+'&name='+qs['name'][0]+'&mobile='+qs['mobile'][0])
+	return HttpResponseRedirect("/lottery/choujiang_result/?id="+str(record.id)+'&name='+qs['name'][0])
 
 
 def choujiang_result(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
-	if qs.get('id') is None or qs.get('name') is None or qs.get('mobile') is None:
+	if qs.get('id') is None or qs.get('name') is None:
 		return HttpResponseRedirect('/lottery/')
 	lottery_record = (LotteryRecord.objects.filter(id=qs['id'][0],
-												   username=qs['name'][0],
-												   mobile=qs['mobile'][0])
+												   username=qs['name'][0])
 												   [:1] or [None])[0]
 	if lottery_record == None: #no lottery record
 		return HttpResponseRedirect('/lottery/')
 	else:
-		
-				   
-	   
 		if lottery_record.has_prize():  
 			display_attr = 'show'
 			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/> 恭喜你！抽中了一张【",'UTF-8')+lottery_record.prize_name+unicode("】，请在有效期内使用！赶快分享给你们的小伙伴吧！",'UTF-8')
@@ -116,7 +112,8 @@ def choujiang_result(request):
 			msg = unicode("恭喜第",'UTF-8')+str(lottery_record.level)+unicode("关闯关成功！<br/>本轮抽奖结果：奖品差一点就到手了，再接再励！",'UTF-8')
 			display_attr = 'none'
 		context = {'name': qs['name'][0],
-				   'mobile': qs['mobile'][0],
+				   'mobile': lottery_record.mobile,
+				   'mobile_encode':  lottery_record.mobile[:3]+'****'+lottery_record.mobile[7:],
 				   'prize_name': lottery_record.prize_name,
 				   'msg': msg,
 				   'id_nr': id_generator(9, string.digits),
