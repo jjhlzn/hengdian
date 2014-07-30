@@ -9,7 +9,7 @@ my $has_last_parse_info = 0;
 
 my $dsn = "DBI:mysql:lottery;host=localhost";
 my $username = "root";
-my $password = 'woshishui!@#';
+my $password = '123456';
  
 # connect to MySQL database
 my %attr = ( mysql_auto_reconnect=>1,
@@ -27,7 +27,7 @@ $_sql = "insert into logsystem_ordersystemlogrecord (time, thread, level,
 my $stmt = $dbh->prepare($_sql);
 
 while(1) {
-	parse_log('./log_root.txt');
+	parse_log('./log.txt');
 	sleep(2);
 }
 
@@ -62,14 +62,24 @@ sub parse_log {
 	close(FILE);
 
 	while ($text =~ /
-					^([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3})\s+
+					([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3})\s+
 					 \[([0-9]{1,3})\]\s+
 					 ([A-Z]{1,10})\s+
 					 (\w+(?:\.\w+){0,})\s+
 					 \[\(\w{1,}\)\]\s+
 					 -\s+
 					 (.*?)
-					 (([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}){1}|$)
+					 (([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}){1})
+					/smx
+			or 
+			$text =~ /
+					([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3})\s+
+					 \[([0-9]{1,3})\]\s+
+					 ([A-Z]{1,10})\s+
+					 (\w+(?:\.\w+){0,})\s+
+					 \[\(\w{1,}\)\]\s+
+					 -\s+
+					 (.*?)$
 					/smx) {
 		print "$1 $2 $3 $4\n";
 		print "-----------------------------------------------------------------------\n";
@@ -77,7 +87,7 @@ sub parse_log {
 		if (defined($6)) {
 			$text = $6.$';
 		} else {
-			$text = $6;
+			$text = $';
 		}
 		
 
