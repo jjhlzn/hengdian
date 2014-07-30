@@ -219,3 +219,5 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.pyc
+logsystem/log.txt
+logsystem/log - 副本.txt
