@@ -2,36 +2,43 @@ from django.shortcuts import render
 from urlparse import urlparse, parse_qs
 from logsystem.models import *
 import datetime
+from django.db import connection
 
-# Create your views here.
+CounterPerPage = 100
+
 def index(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
-	if qs['date'] is None:
-		day = datetime.datetime.now().strftime("%Y-%m-%d")
+	day =  qs.get('date',[datetime.datetime.now().strftime("%Y-%m-%d")])[0] 
+	page = qs.get('page',[1])[0]
+	start_time = qs.get('start_time',[None])[0]
+	end_time = qs.get('end_time',[None])[0]
+	search_content = qs.get('search_content',[None])[0]
+	
+	records = OrderSystemLogRecord.objects.all();
+	
+	if IsNotNullOrEmpty(start_time):
+		the_time = day + " " + start_time
 	else:
-		day = qs['date'][0]
-	if qs['page'] is None:
-		page = 1
-	else 
-		page = qs['page'][0]
-	from_time = qs['from_time'][0]
-	end_time = qs['end_time'][0]
-	search_content = qs['search_content'][0]
+		the_time = day
+	print the_time+"\n"
+	records = records.filter(time__gte=the_time)
 	
-	records = OrderSystemLogRecord.objects;
-	if IsNotNull(from_time):
-		the_time = day + " " + from_tiem
-		records = records.filter(time__gte=the_time)
-	if IsNotNull(end_time):
-		the_time = day + " " + end_time
-		records = records.filter(time__gte=the_time)
+	if IsNotNullOrEmpty(end_time):
+		the_time = day + " " + end_time + ",999"
+		print the_time+"\n"
+		records = records.filter(time__lte=the_time)
 	
-		
-	OrderSystemLogRecord.objects.filter()
 	
-	return render(request, "logsystem/index.html", {});
+	if IsNotNullOrEmpty(search_content):
+		print "search_content=["+search_content+"]\n" 
+		records = records.filter(content__icontains=search_content) 
+	records = records.order_by("time")
+	records = records[(int(page) - 1) * CounterPerPage: int(page) * CounterPerPage]
+	#print "--------------------------------------------------------------------\n"
+	
+	print records.query
+	return render(request, "logsystem/index.html", {'records': records});
 
-
-
-def IsNotNull(value):
+def IsNotNullOrEmpty(value):
     return value is not None and len(value) > 0
+

@@ -72,13 +72,11 @@
 
 <div id="toolbar"><form id="changelist-search" action="" method="get">
 <div><!-- DIV needed for valid HTML -->
-<label for="searchbar"><img src="./Select order system log record to change   Django site admin_files/icon_searchbox.png" alt="Search"></label>
-from: <input type="text" size="30" name="q" value="" id="from_time">
-end: <input type="text" size="30" name="q" value="" id="end_time">
-cotent: <input type="text" size="40" name="q" value="" id="searchbar">
+<label for="searchbar"><img src="{% static "logsystem/images/icon_searchbox.png" %}" alt="Search"></label>
+from: <input type="text" size="30" name="start_time" value="" id="start_time">
+end: <input type="text" size="30" name="end_time" value="" id="end_time">
+cotent: <input type="text" size="40" name="search_content" value="" id="search_content">
 <input type="submit" value="Search">
-
-
     
 
 </div>
@@ -92,15 +90,8 @@ cotent: <input type="text" size="40" name="q" value="" id="searchbar">
 <thead>
 <tr>
 
-<th scope="col" class="action-checkbox-column">
-   
-   <div class="text"><span><input type="checkbox" id="action-toggle" style="display: inline-block;"></span></div>
-   <div class="clear"></div>
-</th>
+
 <th scope="col" class=" column-time">
-   
-     
-   
    <div class="text">Time</div>
    <div class="clear"></div>
 </th>
@@ -126,330 +117,29 @@ cotent: <input type="text" size="40" name="q" value="" id="searchbar">
    <div class="clear"></div>
 </th>
 <th scope="col" class=" column-content">
-   
-     
-   
    <div class="text">Content</div>
    <div class="clear"></div>
 </th>
 </tr>
 </thead>
 <tbody>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10032"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10032/?_changelist_filters=q%3D">2014-07-30 14:15:20,451</a></th><td>1</td><td>ERROR</td><td>HDBusiness_Error</td><td>http://e.hengdianworld.com/VisitorOrderView.aspx?SellID=V1407300340&amp;prevPage=/VisitorOrderManagerSearchResult.aspx?name=李晓静&amp;mobile=13685279003&amp;name=??????&amp;mob=13685279003</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10031"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10031/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = Cancel</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10030"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10030/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = Cancel</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10029"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10029/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = Cancel</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10028"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10028/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = Succeed</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10027"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10027/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = NoAudit</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10026"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10026/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = Succeed</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10025"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10025/?_changelist_filters=q%3D">2014-07-30 14:15:14,248</a></th><td>6</td><td>DEBUG</td><td>VisitorOrderManager4NoLogin</td><td>vFlag = NoPay</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10024"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10024/?_changelist_filters=q%3D">2014-07-30 14:15:11,967</a></th><td>6</td><td>DEBUG</td><td>CheckPayServcie</td><td>---------------------------------------处理结束---------------------------------</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10023"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10023/?_changelist_filters=q%3D">2014-07-30 14:15:11,967</a></th><td>6</td><td>INFO</td><td>CheckPayServcie</td><td>检查支付服务已经被关闭了</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10022"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10022/?_changelist_filters=q%3D">2014-07-30 14:15:11,967</a></th><td>6</td><td>DEBUG</td><td>HDBusiness.BLL.AlipayInfoBLL</td><td>table.isopen = 0</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10021"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10021/?_changelist_filters=q%3D">2014-07-30 14:15:11,967</a></th><td>6</td><td>DEBUG</td><td>HDBusiness.BLL.AlipayInfoBLL</td><td>table.rowcount = 1</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10020"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10020/?_changelist_filters=q%3D">2014-07-30 14:15:11,967</a></th><td>6</td><td>DEBUG</td><td>CheckPayServcie</td><td>---------------CheckPayServcie-2014-7-29 13:45:11:  到支付宝检查未支付订单的支付信息--------------</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10019"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10019/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>计算订单的总价</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10018"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10018/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>总额 = 1080.0</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10017"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10017/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>vOkOtherInfo.MustPayMoney = 400.0000</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10016"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10016/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>vOkOtherInfo.IsMustPayMoney = True</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10015"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10015/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>vOkInfo.AdvanceMent = 前台现付</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10014"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10014/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>2014-8-4 0:00:00, 005, 标准间, 官网用房, 4.0</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10013"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10013/?_changelist_filters=q%3D">2014-07-30 14:14:48,420</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>房态信息：</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10012"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10012/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>需要的房间数 = 1</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10011"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10011/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>检查房态：select DDate, DHotelNo, DRoomType, sType, Sum(DRoomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where (DDate between '2014-8-4' and '2014-8-4') and DHotelNo = '005' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#', '330783018100') Group by DDate, DHotelNo, DRoomType, sType</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10010"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10010/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.HotelInfoBLL</td><td>代理商(330783018100) 使用 官网用房</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10009"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10009/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Model.PackageAdvanceClearingForm</td><td>MustPayMoney = 400.0000</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10008"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10008/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Model.PackageAdvanceClearingForm</td><td>PayDiscount = 100</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10007"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10007/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Model.PackageAdvanceClearingForm</td><td>order.MustPayAdvanceMoney = 400.0000</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10006"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10006/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>package.AdvanceType = 预付款模板2014, room.Hotel.HotelLevel = 挂三星</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10005"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10005/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>outDate = 2014-8-5 0:00:00</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10004"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10004/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>inDate = 2014-8-4 0:00:00</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10003"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10003/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>结算方式为: 前台现付</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10002"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10002/?_changelist_filters=q%3D">2014-07-30 14:14:48,404</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.Service.PackageService</td><td>packageId = 100, comeDate = 2014-8-4</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10001"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10001/?_changelist_filters=q%3D">2014-07-30 14:14:48,389</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.PackageBLL</td><td>dongyangHotels.count = 2</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="10000"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/10000/?_changelist_filters=q%3D">2014-07-30 14:14:48,389</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.PackageBLL</td><td>travelno = 330783018100, area = 0</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9999"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9999/?_changelist_filters=q%3D">2014-07-30 14:14:48,389</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '462' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9998"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9998/?_changelist_filters=q%3D">2014-07-30 14:14:48,373</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '462' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9997"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9997/?_changelist_filters=q%3D">2014-07-30 14:14:48,357</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1265' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9996"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9996/?_changelist_filters=q%3D">2014-07-30 14:14:48,342</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1265' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9995"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9995/?_changelist_filters=q%3D">2014-07-30 14:14:48,326</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1260' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9994"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9994/?_changelist_filters=q%3D">2014-07-30 14:14:48,326</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1260' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9993"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9993/?_changelist_filters=q%3D">2014-07-30 14:14:48,311</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1098' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9992"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9992/?_changelist_filters=q%3D">2014-07-30 14:14:48,295</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1098' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9991"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9991/?_changelist_filters=q%3D">2014-07-30 14:14:48,279</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1065' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9990"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9990/?_changelist_filters=q%3D">2014-07-30 14:14:48,279</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '1065' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9989"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9989/?_changelist_filters=q%3D">2014-07-30 14:14:48,264</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '005' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9988"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9988/?_changelist_filters=q%3D">2014-07-30 14:14:48,248</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '005' and DRoomType = '女性房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9987"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9987/?_changelist_filters=q%3D">2014-07-30 14:14:48,232</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '005' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9986"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9986/?_changelist_filters=q%3D">2014-07-30 14:14:48,217</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '003' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9985"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9985/?_changelist_filters=q%3D">2014-07-30 14:14:48,201</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '003' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9984"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9984/?_changelist_filters=q%3D">2014-07-30 14:14:48,201</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '002' and DRoomType = '豪华大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9983"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9983/?_changelist_filters=q%3D">2014-07-30 14:14:48,186</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '002' and DRoomType = '豪华标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9982"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9982/?_changelist_filters=q%3D">2014-07-30 14:14:48,170</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '002' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9981"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9981/?_changelist_filters=q%3D">2014-07-30 14:14:48,154</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '001' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9980"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9980/?_changelist_filters=q%3D">2014-07-30 14:14:48,139</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-4' and '2014-8-4' and DHotelNo = '001' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9979"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9979/?_changelist_filters=q%3D">2014-07-30 14:14:48,123</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>select DHotelNo,(select DName from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as DHotelName, (select DType from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as HotelLevel, DBreakfast, a.DRoomType, DPrice_Friday, DPrice_GoldenWeek, DPrice_Saturday, DPrice, DClearingPrice_Friday, DClearingPrice_GoldenWeek, DClearingPrice_Saturday, DClearingPrice, (select DBedNumber from tbdHotelRoomInfo b where b.DHotelNo = a.DhotelNo and b.DroomType = a.DRoomType) as DBedNumber from tbdInclusiveTourHotel a where DInclusiveTourID = 100 and exists (select * from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 b where (DDate between '2014-8-4' and '2014-8-4') and a.DHotelNO = b.DHotelNo and  sType = '官网用房' and DTravelNo in ('#' , '330783018100') and a.DRoomType = b.DRoomType)</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9978"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9978/?_changelist_filters=q%3D">2014-07-30 14:14:48,123</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.HotelInfoBLL</td><td>代理商(330783018100) 使用 官网用房</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9977"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9977/?_changelist_filters=q%3D">2014-07-30 14:14:48,123</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>ddl_InDay.SelectedValue = 1</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9976"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9976/?_changelist_filters=q%3D">2014-07-30 14:14:47,732</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.VisitorOrderInfoBLL</td><td>hdb_v_CancelVisitorOk: V1407300336</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9975"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9975/?_changelist_filters=q%3D">2014-07-30 14:14:47,732</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.VisitorOrderInfoBLL</td><td>取消订单: V1407300336</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9974"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9974/?_changelist_filters=q%3D">2014-07-30 14:14:44,717</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>hf_InclusiveTourID.Value = 101</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9973"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9973/?_changelist_filters=q%3D">2014-07-30 14:14:44,717</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>exitDate = 2014-6-22 0:00:00</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9972"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9972/?_changelist_filters=q%3D">2014-07-30 14:14:44,717</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>inDate = 2014-6-22 0:00:00</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9971"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9971/?_changelist_filters=q%3D">2014-07-30 14:14:44,717</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>lb_InDate.Text = 2014-06-22</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9970"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9970/?_changelist_filters=q%3D">2014-07-30 14:14:44,717</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.PackageBLL</td><td>travelno = 330783018100, area = </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9969"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9969/?_changelist_filters=q%3D">2014-07-30 14:14:44,701</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>select DHotelNo,(select DName from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as DHotelName, (select DType from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as HotelLevel, DBreakfast, a.DRoomType, DPrice_Friday, DPrice_GoldenWeek, DPrice_Saturday, DPrice, DClearingPrice_Friday, DClearingPrice_GoldenWeek, DClearingPrice_Saturday, DClearingPrice, (select DBedNumber from tbdHotelRoomInfo b where b.DHotelNo = a.DhotelNo and b.DroomType = a.DRoomType) as DBedNumber from tbdInclusiveTourHotel a where DInclusiveTourID = 101 and exists (select * from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 b where (DDate between '2014-6-22' and '2014-6-22') and a.DHotelNO = b.DHotelNo and  sType = '官网用房' and DTravelNo in ('#' , '330783018100') and a.DRoomType = b.DRoomType)</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9968"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9968/?_changelist_filters=q%3D">2014-07-30 14:14:44,701</a></th><td>5</td><td>DEBUG</td><td>HDBusiness.BLL.HotelInfoBLL</td><td>代理商(330783018100) 使用 官网用房</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9967"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9967/?_changelist_filters=q%3D">2014-07-30 14:14:44,701</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>ddl_InDay.SelectedValue = 1</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9966"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9966/?_changelist_filters=q%3D">2014-07-30 14:14:44,701</a></th><td>5</td><td>DEBUG</td><td>VisitorInclusiveOrder_2</td><td>Session[userid] = </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9965"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9965/?_changelist_filters=q%3D">2014-07-30 14:14:44,686</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '462' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9964"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9964/?_changelist_filters=q%3D">2014-07-30 14:14:44,670</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '462' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9963"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9963/?_changelist_filters=q%3D">2014-07-30 14:14:44,654</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '462' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9962"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9962/?_changelist_filters=q%3D">2014-07-30 14:14:44,654</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1265' and DRoomType = '豪华套房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9961"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9961/?_changelist_filters=q%3D">2014-07-30 14:14:44,639</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1265' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9960"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9960/?_changelist_filters=q%3D">2014-07-30 14:14:44,623</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1265' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9959"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9959/?_changelist_filters=q%3D">2014-07-30 14:14:44,607</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1260' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9958"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9958/?_changelist_filters=q%3D">2014-07-30 14:14:44,592</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1260' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9957"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9957/?_changelist_filters=q%3D">2014-07-30 14:14:44,576</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1098' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9956"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9956/?_changelist_filters=q%3D">2014-07-30 14:14:44,561</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1098' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9955"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9955/?_changelist_filters=q%3D">2014-07-30 14:14:44,561</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1065' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9954"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9954/?_changelist_filters=q%3D">2014-07-30 14:14:44,545</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1065' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9953"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9953/?_changelist_filters=q%3D">2014-07-30 14:14:44,529</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '1065' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9952"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9952/?_changelist_filters=q%3D">2014-07-30 14:14:44,514</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '005' and DRoomType = '商务大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9951"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9951/?_changelist_filters=q%3D">2014-07-30 14:14:44,498</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '005' and DRoomType = '商务标准房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9950"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9950/?_changelist_filters=q%3D">2014-07-30 14:14:44,498</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '005' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9949"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9949/?_changelist_filters=q%3D">2014-07-30 14:14:44,482</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '005' and DRoomType = '女性房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9948"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9948/?_changelist_filters=q%3D">2014-07-30 14:14:44,467</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '005' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9947"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9947/?_changelist_filters=q%3D">2014-07-30 14:14:44,451</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '003' and DRoomType = '三人间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9946"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9946/?_changelist_filters=q%3D">2014-07-30 14:14:44,436</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '003' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9945"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9945/?_changelist_filters=q%3D">2014-07-30 14:14:44,420</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '亲子房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9944"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9944/?_changelist_filters=q%3D">2014-07-30 14:14:44,420</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '女士大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9943"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9943/?_changelist_filters=q%3D">2014-07-30 14:14:44,404</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '女士标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9942"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9942/?_changelist_filters=q%3D">2014-07-30 14:14:44,389</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '豪华大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9941"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9941/?_changelist_filters=q%3D">2014-07-30 14:14:44,373</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '豪华标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9940"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9940/?_changelist_filters=q%3D">2014-07-30 14:14:44,357</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '002' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9939"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9939/?_changelist_filters=q%3D">2014-07-30 14:14:44,342</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '001' and DRoomType = '大床房' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9938"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9938/?_changelist_filters=q%3D">2014-07-30 14:14:44,342</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>roomStatusSql: select DDate,DHotelNo,DRoomType, sType, SUM(DroomTotalNumber-DRoomUseNumber-DRoomKeepNumber-DRoomBookNumber) as RoomNumber, case when dbo.fn_GetVisitorDateType(ddate)&lt;0 then (case DHotelNo when '001' then (case dbo.GetWeek(ddate) when '星期五' then 0 else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end ) else dbo.fn_GetVisitorDateType(ddate) end datetype from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 where DDate between '2014-8-15' and '2014-8-15' and DHotelNo = '001' and DRoomType = '标准间' and sType = '官网用房' and DTravelNo in ('#','330783018100') Group by DDate, DHotelNo, DRoomType, sType </td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9937"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9937/?_changelist_filters=q%3D">2014-07-30 14:14:44,311</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.NewHotelInfoBLL</td><td>select DHotelNo,(select DName from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as DHotelName, (select DType from tbdHotelInfo b where a.DHotelNo =b.DHotelNo ) as HotelLevel, DBreakfast, a.DRoomType, DPrice_Friday, DPrice_GoldenWeek, DPrice_Saturday, DPrice, DClearingPrice_Friday, DClearingPrice_GoldenWeek, DClearingPrice_Saturday, DClearingPrice, (select DBedNumber from tbdHotelRoomInfo b where b.DHotelNo = a.DhotelNo and b.DroomType = a.DRoomType) as DBedNumber from tbdInclusiveTourHotel a where DInclusiveTourID = 50 and exists (select * from TicketServer.Iccard14.dbo.tbdRoomTypeInfo1 b where (DDate between '2014-8-15' and '2014-8-15') and a.DHotelNO = b.DHotelNo and  sType = '官网用房' and DTravelNo in ('#' , '330783018100') and a.DRoomType = b.DRoomType)</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9936"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9936/?_changelist_filters=q%3D">2014-07-30 14:14:44,311</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.HotelInfoBLL</td><td>代理商(330783018100) 使用 官网用房</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9935"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9935/?_changelist_filters=q%3D">2014-07-30 14:14:44,311</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.InclusiveTourBLL</td><td>result = 50</td></tr>
-
-
-<tr class="row1"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9934"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9934/?_changelist_filters=q%3D">2014-07-30 14:14:44,311</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.InclusiveTourBLL</td><td>sql = select DGroupType from tbdInclusiveCorrespond where @Comdate between DStartDate and DEndDate and inclusivetype=@PeopleType and ViewNum=@PeopleNum</td></tr>
-
-
-<tr class="row2"><td class="action-checkbox"><input class="action-select" name="_selected_action" type="checkbox" value="9933"></td><th><a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/9933/?_changelist_filters=q%3D">2014-07-30 14:14:44,311</a></th><td>1</td><td>DEBUG</td><td>HDBusiness.BLL.InclusiveTourBLL</td><td>comedate = 2014-8-15 0:00:00, PeopleType = 成人, PeopleNum = 2</td></tr>
+	
+{% for r in records %}
+<tr class="{% cycle 'row1' 'row2' %}">
+	<td style='width:13%'>{{r.time}}</td>
+	<td style='width:4%'>{{r.thread}}</td>
+	<td style='width:4%'>{{r.level}}</td>
+	<td style='width:17%'>{{r.clazz}}</td>
+	<td >{{r.content}}</td>
+</tr>
+{% endfor %}
 
 </tbody>
 </table>
 </div>
 
-
-          
-      
-      
-
-<p class="paginator">
-
-
+<p class="paginator"
     <span class="this-page">1</span> 
-
     <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=1&q=">2</a> 
 
     <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=2&q=">3</a> 
