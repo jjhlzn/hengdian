@@ -1,23 +1,24 @@
 use strict;
 use warnings;
 
-#use MongoDB;
-#use MongoDB:OID;
 use DBI;
 use Encode; 
 use POSIX qw(strftime);
 
 my $has_last_parse_info = 0;
 
-my $dsn = "DBI:mysql:lottery";
+my $dsn = "DBI:mysql:lottery;host=localhost";
 my $username = "root";
-my $password = '123456';
+my $password = 'woshishui!@#';
  
 # connect to MySQL database
-my %attr = ( PrintError=>0,  # turn off error reporting via warn()
+my %attr = ( mysql_auto_reconnect=>1,
+			 AutoCommit=>1,
+			 PrintError=>0,  # turn off error reporting via warn()
              RaiseError=>1 );   # turn on error reporting via die()           
  
 my $dbh  = DBI->connect($dsn,$username,$password, \%attr);
+
 my $_sql = "set names utf8";
 my $stmt2 = $dbh->prepare($_sql);
 $stmt2->execute();
@@ -26,7 +27,7 @@ $_sql = "insert into logsystem_ordersystemlogrecord (time, thread, level,
 my $stmt = $dbh->prepare($_sql);
 
 while(1) {
-	parse_log('./log.txt');
+	parse_log('./log_root.txt');
 	sleep(2);
 }
 
@@ -49,40 +50,49 @@ sub parse_log {
 	if ($size >= $pos) {
 		print "WARN: seek return error\n" unless seek(FILE, $pos, 0);
 	}
-	
+	print "start read file.\n";
 	my $text = '';
 	while (<FILE>) {
 		$text .= $_;
 	}
+	print "read finished\n";
 	
 	#update parse position
-	
 	update_parse_position(tell(FILE), strftime("%y-%m-%d %H:%M:%S",localtime(time)), '');
+	close(FILE);
 
 	while ($text =~ /
-					 ([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3})\s+
+					^([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3})\s+
 					 \[([0-9]{1,3})\]\s+
 					 ([A-Z]{1,10})\s+
 					 (\w+(?:\.\w+){0,})\s+
 					 \[\(\w{1,}\)\]\s+
 					 -\s+
-					 (.*)
+					 (.*?)
+					 (([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}){1}|$)
 					/smx) {
-		print "$1 $2 $3 $4 $5\n";
-		$text = $';
+		print "$1 $2 $3 $4\n";
+		print "-----------------------------------------------------------------------\n";
+		#print "$1 $2 $3 $4\n";
+		if (defined($6)) {
+			$text = $6.$';
+		} else {
+			$text = $6;
+		}
 		
-=pod
+
 		insert_record_mysql(encode("utf-8", decode("gb2312", $1)), 
 							encode("utf-8", decode("gb2312", $2)), 
 							encode("utf-8", decode("gb2312", $3)), 
 							encode("utf-8", decode("gb2312", $4)), 
 							encode("utf-8", decode("gb2312", $5)));
-=cut
+
 	}
 }
 
 sub insert_record_mysql {
 	$stmt->execute(@_);
+	#$stmt->commit();
 }
 
 sub get_last_parse {
