@@ -3,16 +3,21 @@ from urlparse import urlparse, parse_qs
 from logsystem.models import *
 import datetime
 from django.db import connection
+from django.core.paginator import Paginator
 
 CounterPerPage = 100
 
 def index(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
 	day =  qs.get('date',[datetime.datetime.now().strftime("%Y-%m-%d")])[0] 
-	page = qs.get('page',[1])[0]
-	start_time = qs.get('start_time',[None])[0]
-	end_time = qs.get('end_time',[None])[0]
-	search_content = qs.get('search_content',[None])[0]
+	page_no = int(qs.get('page',[1])[0])
+	start_time = qs.get('start_time',[''])[0]
+	end_time = qs.get('end_time',[''])[0]
+	search_content = unicode(qs.get('search_content',[''])[0], 'UTF-8')
+	time_from_now = qs.get('time_from_now',[''])[0]
+	if (IsNotNullOrEmpty(time_from_now)):
+		start_time = (datetime.datetime.now() + 
+							datetime.timedelta(seconds=-int(time_from_now))).strftime("%H:%M:%S")
 	
 	records = OrderSystemLogRecord.objects.all();
 	
@@ -33,11 +38,17 @@ def index(request):
 		print "search_content=["+search_content+"]\n" 
 		records = records.filter(content__icontains=search_content) 
 	records = records.order_by("time")
-	records = records[(int(page) - 1) * CounterPerPage: int(page) * CounterPerPage]
-	#print "--------------------------------------------------------------------\n"
+	p = Paginator(records, CounterPerPage)
+	page = p.page(page_no)
 	
-	print records.query
-	return render(request, "logsystem/index.html", {'records': records});
+	return render(request, 
+				  "logsystem/index.html", 
+				  {'page': page,
+				   'pagination_required': p.num_pages > 1,
+				   'date': day,
+				   'start_time': start_time,
+				   'end_time': end_time,
+				   'search_content': search_content});
 
 def IsNotNullOrEmpty(value):
     return value is not None and len(value) > 0

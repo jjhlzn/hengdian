@@ -1,9 +1,9 @@
 {% load static from staticfiles %}
 
 <!DOCTYPE html>
-<!-- saved from url=(0073)http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?q= -->
+
 <html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Select order system log record to change | Django site admin</title>
+<title>Log System</title>
 <link rel="stylesheet" type="text/css" href="{% static "logsystem/css/base.css" %}">
 <link rel="stylesheet" type="text/css" href="{% static "logsystem/css/changelists.css" %}">
   
@@ -17,7 +17,6 @@
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
 
 <script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
-
 
 <script type="text/javascript" src="{% static "logsystem/js/core.js" %}"></script>
 <script type="text/javascript" src="{% static "logsystem/js/RelatedObjectLookups.js" %}"></script>
@@ -73,19 +72,38 @@
 <div id="toolbar"><form id="changelist-search" action="" method="get">
 <div><!-- DIV needed for valid HTML -->
 <label for="searchbar"><img src="{% static "logsystem/images/icon_searchbox.png" %}" alt="Search"></label>
-from: <input type="text" size="30" name="start_time" value="" id="start_time">
-end: <input type="text" size="30" name="end_time" value="" id="end_time">
-cotent: <input type="text" size="40" name="search_content" value="" id="search_content">
+from: <input type="text" size="13" name="start_time" value="{{start_time}}" id="start_time">
+end: <input type="text" size="13" name="end_time" value="{{end_time}}" id="end_time">
+cotent: <input type="text" size="40" name="search_content" value="{{search_content}}" id="search_content">
 <input type="submit" value="Search">
-    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="?time_from_now=30">last 30s</a>
 
 </div>
 </form></div>
 <script type="text/javascript">document.getElementById("searchbar").focus();</script>
 
       <form id="changelist-form" action="" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="xVfLgTSnJqn82xrLZqVItAflvz1FS5K2">
-      
+
+
 <div class="results">
+{% if pagination_required %}
+<p class="paginator">
+	{% if page.has_previous %}
+		<a href="?page={{ page.previous_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}">previous</a>
+	{% endif %}
+
+	<span class="current">
+		Page {{ page.number }} of {{ page.paginator.num_pages }}.
+	</span>
+
+	{% if page.has_next %}
+		<a href="?page={{ page.next_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}">next</a>
+	{% endif %}
+	total {{page.paginator.count}} records
+</p>
+{% endif %}
+
 <table id="result_list">
 <thead>
 <tr>
@@ -124,7 +142,7 @@ cotent: <input type="text" size="40" name="search_content" value="" id="search_c
 </thead>
 <tbody>
 	
-{% for r in records %}
+{% for r in page.object_list %}
 <tr class="{% cycle 'row1' 'row2' %}">
 	<td style='width:13%'>{{r.time}}</td>
 	<td style='width:4%'>{{r.thread}}</td>
@@ -138,25 +156,22 @@ cotent: <input type="text" size="40" name="search_content" value="" id="search_c
 </table>
 </div>
 
-<p class="paginator"
-    <span class="this-page">1</span> 
-    <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=1&q=">2</a> 
+{% if pagination_required %}
+<p class="paginator">
+	{% if page.has_previous %}
+		<a href="?page={{ page.previous_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}">previous</a>
+	{% endif %}
 
-    <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=2&q=">3</a> 
+	<span class="current">
+		Page {{ page.number }} of {{ page.paginator.num_pages }}.
+	</span>
 
-    <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=3&q=">4</a> 
-
-    ... 
-
-    <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=99&q=">100</a> 
-
-    <a href="http://service.hengdianworld.com/admin/logsystem/ordersystemlogrecord/?p=100&q=" class="end">101</a> 
-
-
-10029 order system log records
-
-
+	{% if page.has_next %}
+		<a href="?page={{ page.next_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}">next</a>
+	{% endif %}
+	total {{page.paginator.count}} records
 </p>
+{% endif %}
 
       </form>
     </div>
@@ -170,7 +185,6 @@ cotent: <input type="text" size="40" name="search_content" value="" id="search_c
     <div id="footer"></div>
 </div>
 <!-- END Container -->
-
 
 
 </body></html>

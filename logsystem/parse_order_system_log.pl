@@ -27,7 +27,7 @@ $_sql = "insert into logsystem_ordersystemlogrecord (time, thread, level,
 my $stmt = $dbh->prepare($_sql);
 
 while(1) {
-	parse_log('./log.txt');
+	parse_log('./log_root.txt');
 	sleep(2);
 }
 
