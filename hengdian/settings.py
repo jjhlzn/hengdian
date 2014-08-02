@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 	'lottery',
 	'logsystem',
+	'order',
 )
 
 MIDDLEWARE_CLASSES = (
