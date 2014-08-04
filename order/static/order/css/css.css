@@ -1,0 +1,289 @@
+@charset "utf-8";
+
+body
+{
+    font-family: 宋体;
+    font-size: 12px;
+    color: #333333;
+    background-color: white;
+    background-repeat: repeat-x;
+    margin: 0px;
+    text-align: center;
+    line-height: 160%;
+    background-image: url(images/web_01.gif);
+}
+form{
+    margin:0px;
+}
+a:visited {
+	color: #555555;
+	text-decoration: none;
+}
+a:link {
+	color: #555555;
+	text-decoration: none;
+}
+a:hover {
+	color: #990000;
+	text-decoration: none;
+}
+
+.copyright_bg{
+    background-image: url(images/web_09.gif);
+    background-repeat:repeat-x;
+    color:#FFFFFF;
+}
+.bg_y{
+    background-repeat:repeat-y;
+}
+.menu_1{
+    width:80px;
+    color:#FFFFFF;
+    font-size:14px;
+    text-align:center;
+    font-weight:bold;
+}
+.menu_1_{
+    width:80px;
+    color:#FFFFFF;
+    font-size:14px;
+    text-align:center;
+    font-weight:bold;
+    background-image:url(images/bg_menu.gif);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.table_title{
+	font-weight: bold;
+	color: #333333;
+	background-image: url(images/table_title_bg.gif);
+}
+.table_item{
+	background-image: url(images/table_item_bg.gif);
+	background-position:bottom;
+	background-repeat:repeat-x;
+}
+.table_title1
+{
+    font-weight: bold;
+    color: #333333;
+    background-color: aliceblue;
+}
+.table_title2
+{
+    font-weight: bold;
+    color: #333333;
+    background-color: lavender;
+}
+.table_title3
+{
+    font-weight:normal;
+    color: #333333;
+    background-color: lavender;
+}
+/*常用字体样式*/
+.f12_555 { font-size:12px; color:#555;}
+.f12b_555 { font-size:12px; font-weight:bold; color:#555;}
+.f12b_f60 { font-size:12px; font-weight:bold; color:#f60;}
+.f12_999
+{
+    font-size: 12px;
+    color: #999999;
+    font-style: normal;
+    font-variant: normal;
+}
+.f12_ff0
+{
+    font-size: 12px;
+    color: #FF0000;
+    font-style: normal;
+    font-variant: normal;
+}
+.f12b_ff0
+{
+    font-size: 12px;
+    font-weight: bold;
+    color: #FF0000;
+    font-style: normal;
+    font-variant: normal;
+}
+.f12_f60
+{
+	font-size: 12px;
+	color: #f60;
+}
+.f12_f00
+{
+	font-size: 12px;
+	color: #f00;
+}
+.f12_080
+{
+	font-size: 12px;
+	color: #080;
+}
+.f12b_333
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+}
+.f12u_00f
+{
+	font-size: 12px;
+	color: #00f;
+	text-decoration: underline;
+}
+.f14_f60
+{
+	font-size: 14px;
+	color: #f60;
+}
+.f14_080
+{
+	font-size: 14px;
+	color: #080;
+}
+.f14u_00f
+{
+	font-size: 14px;
+	color: #00f;
+	text-decoration: underline;
+}
+.f14b_080
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #080;
+}
+.f14b_333
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+.f14b_f60
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #f60;
+}
+.f14b_ff8
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #FF8040;
+}
+.f16b_f60
+{
+    font-size: 16px;
+    font-weight: bold;
+    color: #f60;
+}
+.f12_f77526
+{
+	font-size: 12px;
+	color: #f77526;
+}
+.f12_ff6600
+{
+	font-size: 12px;
+	color: #ff6600;
+}
+.f11_99
+{
+	font-size: 11px;
+	color: #999999;
+}
+
+/**/
+.tao_jia
+{
+	color: #ff3000;
+	font-size: 14px;
+	font-weight: bold;
+}
+.avgprice
+{
+    color: #800000;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: underline;
+}
+.advanceAmo
+{
+    color: #FF0000;
+    font-size: 12px;
+    font-weight: bold;
+}
+.bookNotes
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+.table_line
+{
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #B4DBFA;
+    border-bottom: 1px solid #B4DBFA;
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+}
+.link
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #0000FF;
+    background-color: #FFFFFF;
+}
+.noRoom
+{
+    background-color: #FFFF00;
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    color: #FF0000;
+}
+/**/
+
+
+.base_step1, .base_step2, .base_step3, .base_step4, .base_step5, .base_step6
+{
+	float: right;
+	margin-top: 7px;
+	text-align: center;
+	font-size: 12px;
+	font-weight: normal;
+	font-family: simsun,sans-serif;
+	color: #666;
+}
+.base_meter1, .base_meter2, .base_meter3, .base_meter4, .base_meter5, .base_meter6
+{
+	float: left;
+	width: 42px;
+	margin-right: 2px;
+}
+.base_meter1 span, .base_meter2 span, .base_meter3 span, .base_meter4 span, .base_meter5 span, .base_meter6 span
+{
+	display: block;
+	height: 7px;
+	overflow: hidden;
+	background: #D8D8D8;
+}
+.base_meter1 p, .base_meter2 p, .base_meter3 p, .base_meter4 p, .base_meter5 p, .base_meter6 p
+{
+	margin: 0;
+}
+.base_step1 .base_meter1 span, .base_step2 .base_meter1 span, .base_step2 .base_meter2 span, .base_step3 .base_meter1 span, .base_step3 .base_meter2 span, .base_step3 .base_meter3 span, .base_step4 .base_meter1 span, .base_step4 .base_meter2 span, .base_step4 .base_meter3 span, .base_step4 .base_meter4 span, .base_step5 .base_meter1 span, .base_step5 .base_meter2 span, .base_step5 .base_meter3 span, .base_step5 .base_meter4 span, .base_step5 .base_meter5 span
+{
+	background: #ff6600;
+}
+.base_step6 .base_meter1 span, .base_step6 .base_meter2 span, .base_step6 .base_meter3 span, .base_step6 .base_meter4 span, .base_step6 .base_meter5 span, .base_step6 .base_meter6 span
+{
+	background: #ff6600;
+}
+
+
+.tb1,.tb1 td {   
+    border:1px solid #000000;   
+    border-collapse:collapse;  
+}

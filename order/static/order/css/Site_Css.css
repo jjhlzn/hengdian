@@ -1,0 +1,281 @@
+﻿
+#bodyContent
+{
+	width:990px; position:relative; left:5px; margin-left:0px;
+	
+}
+#header		 /*  页眉 */
+{
+}
+#pageSideContent /*  网页内容左边 */
+{ 
+	 width:20%; BORDER-right:#FF67A0 1px solid;
+}
+#pageMainContent /*  网页内容右边 */
+{ 
+	 width:79%; 
+}
+#footer /*  页脚 */
+{
+    width:100%; 
+}
+
+/*----------网页总体布局-------*/
+#pageSideContent /*  网页内容左边 */
+{ 
+	 width:20%; BORDER-right:#FF67A0 1px solid;
+}
+
+#pageMainContent /*  网页内容右边 */
+{ 
+	 width:79%; 
+}
+
+/* CSS Document */
+.cc33clolor
+{
+	color: #CC3300;
+}
+
+.noborder
+{
+    border:0;
+}
+
+.tdbk1
+{
+    font-weight: bold;
+    font-size: 9pt;
+    color: #000000;
+    font-family: Verdana,Sans-Serif;
+    line-height: 18px;
+    background-image: none;
+    background-color: #e2e9ff;
+}
+
+.tdbk2
+{
+    font-weight: bold;
+    font-size: 12pt;
+    color: #000000;
+    font-family: Verdana,Sans-Serif;
+    line-height: 18px;
+}
+
+/*============================注册提交信息=============================*/
+.headereg
+{
+	width: 770px;
+	height: 50px;
+	border-bottom: 1px solid #e5e9db;
+	border-top: 1px solid #e5e9db;
+	border-left: 1px solid #e5e9db;
+	border-right: 1px solid #e5e9db;
+	padding: 2px;
+}
+.reginfo
+{
+	padding: 0px 0px;
+	margin: 0px auto;
+	width: 750px;
+	height: auto;
+}
+
+.reginfo IMG
+{
+	margin-left: 5px;
+}
+
+.reg-main
+{
+	width: 100%;
+	height: 300px;
+	padding: 2px;
+}
+
+.reg-main textarea
+{
+	width: 600px;
+	height: 400px;
+}
+
+.reg-button
+{
+	width: 770px;
+	height: 25px;
+}
+
+.reg-singlebutton
+{
+	width: 80px;
+	height: 29px;
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+}
+
+/*================GridView控件CSS风格===============*/
+.FooterStyle
+{
+    background-color: #ffffcc;
+    color: red;
+    text-align: right;
+    font-weight: bold;
+}
+
+.DisplayField
+{
+	display: none;
+}
+
+/*================团队预订单CSS风格===============*/
+.TravelOrderTextBox
+{
+	color: #000000;
+	font-family: 宋体;
+	height: 15px;
+	width:100px;
+}
+
+.TravelOrderTextBoxTravelName
+{
+    color: #000099;
+    font-family: 宋体;
+    height: 15px;
+    width: 100px;
+    border: 0px;
+    font-weight: bold;
+}
+
+.TravelOrderTextBoxMemo
+{
+	color: #000000;
+	font-family: 宋体;
+	height: 25px;
+}
+
+.TravelOrderDropDownList
+{
+	color: #000000;
+	font-family: 宋体;
+	height: 20px;
+	width:100px;
+}
+
+.TravelOrderButton
+{
+	color: #000000;
+	font-family: 宋体;
+	height: 25px;
+}
+
+.TravelOrderTitle
+{
+    color: black;
+    font-family: 宋体;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    background-color: #ffff66;
+    background-image: none;
+    height: 25px;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.TravelOrderSaveSuccessMsg
+{
+	color: #000000;
+	font-family: 宋体;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	background-color: white;
+	background-image: none;
+	height: 25px;
+	width: 100%;
+	vertical-align: middle;
+}
+
+.TravelOrderAudit
+{
+	font-weight: normal;
+	font-size: 11pt;
+	color: red;
+	font-family: 宋体;
+}
+
+.TravelOrderTip
+{
+	color: navy;
+	background-color: yellow;
+	font-family: 宋体;
+}
+
+.TravelOrderVip
+{
+    color: purple;
+    background-color: transparent;
+    font-family: 宋体;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.TravelOrderRoomPriceList
+{
+    color: black;
+    background-color: #ffffff;
+    font-family: 宋体;
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-bottom: 1px;
+    margin: 1px;
+    padding-top: 1px;
+}
+
+.TravelOrderAuditInfo
+{
+	background-color: yellow;
+}
+
+.FooterItemStyle
+{
+    font-size: 12pt;
+    color: red;
+}
+
+.tdbg
+{
+    background:#f0f0f0;
+    line-height: 120%;
+}
+.tdbg1
+{
+    background: #E0EEF5;
+    line-height: 120%;
+    color: red;
+}
+.tdbg5
+{
+    background:#E0EEF5;
+    line-height: 120%;
+}
+.tdbgmouseover
+{
+    background:#BFDFFF;
+    line-height: 120%;
+}
+.tdbgmouseout1
+{
+    background:#ffffff;
+    line-height: 120%;
+}
+.tdbgmouseout2
+{
+    background:#F3F3F3;
+    line-height: 120%;
+}
+
+.separator14pxWithClearBoth { height:14px; clear:both   }
+.separator4pxWithoutClear { height:4px   }

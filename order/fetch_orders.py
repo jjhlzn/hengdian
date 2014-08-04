@@ -33,6 +33,8 @@ def print_order(order):
 			print "{0}: {1} = {2}".format(type(value).__name__, key, value)
 	
 def deal_value_if_necessary(row):
+	if row is None:
+		return
 	for (key, value) in row.items():
 		if type(value) <> type(unicode('','UTF-8')):
 			row[key] = str(value)
@@ -45,6 +47,7 @@ def get_one_row_from_order(sql, parameter):
 	if row is not None:
 		data = remove_digit_keys(row)
 	deal_value_if_necessary(row)
+	
 	print data
 	return data
 
@@ -102,7 +105,7 @@ def insert_order_to_mongodb(order):
 	db.orders.insert(order)
 
 def main():
-	sql = "select top 1 * from tbdVisitorOK where sellid = 'V1306080123'"
+	sql = "select top 2000 * from tbdVisitorOK order by DDate desc"
 	conn = get_connection()
 	conn.execute_query(sql)
 	for row in conn:
@@ -113,13 +116,13 @@ def main():
 		#print row
 		sellid = row['SellID']
 		#print_order(row)
-		#row['otherinfo'] = get_visitorok_other(row['SellID'])
-		#row['productions'] = get_order_productions(sellid)
-		#row['hotelinfo'] = get_order_hotel(sellid)
-		#row['visitoruserinfo'] = get_order_visitoruser(sellid)
-		#row['payinfo'] = get_order_payinfo(sellid)
-		#row['individualagents'] = get_order_individualagents(sellid)
-		#row['orderuser'] = get_order_orderuser(sellid)
+		row['otherinfo'] = get_visitorok_other(row['SellID'])
+		row['productions'] = get_order_productions(sellid)
+		row['hotelinfo'] = get_order_hotel(sellid)
+		row['visitoruserinfo'] = get_order_visitoruser(sellid)
+		row['payinfo'] = get_order_payinfo(sellid)
+		row['individualagents'] = get_order_individualagents(sellid)
+		row['orderuser'] = get_order_orderuser(sellid)
 		#print row
 		insert_order_to_mongodb(row)
 		
