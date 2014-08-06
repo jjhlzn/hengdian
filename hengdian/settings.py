@@ -39,6 +39,8 @@ INSTALLED_APPS = (
 	'lottery',
 	'logsystem',
 	'order',
+	'order.templatetags',
+	'hengdian',
 )
 
 MIDDLEWARE_CLASSES = (

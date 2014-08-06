@@ -4,7 +4,7 @@ from urlparse import urlparse, parse_qs
 from django.core.paginator import Paginator
 
 mongodb_server = "127.0.0.1"
-COUNT_PER_PAGE = 20
+COUNT_PER_PAGE = 10
 
 def getclient():
 	return MongoClient(mongodb_server, 27017)
@@ -26,9 +26,17 @@ def index(request):
 		orders.append(order)
 	page.object_list = orders
 	print len(page.object_list)
-	return render(request, 'order/index.html', 
-				 {'page': page,
-				  'pagination_required': p.num_pages > 1,})
+	return render(request, 'order/orders3.html', 
+				 {'orders': page,
+				  'pagination_required': p.num_pages > 1,
+				  'hits': 0,
+				  'results_per_page': page,
+				  'page': page_no,
+				  'pages': p.count,
+				  'next': page_no + 1,
+				  'previous': page_no - 1,
+				  'has_next': page.has_next(),
+				  'has_previous': page.has_previous(),})
 	
 	
 	

@@ -46,6 +46,10 @@ def index(request):
 	p = Paginator(query, CounterPerPage)
 	page = p.page(page_no)
 	
+	#for a in query:
+	#	1 + 1
+	#print connection.queries
+	
 	return render(request, 
 				  "logsystem/index.html", 
 				  {'page': page,
