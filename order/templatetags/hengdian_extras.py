@@ -1,4 +1,6 @@
 from django import template
+from django.core.paginator import Paginator
+
 
 register = template.Library()
 
@@ -11,22 +13,27 @@ def paginator(context, adjacent_pages=2):
     view.
 
     """
+    page = context['page']
+    page_no = page.number
+    pages = page.paginator.num_pages
     page_numbers = [n for n in \
-                    range(context['page'] - adjacent_pages, context['page'] + adjacent_pages + 1) \
-                    if n > 0 and n <= context['pages']]
-    print "page_numbers: "+str(page_numbers) + "!!!!!!!!!!!!!"
+                    range(page_no - adjacent_pages, page_no + adjacent_pages + 1) \
+                    if n > 0 and n <= pages]
+    #print "page_numbers: "+str(page_numbers) + "!!!!!!!!!!!!!"
     return {
-        'hits': context['hits'],
-        'results_per_page': context['results_per_page'],
-        'page': context['page'],
-        'pages': context['pages'],
+        #'hits': context['hits'],
+        #'results_per_page': context['results_per_page'],
+        'page': page_no,
+        'pages': pages,
+        'total_records': page.paginator.count,
         'page_numbers': page_numbers,
-        'next': context['next'],
-        'previous': context['previous'],
-        'has_next': context['has_next'],
-        'has_previous': context['has_previous'],
+        'next':page_no + 1,
+        'previous': page_no - 1,
+        'has_next': page.has_next(),
+        'has_previous': page.has_previous(),
         'show_first': 1 not in page_numbers,
-        'show_last': context['pages'] not in page_numbers,
+        'show_last': pages not in page_numbers,
+        'search_params': context['search_params'],
     }
 
 register.inclusion_tag('order/paginator.html', takes_context=True)(paginator)

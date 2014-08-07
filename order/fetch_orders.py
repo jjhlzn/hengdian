@@ -14,7 +14,6 @@ mongodb_server = '127.0.0.1'
 def get_connection():
 	conn = _mssql.connect(server=server, user=user, password=password, database='hdbusiness', charset="utf8")
 	return conn;
-	
 
 def remove_digit_keys(row):
 	for key in row.keys():
@@ -47,8 +46,8 @@ def get_one_row_from_order(sql, parameter):
 	if row is not None:
 		data = remove_digit_keys(row)
 	deal_value_if_necessary(row)
-	
-	print data
+	conn.close()
+	#print data
 	return data
 
 def get_rows_from_orders(sql, parameter):
@@ -59,6 +58,7 @@ def get_rows_from_orders(sql, parameter):
 		remove_digit_keys(row)
 		deal_value_if_necessary(row)
 		data.append(row)
+	conn.close()
 	return data
 	
 def get_visitorok_other(sellid):
@@ -105,7 +105,7 @@ def insert_order_to_mongodb(order):
 	db.orders.insert(order)
 
 def main():
-	sql = "select top 2000 * from tbdVisitorOK order by DDate desc"
+	sql = "select * from tbdVisitorOK order by DDate desc"
 	conn = get_connection()
 	conn.execute_query(sql)
 	for row in conn:

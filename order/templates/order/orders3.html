@@ -14,8 +14,25 @@
 	<div class="row">
 		<!-- /.panel-heading -->
 		<div class="panel-body">
+			
+			<form method="get" action="" id="search_form">
+			<div class="row">
+					<!-- <span>预达日期:</span> <input id="comedate_start" type="text" /> 到 <input id="comedate_end" type="text" /> -->
+					 <div class="col-lg-6">
+						<div class="input-group">
+							  <input type="text" class="form-control" id="search_content" name="search_content">
+							  <span class="input-group-btn">
+									<button class="btn btn-default" type="button" id="search_button">查找</button>
+							  </span>
+					   </div><!-- /input-group -->
+			         </div><!-- /.col-lg-6 -->
+			</div><!-- /.row -->
+			</form>
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover" id="orders">
+				
+				{% paginator 5 %}
+				
+				<table class="table table-striped table-bordered table-hover" style="margin: 0 " id="orders">
 					<thead>
 						<tr>
 							<td align="center" width="6%">
@@ -70,9 +87,14 @@
 							</td>
 							<td align="center">
 								
+								{% if r.UserID == '1111111111' %}
+									{{r.visitoruserinfo.DName}}
+								{% else %}
+									{{r.orderuser.DName}}
+								{% endif%}
 							</td>
 							<td align="center">
-								{{r.Flag}}
+								{{r.status_msg}}
 							</td>
 							<td align="center">
 								
@@ -81,9 +103,11 @@
 						{% endfor %}
 					</tbody>
 				</table>
+				
+				{% paginator 5 %}
 			</div>
 			<!-- /.panel-body -->
-			{% paginator %}
+			
 			
 		</div>
 		<!-- /.col-lg-12 -->
@@ -94,11 +118,13 @@
 
 
 {% block javascript %}
-	
     <script>
     //$(document).ready(function() {
     //   $('#orders').dataTable();
     //});
+    $("#search_button").click(function(){
+		$("#search_form").submit();
+	});
     </script>
 {% endblock %}
 
