@@ -22,15 +22,17 @@ def index(request):
 	#search_content may be in SellID, orderuser.DName, DProDescript
 	if IsNotNullOrEmpty(search_content):
 		#{"$text": {"$search": search_content}}
-		orders = db.orders.find({"$or": [{"SellID": search_content}, \
-										 {"DProDescript": {"$regex": search_content}}, \
-										 {"visitoruserinfo.DName": search_content}, \
-										 {"orderuser.DName": search_content}, \
-										 {"orderuser.agent.DName": {"$regex": search_content}}, \
-										 ]})
+		orders = db.orders.find({"$and": [{"$or": [{"SellID": search_content}, \
+										           {"DProDescript": {"$regex": search_content}}, \
+										           {"visitoruserinfo.DName": search_content}, \
+										           {"orderuser.DName": search_content}, \
+										           {"orderuser.agent.DName": {"$regex": search_content}}, \
+										           ]},   \
+										  {"DDate": {"$gt": "2014-07-01"}}]})
 		print orders.explain()
 	else:
-		orders = db.orders.find()
+		orders = db.orders.find({"DDate": {"$gt": "2014-07-01"}})
+		print orders.explain()
 	p = Paginator(orders, COUNT_PER_PAGE)
 	page = p.page(page_no)
 	result_set = []
