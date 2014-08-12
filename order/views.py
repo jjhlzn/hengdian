@@ -48,6 +48,9 @@ def index(request):
 				  'pagination_required': p.num_pages > 1,
 				  'page': page,
 				  'search_params': "search_content=%s" % search_content})
+
+def order_statistic(request):
+	return render(request, 'order/order_statistic.html', {})
 	
 	
 def IsNotNullOrEmpty(value):

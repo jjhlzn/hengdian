@@ -2,8 +2,52 @@
 $(document).ready(function() {
     console.log("document ready");
     var offset = 0;
-    plot();
+   // plot();
+	order_plot();
+	function order_plot() {
+        var this_year = [[1,26],[2,6516],[3,8301],[4,12080],[5,12292],[6,16434],[7,19313]],
+            last_year = [[1,1896],[2,4964],[3,7739],[4,9054],[5,9584],[6,10609],[7,13814]];
+        //for (var i = 0; i < 12; i += 0.2) {
+         //   sin.push([i, Math.sin(i + offset)]);
+        //    cos.push([i, Math.cos(i + offset)]);
+        //}
 
+        var options = {
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
+                }
+            },
+            grid: {
+                hoverable: true //IMPORTANT! this is needed for tooltip to work
+            },
+            yaxis: {
+                min: 0,
+                max: 20000
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "%x.0月份的订单数为%y.0",
+                shifts: {
+                    x: -60,
+                    y: 25
+                }
+            }
+        };
+
+        var plotObj = $.plot($("#flot-line-chart"), [{
+                data: this_year,
+                label: "今年订单"
+            }, {
+                data: last_year,
+                label: "去年订单"
+            }],
+            options);
+    }
+	
     function plot() {
         var sin = [],
             cos = [];
