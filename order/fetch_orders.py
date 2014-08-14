@@ -104,27 +104,36 @@ def insert_order_to_mongodb(order):
 	db = client.order_system
 	db.orders.insert(order)
 
+def make_order(row):
+	row = remove_digit_keys(row)
+	deal_value_if_necessary(row)
+	#print row
+	sellid = row['SellID']
+	#print_order(row)
+	row['otherinfo'] = get_visitorok_other(row['SellID'])
+	row['productions'] = get_order_productions(sellid)
+	row['hotelinfo'] = get_order_hotel(sellid)
+	row['visitoruserinfo'] = get_order_visitoruser(sellid)
+	row['payinfo'] = get_order_payinfo(sellid)
+	row['individualagents'] = get_order_individualagents(sellid)
+	row['orderuser'] = get_order_orderuser(sellid)
+	return row
+
 def main():
 	sql = "select * from tbdVisitorOK order by DDate desc"
 	conn = get_connection()
 	conn.execute_query(sql)
 	for row in conn:
-		#过滤掉数字的key
+		order = make_order(row)
 		#print row
-		row = remove_digit_keys(row)
-		deal_value_if_necessary(row)
-		#print row
-		sellid = row['SellID']
-		#print_order(row)
-		row['otherinfo'] = get_visitorok_other(row['SellID'])
-		row['productions'] = get_order_productions(sellid)
-		row['hotelinfo'] = get_order_hotel(sellid)
-		row['visitoruserinfo'] = get_order_visitoruser(sellid)
-		row['payinfo'] = get_order_payinfo(sellid)
-		row['individualagents'] = get_order_individualagents(sellid)
-		row['orderuser'] = get_order_orderuser(sellid)
-		#print row
-		insert_order_to_mongodb(row)
+		insert_order_to_mongodb(order)
+	
+	
+#get updated orders:
+#added 
+#updated: unpay->pay, success->cancle, un-audit->audited, 	
+def get_update_order():
+	added_sql = "select * from tbdVisitorOk where DATEDIFF(MI,DDate+LTime,GETDATE()) < 60 * 24  order by DDate desc, LTime desc"
 		
 main()
 	

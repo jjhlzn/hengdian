@@ -33,6 +33,7 @@ def index(request):
 	else:
 		orders = db.orders.find({"DDate": {"$gt": "2014-07-01"}})
 		print orders.explain()
+	orders.sort([("DDate", -1),("LTime", -1)])
 	p = Paginator(orders, COUNT_PER_PAGE)
 	page = p.page(page_no)
 	result_set = []
