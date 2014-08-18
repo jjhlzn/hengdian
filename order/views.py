@@ -4,9 +4,27 @@ from django.shortcuts import render
 from pymongo import MongoClient
 from urlparse import urlparse, parse_qs
 from django.core.paginator import Paginator
+import _mssql
 
 mongodb_server = "127.0.0.1"
 COUNT_PER_PAGE = 10
+
+server = '127.0.0.1'
+user = 'sa'
+password = '123456'
+
+def get_connection():
+	conn = _mssql.connect(server=server, user=user, password=password, database='hdbusiness', charset="utf8")
+	return conn
+
+def get_rows_from_orders(sql, parameter=[]):
+	data = []
+	conn = get_connection()
+	conn.execute_query(sql, parameter)
+	for row in conn:
+		data.append(row)
+	conn.close()
+	return data
 
 def getclient():
 	return MongoClient(mongodb_server, 27017)
@@ -51,7 +69,9 @@ def index(request):
 				  'search_params': "search_content=%s" % search_content})
 
 def order_statistic(request):
-	return render(request, 'order/order_statistic.html', {})
+	sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-4-18' order by order_date" 
+	rows = get_rows_from_orders(sql)
+	return render(request, 'order/order_statistic.html', {"data": rows})
 	
 	
 def IsNotNullOrEmpty(value):
