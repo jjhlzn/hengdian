@@ -6,10 +6,10 @@ from urlparse import urlparse, parse_qs
 from django.core.paginator import Paginator
 import _mssql
 
-mongodb_server = "127.0.0.1"
+mongodb_server = "192.168.0.103"
 COUNT_PER_PAGE = 10
 
-server = '127.0.0.1'
+server = '192.168.0.103'
 user = 'sa'
 password = '123456'
 
