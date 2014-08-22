@@ -6,10 +6,10 @@ from urlparse import urlparse, parse_qs
 from django.core.paginator import Paginator
 import _mssql
 
-mongodb_server = "192.168.0.103"
+mongodb_server = '127.0.0.1'
 COUNT_PER_PAGE = 10
 
-server = '192.168.0.103'
+server = '127.0.0.1'
 user = 'sa'
 password = '123456'
 
@@ -29,7 +29,7 @@ def get_rows_from_orders(sql, parameter=[]):
 def getclient():
 	return MongoClient(mongodb_server, 27017)
 
-def index(request):
+def order_search(request):
 	qs = parse_qs(request.META['QUERY_STRING']) 
 	page_no = int(GetQueryParam(qs, 'page', 1))
 	search_content = GetQueryParam(qs, 'search_content')
@@ -69,9 +69,12 @@ def index(request):
 				  'search_params': "search_content=%s" % search_content})
 
 def order_statistic(request):
-	sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-4-18' order by order_date" 
-	rows = get_rows_from_orders(sql)
-	return render(request, 'order/order_statistic.html', {"data": rows})
+    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-4-18' order by order_date"
+    rows = get_rows_from_orders(sql)
+	#top 10 comedate
+    sql = "select top 10 * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-4-18' order by success_order_count desc"
+    top10_days = get_rows_from_orders(sql)
+    return render(request, 'order/order_statistic.html', {"data": rows, "top10_days":top10_days})
 	
 	
 def IsNotNullOrEmpty(value):
