@@ -32,38 +32,7 @@
 			<canvas id="canvas" height="300" width="600"></canvas>
 			</div>
 
-            <div class="row">
-                <div class="col-md-3" >
-                    <canvas id="canvas2" height="200" width="400"></canvas>
-                </div>
-                <div class="col-md-3">
-                    <canvas id="canvas3" height="200" width="400"></canvas>
-                </div>
-                <div class="col-md-3">
-                    <canvas id="canvas4" height="200" width="400"></canvas>
-                </div>
-                <div class="col-md-3">
-                    <canvas id="canvas5" height="200" width="400"></canvas>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <canvas id="canvas6" height="200" width="400"></canvas>
-                </div>
-                 <div class="col-md-3">
-                    <canvas id="canvas7" height="200" width="400"></canvas>
-                </div>
-                 <div class="col-md-3">
-                    <canvas id="canvas8" height="200" width="400"></canvas>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <canvas id="canvas9"></canvas>
-                </div>
-            </div>
 </div>
 {% endblock %}
 {% block javascript %}
@@ -71,11 +40,25 @@
 	<script>
 		var lineChartData = {
 			labels : [
-			{% for item in data %} "{% cycle item.order_date "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""  %}", {% endfor %}
+			{% for item in data1 %} "{% cycle item.order_date "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""  %}", {% endfor %}
 			],
 			datasets : [
 				{
 					label: "this year order info",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+					pointDot : false,
+					data : 
+					[
+					{% for item in data0 %}  "{{item.people_count}}", {% endfor %}
+					]
+				},
+                {
+					label: "2013 year order info",
 					fillColor : "rgba(220,220,220,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
 					pointColor : "rgba(220,220,220,1)",
@@ -83,206 +66,33 @@
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(220,220,220,1)",
 					pointDot : false,
-					data : 
+					data :
 					[
-					{% for item in data %}  "{{item.people_count}}", {% endfor %}
+					{% for item in data1 %}  "{{item.people_count}}", {% endfor %}
 					]
 				}
 			]
 		}
 
-        //订单来源对比（官网，淘宝，代理商）
-        var order_source_data = [
-				{
-					value: {{ data.0.officialsite_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "官网"
-				},
-				{
-					value: {{ data.0.taobao_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "淘宝"
-				},
-				{
-					value: {{ data.0.agent_order_count }},
-					color: "#FDB45C",
-					highlight: "#FFC870",
-					label: "代理商"
-				},
-
-			];
-
-        //订单种类对比（门票，酒店，套餐）
-        var order_type_data = [
-				{
-					value: {{ data.0.ticket_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "门票"
-				},
-				{
-					value: {{ data.0.hotel_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "酒店"
-				},
-				{
-					value: {{ data.0.package_order_count }},
-					color: "#FDB45C",
-					highlight: "#FFC870",
-					label: "套餐"
-				},
-			];
-
-        var package_order_hotelnights_morethan2_data = [
-				{
-					value: {{data.0.package_order_hotelnights_morethan2_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "套餐酒店>=2晚"
-				},
-				{
-					value: {{ data.0.package_order_count }} - {{ data.0.package_order_hotelnights_morethan2_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "套餐酒店1晚"
-				},
-			];
-
-        var ticket_order_paywhencome_data = [
-				{
-					value: {{data.0.paywhencome_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "单门票到付"
-				},
-				{
-					value: {{ data.0.ticket_order_count }} - {{ data.0.paywhencome_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "单门票预付"
-				},
-			];
-
-        var interface_order_data = [
-				{
-					value: {{data.0.interface_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "接口推送"
-				},
-				{
-					value: {{ data.0.ticket_order_count }} - {{ data.0.interface_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "手动下单"
-				},
-			];
-
-         var mobile_order_data = [
-				{
-					value: {{data.0.mobile_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "手机订单"
-				},
-				{
-					value: {{ data.0.success_order_count }} - {{ data.0.mobile_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "PC订单"
-				},
-			];
-
-         var backend_order_data = [
-				{
-					value: {{data.0.backend_order_count }},
-					color:"#F7464A",
-					highlight: "#FF5A5E",
-					label: "后台订单"
-				},
-				{
-					value: {{ data.0.success_order_count }} - {{ data.0.backend_order_count }},
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "前台订单"
-				},
-			];
-
-        var barChartData = {
-		labels : [
-            {% for item in top10_days %} "{{ item.order_date }}", {% endfor %}
-        ],
-		datasets : [
-			{
-				fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,0.8)",
-                highlightFill: "rgba(151,187,205,0.75)",
-                highlightStroke: "rgba(151,187,205,1)",
-				data : [
-                    {% for item in top10_days %} {{ item.success_order_count }}, {% endfor %}
-                ]
-			},
-		]}
-
-
 		var total_people_num_datasets = [
-					{% for item in data %} "{{item.people_count}}", {% endfor %}
-					];
+                    [{% for item in data0 %} "{{item.people_count}}", {% endfor %}],
+                    [{% for item in data1 %} "{{item.people_count}}", {% endfor %}]
+		];
         var success_orders_datasets = [
-					{% for item in data %}  "{{item.success_order_count}}", {% endfor %}
-					];
+					[{% for item in data0 %}  "{{item.success_order_count}}", {% endfor %}],
+                    [{% for item in data1 %}  "{{item.success_order_count}}", {% endfor %}]
+		];
         var total_money_datasets = [
-					{% for item in data %}  "{{item.total_money}}", {% endfor %}
-					];
+					[{% for item in data0 %}  "{{item.total_money}}", {% endfor %}],
+                    [{% for item in data1 %}  "{{item.total_money}}", {% endfor %}]
+		];
 
 		window.onload = function(){
 			var ctx = document.getElementById("canvas").getContext("2d");
 			window.myLine = new Chart(ctx).Line(lineChartData, {
                                          responsive: true,
-			                             pointHitDetectionRadius: 1});
-            ctx = document.getElementById("canvas2").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(order_source_data, {
-                    }
-            );
-            ctx = document.getElementById("canvas3").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(order_type_data, {
-                    }
-            );
-
-            ctx = document.getElementById("canvas4").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(package_order_hotelnights_morethan2_data, {
-                    }
-            );
-
-            ctx = document.getElementById("canvas5").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(ticket_order_paywhencome_data, {
-                    }
-            );
-
-            ctx = document.getElementById("canvas6").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(interface_order_data, {
-                    }
-            );
-
-            ctx = document.getElementById("canvas7").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(mobile_order_data, {
-                    }
-            );
-
-            ctx = document.getElementById("canvas8").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(backend_order_data, {
-                    }
-            );
-
-            var ctx = document.getElementById("canvas9").getContext("2d");
-            window.myBar = new Chart(ctx).Bar(barChartData, {
-                responsive : true,
-                barStrokeWidth : 2
-            });
-
+			                             pointHitDetectionRadius: 1,
+                                         pointDot : false});
         };
 		
 		function change_dataset(type) {
@@ -290,16 +100,20 @@
             window.myLine.destroy();
             if (type == 'total_people_num') {
                 //alert('people_num');
-                lineChartData.datasets[0].data = total_people_num_datasets;
+                lineChartData.datasets[0].data = total_people_num_datasets[0];
+                lineChartData.datasets[1].data = total_people_num_datasets[1];
             } else if (type == 'total_money') {
-                lineChartData.datasets[0].data = total_money_datasets;
+                lineChartData.datasets[0].data = total_money_datasets[0];
+                lineChartData.datasets[1].data = total_money_datasets[1];
             } else {
-                lineChartData.datasets[0].data = success_orders_datasets;
+                lineChartData.datasets[0].data = success_orders_datasets[0];
+                lineChartData.datasets[1].data = success_orders_datasets[1];
             }
             var ctx = document.getElementById("canvas").getContext("2d");
 			window.myLine = new Chart(ctx).Line(lineChartData, {
                                                     responsive: true,
-			                                        pointHitDetectionRadius: 1});
+			                                        pointHitDetectionRadius: 1,
+                                                    pointDot : false});
         }
 
 	</script>
