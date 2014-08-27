@@ -40,25 +40,25 @@
 	<script>
 		var lineChartData = {
 			labels : [
-			{% for item in data1 %} "{% cycle item.order_date "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""  %}", {% endfor %}
+			{% for label in x_labels %} "{{  label }}", {% endfor %}
 			],
 			datasets : [
 				{
-					label: "this year order info",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
+					label: "2014",
+                    fillColor:   "red",
+                    strokeColor: "red",
+                    pointColor:  "red",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    pointHighlightStroke: "red",
 					pointDot : false,
 					data : 
 					[
-					{% for item in data0 %}  "{{item.people_count}}", {% endfor %}
+					{% for item in data0 %}  {{item.people_count}}, {% endfor %}
 					]
 				},
                 {
-					label: "2013 year order info",
+					label: "2013",
 					fillColor : "rgba(220,220,220,0.2)",
 					strokeColor : "rgba(220,220,220,1)",
 					pointColor : "rgba(220,220,220,1)",
@@ -68,31 +68,27 @@
 					pointDot : false,
 					data :
 					[
-					{% for item in data1 %}  "{{item.people_count}}", {% endfor %}
+					{% for item in data1 %}  {{item.people_count}}, {% endfor %}
 					]
 				}
 			]
 		}
 
 		var total_people_num_datasets = [
-                    [{% for item in data0 %} "{{item.people_count}}", {% endfor %}],
-                    [{% for item in data1 %} "{{item.people_count}}", {% endfor %}]
+                    [{% for item in data0 %} {{item.people_count}}, {% endfor %}],
+                    [{% for item in data1 %} {{item.people_count}}, {% endfor %}]
 		];
         var success_orders_datasets = [
-					[{% for item in data0 %}  "{{item.success_order_count}}", {% endfor %}],
-                    [{% for item in data1 %}  "{{item.success_order_count}}", {% endfor %}]
+					[{% for item in data0 %}  {{item.success_order_count}}, {% endfor %}],
+                    [{% for item in data1 %}  {{item.success_order_count}}, {% endfor %}]
 		];
         var total_money_datasets = [
-					[{% for item in data0 %}  "{{item.total_money}}", {% endfor %}],
-                    [{% for item in data1 %}  "{{item.total_money}}", {% endfor %}]
+					[{% for item in data0 %}  {{item.total_money}}, {% endfor %}],
+                    [{% for item in data1 %}  {{item.total_money}}, {% endfor %}]
 		];
 
-		window.onload = function(){
-			var ctx = document.getElementById("canvas").getContext("2d");
-			window.myLine = new Chart(ctx).Line(lineChartData, {
-                                         responsive: true,
-			                             pointHitDetectionRadius: 1,
-                                         pointDot : false});
+		window.onload = function() {
+            draw_lines();
         };
 		
 		function change_dataset(type) {
@@ -109,11 +105,27 @@
                 lineChartData.datasets[0].data = success_orders_datasets[0];
                 lineChartData.datasets[1].data = success_orders_datasets[1];
             }
+            draw_lines();
+        }
+
+        function draw_lines() {
             var ctx = document.getElementById("canvas").getContext("2d");
 			window.myLine = new Chart(ctx).Line(lineChartData, {
                                                     responsive: true,
 			                                        pointHitDetectionRadius: 1,
-                                                    pointDot : false});
+                                                    pointDot : {{ show_point }},
+                                                    datasetFill : false,
+                                                    tooltipTemplate: "1",
+                                                    datasetStroke: false,
+                                                    datasetFill: false,
+                                                    legendTemplate : "123"}
+                                                    );
+
+            canvas.onclick = function(evt){
+                    var activePoints = window.myLine.getPointsAtEvent(evt);
+                    alert(activePoints);
+                     // => activePoints is an array of points on the canvas that are at the same position as the click event.
+            };
         }
 
 	</script>
