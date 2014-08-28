@@ -31,6 +31,14 @@ def order_statistic(request):
         context = _order_statistic_by_day(request)
     return render(request, 'order/order_statistic.html', context)
 
+def ticketorder_statistic(request):
+    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"
+    dataset_2013 = get_rows_from_orders(sql)
+    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-1-1' and order_date <= '2014-12-31' order by order_date"
+    dataset_2014 = get_rows_from_orders(sql)
+    x_lables = [x['order_date'][5:] for x in dataset_2013]
+    return {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'show_point': 'false'}
+
 def _order_statistic_by_day(request):
     sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"
     dataset_2013 = get_rows_from_orders(sql)

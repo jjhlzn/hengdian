@@ -118,14 +118,21 @@
                                                     tooltipTemplate: "1",
                                                     datasetStroke: false,
                                                     datasetFill: false,
-                                                    legendTemplate : "123"}
+                                                    legendTemplate : "123",
+                                                    animation: false,
+                                                    showScale: true,
+                                                    scaleLineColor: "red",
+                                                    scaleShowLabels: true,
+                                                    // Interpolated JS string - can access value
+                                                    scaleLabel: "<%=value%>",
+                                                    multiTooltipTemplate: "<%= value/1000 %>"}
                                                     );
-
+            /*
             canvas.onclick = function(evt){
                     var activePoints = window.myLine.getPointsAtEvent(evt);
                     alert(activePoints);
                      // => activePoints is an array of points on the canvas that are at the same position as the click event.
-            };
+            };*/
         }
 
 	</script>
