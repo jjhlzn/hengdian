@@ -31,13 +31,13 @@ def order_statistic(request):
         context = _order_statistic_by_day(request)
     return render(request, 'order/order_statistic.html', context)
 
-def ticketorder_statistic(request):
-    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"
-    dataset_2013 = get_rows_from_orders(sql)
-    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-1-1' and order_date <= '2014-12-31' order by order_date"
-    dataset_2014 = get_rows_from_orders(sql)
-    x_lables = [x['order_date'][5:] for x in dataset_2013]
-    return {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'show_point': 'false'}
+def ticketorder_stat(request):
+    sql = """select _year as theyear, SUM(paywhencome_order_count) as paywhencome, SUM(paywhenorder_order_count) as paywhenorder from (
+             select YEAR(order_date) as _year, paywhencome_order_count, (success_order_count - paywhencome_order_count) as paywhenorder_order_count
+             from  report.dbo.t_ordersystem_dailyorder_comedate where order_date >= '2013-1-1' ) as a group by _year order by _year desc"""
+    paytype_datasets = get_rows_from_orders(sql)
+    context = {"paytype_datasets":paytype_datasets}
+    return render(request, 'order/ticketorder_stat.html', context)
 
 def _order_statistic_by_day(request):
     sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"

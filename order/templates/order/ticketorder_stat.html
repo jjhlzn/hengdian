@@ -1,0 +1,98 @@
+{% extends "order/base_generic.html" %}
+{% load static from staticfiles %}
+{% load hengdian_extras %}
+
+{% block title %}订单统计{% endblock %}
+
+{% block content %}
+<div style="width:100%">
+			 <div class="row">
+                <div class="col-md-4 labeled-chart-container" >
+                     <div class="dropdown">
+					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+						年份
+					  <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        {% for data in paytype_datasets %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="paytype_date_change('{{ data.theyear }}')">{{ data.theyear }}</a></li>
+                        {% endfor %}
+					  </ul>
+				</div>
+                    <div class="canvas-holder">
+                        <canvas id="canvas0" height="250" width="500"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <canvas id="canvas1" height="300" width="600"></canvas>
+                </div>
+            </div>
+
+
+</div>
+{% endblock %}
+{% block javascript %}
+	<script src="{% static "order/js/Chart.js" %}"></script>
+	<script>
+        var paytype_datasets = {
+        {% for data in paytype_datasets %}
+            '{{ data.theyear }}' : [{{ data.paywhencome }}, {{ data.paywhenorder }}],
+        {% endfor %}
+        }
+		var ticket_order_paywhencome_data = [
+				{
+					value: {{paytype_datasets.0.paywhencome}},
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "到付"
+				},
+				{
+					value: {{ paytype_datasets.0.paywhenorder }},
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "预付"
+				}
+			];
+        /*
+        var interface_order_data = [
+				{
+					value: {{data.0.interface_order_count }},
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "接口推送"
+				},
+				{
+					value: {{ data.0.ticket_order_count }} - {{ data.0.interface_order_count }},
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "手动下单"
+				},
+			]; */
+
+		window.onload = function() {
+            draw_paytype_graph();
+        };
+
+        function paytype_date_change(year) {
+            ticket_order_paywhencome_data[0].value = paytype_datasets[year][0];
+            ticket_order_paywhencome_data[1].value = paytype_datasets[year][1];
+            window.myPie.destroy();
+            draw_paytype_graph();
+        }
+
+
+        function draw_paytype_graph() {
+            var ctx = document.getElementById("canvas0").getContext("2d");
+			window.myPie = new Chart(ctx).Pie(ticket_order_paywhencome_data, {
+                    }
+            );
+            var legendHolder = document.createElement('div');
+		    legendHolder.innerHTML = myPie.generateLegend();
+		    // Include a html legend template after the module doughnut itself
+		    document.getElementById("canvas0").parentNode.parentNode.appendChild(legendHolder.firstChild);
+        }
+
+	</script>
+{% endblock %}
