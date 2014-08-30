@@ -9,24 +9,36 @@
 			 <div class="row">
                 <div class="col-md-6 labeled-chart-container" >
                      <div class="dropdown">
-					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						选择年份
-					  <span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        {% for data in paytype_datasets %}
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="paytype_date_change('{{ data.theyear }}')">{{ data.theyear }}</a></li>
-                        {% endfor %}
-					  </ul>
-				</div>
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            选择年份
+                          <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            {% for data in paytype_datasets %}
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="paytype_date_change('{{ data.theyear }}')">{{ data.theyear }}</a></li>
+                            {% endfor %}
+                          </ul>
+                     </div>
                     <div class="canvas-holder">
                         <canvas id="canvas0" height="300" width="600"></canvas>
                     </div>
-
                 </div>
 
-                <div class="col-md-6">
-                    <canvas id="canvas1" height="300" width="600"></canvas>
+                <div class="col-md-6 labeled-chart-container" >
+                     <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            选择年份
+                          <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            {% for data in tickettype_datasets %}
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="tickettype_date_change('{{ data.theyear }}')">{{ data.theyear }}</a></li>
+                            {% endfor %}
+                          </ul>
+                     </div>
+                    <div class="canvas-holder">
+                        <canvas id="canvas1" height="300" width="600"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -55,24 +67,31 @@
 					label: "预付"
 				}
 			];
-        /*
-        var interface_order_data = [
+
+        var ticketype_data = [
 				{
-					value: {{data.0.interface_order_count }},
+					value: {{tickettype_datasets.0.single_order_count}},
 					color:"#F7464A",
 					highlight: "#FF5A5E",
-					label: "接口推送"
+					label: "单票"
 				},
 				{
-					value: {{ data.0.ticket_order_count }} - {{ data.0.interface_order_count }},
+					value: {{tickettype_datasets.0.combine_order_count }},
 					color: "#46BFBD",
 					highlight: "#5AD3D1",
-					label: "手动下单"
+					label: "组合票"
 				},
-			]; */
+                {
+					value: {{tickettype_datasets.0.union_order_count }},
+					color: "#FDB45C",
+					highlight: "#FDB45C",
+					label: "联票"
+				}
+			];
 
 		window.onload = function() {
             draw_paytype_graph();
+            draw_tickettype_graph();
         };
 
         function paytype_date_change(year) {
@@ -92,6 +111,17 @@
 		    legendHolder.innerHTML = myPie.generateLegend();
 		    // Include a html legend template after the module doughnut itself
 		    document.getElementById("canvas0").parentNode.parentNode.appendChild(legendHolder.firstChild);
+        }
+
+        function draw_tickettype_graph() {
+            var ctx = document.getElementById("canvas1").getContext("2d");
+			window.tickettypePie = new Chart(ctx).Pie(ticketype_data, {
+                    }
+            );
+            var legendHolder = document.createElement('div');
+		    legendHolder.innerHTML = tickettypePie.generateLegend();
+		    // Include a html legend template after the module doughnut itself
+		    document.getElementById("canvas1").parentNode.parentNode.appendChild(legendHolder.firstChild);
         }
 
 	</script>
