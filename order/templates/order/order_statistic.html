@@ -16,10 +16,10 @@
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">30天</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">3个月</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">半年</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">1年</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">30天</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">3个月</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', 'halfyear')">半年</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', 'oneyear')">1年</a></li>
                                   </ul>
                              </div>
                          </div>
@@ -30,8 +30,8 @@
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu0">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">按天</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">按月</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_unit', 'day')">按天</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_unit', 'month')">按月</a></li>
                                   </ul>
                              </div>
                          </div>
@@ -42,14 +42,10 @@
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">订单数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">人数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_money')">营收</a></li>
-                                    <li role="presentation" class="divider"></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">手机订单</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">门票订单数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">酒店订单数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">套餐订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','success_order_count')">订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count')">人数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'total_money')">营收</a></li>
+
                                   </ul>
                               </div>
                           </div>
@@ -57,103 +53,81 @@
 				</div>
 			</div>
 			<div>
-			<canvas id="canvas" height="300" width="600"></canvas>
+			<canvas id="canvas" height="300" width="800"></canvas>
 			</div>
 </div>
 {% endblock %}
 {% block javascript %}
 	<script src="{% static "order/js/Chart.js" %}"></script>
 	<script>
-
+        var lineChartData = {
+                datasets : [
+                    {
+                        label: "2014",
+                        fillColor:   "red",
+                        strokeColor: "red",
+                        pointColor:  "red",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "red",
+                        pointDot : false
+                    },
+                    {
+                        label: "2013",
+                        fillColor : "rgba(220,220,220,0.2)",
+                        strokeColor : "rgba(220,220,220,1)",
+                        pointColor : "rgba(220,220,220,1)",
+                        pointStrokeColor : "#fff",
+                        pointHighlightFill : "#fff",
+                        pointHighlightStroke : "rgba(220,220,220,1)",
+                        pointDot : false
+                    }
+                ]};
+        var params = {};
 		window.onload = function() {
                 $.ajax({
                      type: "GET",
-                     url: "/order/json/order_statistic/",
-                     data: {scale_time:'one_year', time_unit:'day', indicator:'people'},
+                     url: "/order/json/order_statistic",
+                     data: {time_scale:'3months', time_unit:'day', indicator:'people_count'},
                      dataType: "json",
-                     success: function(data){
-                                alert(data);
-                                return;
-
-                                /*
-                                var lineChartData = {
-                                        labels : [
-                                        {% for label in x_labels %} "{{  label }}", {% endfor %}
-                                        ],
-                                        datasets : [
-                                            {
-                                                label: "2014",
-                                                fillColor:   "red",
-                                                strokeColor: "red",
-                                                pointColor:  "red",
-                                                pointStrokeColor: "#fff",
-                                                pointHighlightFill: "#fff",
-                                                pointHighlightStroke: "red",
-                                                pointDot : false,
-                                                data :
-                                                [
-                                                {% for item in data0 %}  {{item.people_count}}, {% endfor %}
-                                                ]
-                                            },
-                                            {
-                                                label: "2013",
-                                                fillColor : "rgba(220,220,220,0.2)",
-                                                strokeColor : "rgba(220,220,220,1)",
-                                                pointColor : "rgba(220,220,220,1)",
-                                                pointStrokeColor : "#fff",
-                                                pointHighlightFill : "#fff",
-                                                pointHighlightStroke : "rgba(220,220,220,1)",
-                                                pointDot : false,
-                                                data :
-                                                [
-                                                {% for item in data1 %}  {{item.people_count}}, {% endfor %}
-                                                ]
-                                            }
-                                        ]}; */
-                                  draw_lines();
-                              }
+                     success: deal_resonse_json
                  });
-
-
-
         };
+
+        function deal_resonse_json(respJSON) {
+            if (respJSON.status != 0) {
+                alert('服务器返回错误（status = ' + respJSON.status+", message = " +respJSON.message + ')');
+                return;
+            }
+            params = respJSON.data.params;
+            lineChartData.labels = respJSON.data.x_labels;
+            lineChartData.datasets[0].data = respJSON.data.data0;
+            lineChartData.datasets[0].data.pointDot = false;
+            lineChartData.datasets[1].data = respJSON.data.data1;
+            lineChartData.datasets[0].data.pointDot = false;
+
+            draw_lines({responsive: true,
+                        pointHitDetectionRadius: 1,
+                        datasetFill : false,
+                        pointDot: respJSON.data.pointDot});
+        }
 		
-		function change_dataset(type) {
+		function change_dataset(key, value) {
             //alert(window.myLine);
             window.myLine.destroy();
-            if (type == 'total_people_num') {
-                //alert('people_num');
-                lineChartData.datasets[0].data = total_people_num_datasets[0];
-                lineChartData.datasets[1].data = total_people_num_datasets[1];
-            } else if (type == 'total_money') {
-                lineChartData.datasets[0].data = total_money_datasets[0];
-                lineChartData.datasets[1].data = total_money_datasets[1];
-            } else {
-                lineChartData.datasets[0].data = success_orders_datasets[0];
-                lineChartData.datasets[1].data = success_orders_datasets[1];
-            }
-            draw_lines();
+            params[key] = value;
+            $.ajax({
+                 type: "GET",
+                 url: "/order/json/order_statistic",
+                 data: {time_scale: params.time_scale, time_unit: params.time_unit, indicator: params.indicator},
+                 dataType: "json",
+                 success: deal_resonse_json
+             });
         }
 
-        function draw_lines() {
+        function draw_lines(options) {
             var ctx = document.getElementById("canvas").getContext("2d");
-			window.myLine = new Chart(ctx).Line(lineChartData, {
-                                                    responsive: true,
-			                                        pointHitDetectionRadius: 1,
-                                                    pointDot : {{ show_point }},
-                                                    datasetFill : false,
-                                                    tooltipTemplate: "1",
-                                                    datasetStroke: false,
-                                                    datasetFill: false,
-                                                    legendTemplate : "123",
-                                                    animation: false,
-                                                    showScale: true,
-                                                    scaleLineColor: "red",
-                                                    scaleShowLabels: true,
-                                                    // Interpolated JS string - can access value
-                                                    scaleLabel: "<%=value%>",
-                                                    multiTooltipTemplate: "<%= value/1000 %>"}
-                                                    );
+			window.myLine = new Chart(ctx).Line(lineChartData, options );
             /*
             canvas.onclick = function(evt){
                     var activePoints = window.myLine.getPointsAtEvent(evt);

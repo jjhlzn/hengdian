@@ -1,5 +1,6 @@
 # coding:UTF-8
 
+from datetime import timedelta, date
 from django.shortcuts import render
 from django.http import HttpResponse
 from urlparse import urlparse, parse_qs
@@ -41,52 +42,69 @@ def ticketorder_stat(request):
     return render(request, 'order/ticketorder_stat.html', context)
 
 def order_statistic(request):
-    qs = parse_qs(request.META['QUERY_STRING'])
-    params = {'time_scale': 'one_year', 'time_unit': 'day', 'indicator': 'people'}
-    by_month = get_query_param(qs, 'by_month', '')
-
-    if by_month:
-        context = _order_statistic_by_month(request)
-    else:
-        context = _order_statistic_by_day(request)
-    context['params'] = json.dumps(params)
-    return render(request, 'order/order_statistic.html', context)
-
-def _order_statistic_by_day(request):
-    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"
-    dataset_2013 = get_rows_from_orders(sql)
-    sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-1-1' and order_date <= '2014-12-31' order by order_date"
-    dataset_2014 = get_rows_from_orders(sql)
-    x_lables = [x['order_date'][5:] for x in dataset_2013]
-    return {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'show_point': 'false'}
-
-def _order_statistic_by_month(request):
-    sql = """select _month, SUM(success_order_count) as success_order_count, SUM(people_count) as people_count, SUM(total_money) as total_money from (
-              select MONTH(order_date) as _month, success_order_count, people_count, total_money
-              from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' ) as a group by _month"""
-    dataset_2013 = get_rows_from_orders(sql)
-    sql = """select _month, SUM(success_order_count) as success_order_count, SUM(people_count) as people_count, SUM(total_money) as total_money from (
-              select MONTH(order_date) as _month, success_order_count, people_count, total_money
-              from report.dbo.t_ordersystem_dailyorder where order_date >= '2014-1-1' and order_date <= '2014-12-31' ) as a group by _month"""
-    dataset_2014 = get_rows_from_orders(sql)
-    x_lables = [str(x['_month']) + u'月' for x in dataset_2013]
-    return  {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'show_point': 'true'}
+    return render(request, 'order/order_statistic.html', {})
 
 def order_statistic_json(request):
     qs = parse_qs(request.META['QUERY_STRING'])
-    params = {'time_scale': 'one_year', 'time_unit': 'day', 'indicator': 'people'}
-    by_month = get_query_param(qs, 'by_month', '')
-
-    if by_month:
-        context = _order_statistic_by_month(request)
-    else:
-        context = _order_statistic_by_day(request)
-    context['params'] = json.dumps(params)
+    time_unit = get_query_param(qs, 'time_unit', 'day')
+    time_scale = get_query_param(qs, 'time_scale', 'oneyear')
+    indicator = get_query_param(qs, 'indicator', 'people')
+    params = {'time_scale': time_scale, 'time_unit': time_unit, 'indicator': indicator}
+    context = _order_statistic(time_scale, time_unit)
+    context['data0'] = [int(data[indicator]) for data in context['data0']]
+    context['data1'] = [int(data[indicator]) for data in context['data1']]
+    context['params'] = params
     response_data = {}
     response_data['data'] = context
-    response_data['result'] = 'failed'
-    response_data['message'] = 'You messed up'
+    response_data['status'] = 0
+    response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def _order_statistic(time_scale, time_unit):
+    dataset_2014 = _get_order_data('2014', time_scale, time_unit)
+    dataset_2013 = _get_order_data('2013', time_scale, time_unit)
+    if time_unit == 'day':
+        x_lables = [x['order_date'][5:] for x in dataset_2013]
+        if time_scale == 'oneyear' or time_scale == 'halfyear':
+            pointDot = False
+        else:
+            pointDot = True
+    else:
+        x_lables = [str(x['_month']) + u'月' for x in dataset_2013]
+        pointDot = True
+    return {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'pointDot': pointDot}
+
+def _get_order_data(year, time_scale, time_unit):
+    if time_scale == '30days':
+        today = date.today()
+        days = timedelta(days=30)
+        start_date = (today-days).strftime('%m-%d')
+        end_date = today.strftime('%m-%d')
+    elif time_scale == '3months':
+        today = date.today()
+        days = timedelta(days=90)
+        start_date = (today-days).strftime('%m-%d')
+        end_date = today.strftime('%m-%d')
+    elif time_scale == 'halfyear':
+        today = date.today()
+        days = timedelta(days=181)
+        start_date = (today-days).strftime('%m-%d')
+        end_date = today.strftime('%m-%d')
+    else:
+        start_date = '1-1'
+        end_date = '12-31'
+    start_date = year +'-' + start_date
+    end_date = year+'-' + end_date
+    print start_date
+    print end_date
+    if time_unit == 'month':
+        sql = """select _month, SUM(success_order_count) as success_order_count, SUM(people_count) as people_count, SUM(total_money) as total_money from (
+              select MONTH(order_date) as _month, success_order_count, people_count, total_money
+              from report.dbo.t_ordersystem_dailyorder where order_date >= '%s' and order_date <= '%s' ) as a group by _month"""
+    else:
+        sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '%s' and order_date <= '%s' order by order_date"
+    sql = sql % (start_date, end_date)
+    return get_rows_from_orders(sql)
 
 def get_query_param(qs, name, default):
     return qs.get(name,[default])[0]
