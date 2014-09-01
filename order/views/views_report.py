@@ -1,8 +1,10 @@
 # coding:UTF-8
 
 from django.shortcuts import render
+from django.http import HttpResponse
 from urlparse import urlparse, parse_qs
 import _mssql
+import json
 
 server = '127.0.0.1'
 user = 'sa'
@@ -21,16 +23,6 @@ def get_rows_from_orders(sql, parameter=[]):
     conn.close()
     return data
 
-def order_statistic(request):
-    qs = parse_qs(request.META['QUERY_STRING'])
-    by_month = get_query_param(qs, 'by_month', '')
-
-    if by_month:
-        context = _order_statistic_by_month(request)
-    else:
-        context = _order_statistic_by_day(request)
-    return render(request, 'order/order_statistic.html', context)
-
 def ticketorder_stat(request):
     sql = """select _year as theyear, SUM(paywhencome_order_count) as paywhencome, SUM(paywhenorder_order_count) as paywhenorder from (
              select YEAR(order_date) as _year, paywhencome_order_count, (success_order_count - paywhencome_order_count) as paywhenorder_order_count
@@ -47,6 +39,18 @@ def ticketorder_stat(request):
     context = {"paytype_datasets":paytype_datasets, "tickettype_datasets": tickettype_datasets}
 
     return render(request, 'order/ticketorder_stat.html', context)
+
+def order_statistic(request):
+    qs = parse_qs(request.META['QUERY_STRING'])
+    params = {'time_scale': 'one_year', 'time_unit': 'day', 'indicator': 'people'}
+    by_month = get_query_param(qs, 'by_month', '')
+
+    if by_month:
+        context = _order_statistic_by_month(request)
+    else:
+        context = _order_statistic_by_day(request)
+    context['params'] = json.dumps(params)
+    return render(request, 'order/order_statistic.html', context)
 
 def _order_statistic_by_day(request):
     sql = "select * from report.dbo.t_ordersystem_dailyorder where order_date >= '2013-1-1' and order_date <= '2013-12-31' order by order_date"
@@ -67,6 +71,22 @@ def _order_statistic_by_month(request):
     dataset_2014 = get_rows_from_orders(sql)
     x_lables = [str(x['_month']) + u'月' for x in dataset_2013]
     return  {"data0": dataset_2014, "data1": dataset_2013,  'x_labels': x_lables, 'show_point': 'true'}
+
+def order_statistic_json(request):
+    qs = parse_qs(request.META['QUERY_STRING'])
+    params = {'time_scale': 'one_year', 'time_unit': 'day', 'indicator': 'people'}
+    by_month = get_query_param(qs, 'by_month', '')
+
+    if by_month:
+        context = _order_statistic_by_month(request)
+    else:
+        context = _order_statistic_by_day(request)
+    context['params'] = json.dumps(params)
+    response_data = {}
+    response_data['data'] = context
+    response_data['result'] = 'failed'
+    response_data['message'] = 'You messed up'
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 def get_query_param(qs, name, default):
     return qs.get(name,[default])[0]

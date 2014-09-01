@@ -7,88 +7,115 @@
 {% block content %}
 <div style="width:100%">
 			<div class="row">
-				 <div class="col-md-8"></div>
-				 <div class="col-md-1"></div>
-				 <div class="col-md-1"></div>
-				 <div class="col-md-1"></div>
-				 <div class="dropdown col-md-1">
-					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						指标
-						<span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">订单数</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">人数</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_money')">营收</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">手机订单</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">门票订单数</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">酒店订单数</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">套餐订单数</a></li>
-					  </ul>
+				 <div class="col-md-12">
+                     <div class="row">
+                         <div class="col-md-2">
+                             <div class="dropdown">
+                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                                    选择时间跨度
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">30天</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">3个月</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">半年</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">1年</a></li>
+                                  </ul>
+                             </div>
+                         </div>
+                         <div class="col-md-2">
+                             <div class="dropdown">
+                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu0" data-toggle="dropdown">
+                                    选择时间单位
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu0">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">按天</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">按月</a></li>
+                                  </ul>
+                             </div>
+                         </div>
+                         <div class="col-md-2">
+                             <div class="dropdown">
+                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                    选择指标指标
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('success_order_count')">订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_people_num')">人数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('total_money')">营收</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">手机订单</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">门票订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">酒店订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">套餐订单数</a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                     </div>
 				</div>
 			</div>
 			<div>
 			<canvas id="canvas" height="300" width="600"></canvas>
 			</div>
-
-
 </div>
 {% endblock %}
 {% block javascript %}
 	<script src="{% static "order/js/Chart.js" %}"></script>
 	<script>
-		var lineChartData = {
-			labels : [
-			{% for label in x_labels %} "{{  label }}", {% endfor %}
-			],
-			datasets : [
-				{
-					label: "2014",
-                    fillColor:   "red",
-                    strokeColor: "red",
-                    pointColor:  "red",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "red",
-					pointDot : false,
-					data : 
-					[
-					{% for item in data0 %}  {{item.people_count}}, {% endfor %}
-					]
-				},
-                {
-					label: "2013",
-					fillColor : "rgba(220,220,220,0.2)",
-					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(220,220,220,1)",
-					pointDot : false,
-					data :
-					[
-					{% for item in data1 %}  {{item.people_count}}, {% endfor %}
-					]
-				}
-			]
-		}
-
-		var total_people_num_datasets = [
-                    [{% for item in data0 %} {{item.people_count}}, {% endfor %}],
-                    [{% for item in data1 %} {{item.people_count}}, {% endfor %}]
-		];
-        var success_orders_datasets = [
-					[{% for item in data0 %}  {{item.success_order_count}}, {% endfor %}],
-                    [{% for item in data1 %}  {{item.success_order_count}}, {% endfor %}]
-		];
-        var total_money_datasets = [
-					[{% for item in data0 %}  {{item.total_money}}, {% endfor %}],
-                    [{% for item in data1 %}  {{item.total_money}}, {% endfor %}]
-		];
 
 		window.onload = function() {
-            draw_lines();
+                $.ajax({
+                     type: "GET",
+                     url: "/order/json/order_statistic/",
+                     data: {scale_time:'one_year', time_unit:'day', indicator:'people'},
+                     dataType: "json",
+                     success: function(data){
+                                alert(data);
+                                return;
+
+                                /*
+                                var lineChartData = {
+                                        labels : [
+                                        {% for label in x_labels %} "{{  label }}", {% endfor %}
+                                        ],
+                                        datasets : [
+                                            {
+                                                label: "2014",
+                                                fillColor:   "red",
+                                                strokeColor: "red",
+                                                pointColor:  "red",
+                                                pointStrokeColor: "#fff",
+                                                pointHighlightFill: "#fff",
+                                                pointHighlightStroke: "red",
+                                                pointDot : false,
+                                                data :
+                                                [
+                                                {% for item in data0 %}  {{item.people_count}}, {% endfor %}
+                                                ]
+                                            },
+                                            {
+                                                label: "2013",
+                                                fillColor : "rgba(220,220,220,0.2)",
+                                                strokeColor : "rgba(220,220,220,1)",
+                                                pointColor : "rgba(220,220,220,1)",
+                                                pointStrokeColor : "#fff",
+                                                pointHighlightFill : "#fff",
+                                                pointHighlightStroke : "rgba(220,220,220,1)",
+                                                pointDot : false,
+                                                data :
+                                                [
+                                                {% for item in data1 %}  {{item.people_count}}, {% endfor %}
+                                                ]
+                                            }
+                                        ]}; */
+                                  draw_lines();
+                              }
+                 });
+
+
+
         };
 		
 		function change_dataset(type) {
