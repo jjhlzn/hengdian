@@ -4,25 +4,9 @@ from datetime import timedelta, date
 from django.shortcuts import render
 from django.http import HttpResponse
 from urlparse import urlparse, parse_qs
-import _mssql
+from ..httputils import *
+from ..dbutils import  *
 import json
-
-server = '127.0.0.1'
-user = 'sa'
-password = '123456'
-
-def get_connection():
-    conn = _mssql.connect(server=server, user=user, password=password, database='hdbusiness', charset="utf8")
-    return conn
-
-def get_rows_from_orders(sql, parameter=[]):
-    data = []
-    conn = get_connection()
-    conn.execute_query(sql, parameter)
-    for row in conn:
-        data.append(row)
-    conn.close()
-    return data
 
 def ticketorder_stat(request):
     sql = """select _year as theyear, SUM(paywhencome_order_count) as paywhencome, SUM(paywhenorder_order_count) as paywhenorder from (
@@ -106,6 +90,5 @@ def _get_order_data(year, time_scale, time_unit):
     sql = sql % (start_date, end_date)
     return get_rows_from_orders(sql)
 
-def get_query_param(qs, name, default):
-    return qs.get(name,[default])[0]
+
 
