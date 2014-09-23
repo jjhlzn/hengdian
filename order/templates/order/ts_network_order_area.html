@@ -9,99 +9,83 @@
 			<div class="row">
 				 <div class="col-md-12">
                      <div class="row">
-                         <div class="col-md-2">
+                         <div class="col-md-3">
                              <div class="dropdown">
                                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                    选择时间跨度
+                                    选择年份
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">30天</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">3个月</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', 'halfyear')">半年</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', 'oneyear')">1年</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">2014</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">2013</a></li>
                                   </ul>
                              </div>
                          </div>
-                         <div class="col-md-2">
+                         <div class="col-md-3">
                              <div class="dropdown">
-                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu0" data-toggle="dropdown">
-                                    选择时间单位
+                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
+                                    按省份还是城市
                                     <span class="caret"></span>
                                   </button>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu0">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_unit', 'day')">按天</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_unit', 'month')">按月</a></li>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">省份</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">城市</a></li>
                                   </ul>
                              </div>
                          </div>
-                         <div class="col-md-2">
+                         <div class="col-md-3">
                              <div class="dropdown">
                                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                     选择指标指标
                                     <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','success_order_count')">订单数</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','success_order_count')">营收</a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count')">人数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'total_money')">营收</a></li>
-
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="col-md-2">
-                             <div class="dropdown">
-                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
-                                    选择是否累积
-                                    <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('accumulative','0')">不累积</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('accumulative', '1')">累积</a></li>
-
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'total_money')">订单数</a></li>
                                   </ul>
                               </div>
                           </div>
                      </div>
 				</div>
 			</div>
-			<div>
-			<canvas id="canvas" height="300" width="800"></canvas>
+			<div class="row">
+                <div class="col-md-6 labeled-chart-container">
+                    <div class="canvas-holder">
+                         <canvas id="canvas" height="150" width="300"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 labeled-chart-container">
+                    <div class="canvas-holder">
+                         <canvas id="canvas1" height="150" width="300"></canvas>
+                    </div>
+                </div>
 			</div>
+            <div class="row">
+                <div class="col-md-6 labeled-chart-container">
+                    <table id="table_province">
+
+                    </table>
+                </div>
+                <div class="col-md-6 labeled-chart-container">
+                    <table id="table_city">
+
+                    </table>
+                </div>
+            </div>
 </div>
 {% endblock %}
 {% block javascript %}
 	<script src="{% static "order/js/Chart.js" %}"></script>
 	<script>
-        var lineChartData = {
-                datasets : [
-                    {
-                        label: "2014",
-                        fillColor:   "rgb(229, 249, 254)",
-                        strokeColor: "rgb(0, 204, 255)",
-                        pointColor:  "rgb(0, 204, 255)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "red",
-                        pointDot : false
-                    },
-                    {
-                        label: "2013",
-                        fillColor : "rgb(230, 241, 233)",
-                        strokeColor : "rgb(255, 187, 51)",
-                        pointColor : "rgb(255, 187, 51)",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        pointDot : false
-                    }
-                ]};
+        var datasets = {}
+        var datasets1 = {}
         var params = {};
 		window.onload = function() {
                 $.ajax({
                      type: "GET",
-                     url: "/order/json/ts_order_stat",
-                     data: {time_scale:'3months', time_unit:'day', indicator:'people_count', 'accumulative': 0},
+                     url: "/order/json/ts_network_order_area",
+                     data: {year:'3months', indicator:'people_count'},
                      dataType: "json",
                      success: deal_resonse_json
                  });
@@ -113,11 +97,8 @@
                 return;
             }
             params = respJSON.data.params;
-            lineChartData.labels = respJSON.data.x_labels;
-            lineChartData.datasets[0].data = respJSON.data.data0;
-            lineChartData.datasets[0].data.pointDot = false;
-            lineChartData.datasets[1].data = respJSON.data.data1;
-            lineChartData.datasets[0].data.pointDot = false;
+            datasets = respJSON.data.datasets;
+            datasets1 = respJSON.data.datasets1;
 
             draw_lines({responsive: true,
                         pointHitDetectionRadius: 1,
@@ -127,7 +108,7 @@
 		
 		function change_dataset(key, value) {
             //alert(window.myLine);
-            window.myLine.destroy();
+            window.pie.destroy();
             params[key] = value;
             $.ajax({
                  type: "GET",
@@ -140,13 +121,32 @@
 
         function draw_lines(options) {
             var ctx = document.getElementById("canvas").getContext("2d");
-			window.myLine = new Chart(ctx).Line(lineChartData, options );
-            /*
-            canvas.onclick = function(evt){
-                    var activePoints = window.myLine.getPointsAtEvent(evt);
-                    alert(activePoints);
-                     // => activePoints is an array of points on the canvas that are at the same position as the click event.
-            };*/
+			window.pie = new Chart(ctx).Pie(datasets, options );
+
+            var legendHolder = document.createElement('div');
+		    legendHolder.innerHTML = pie.generateLegend();
+		    // Include a html legend template after the module doughnut itself
+		    document.getElementById("canvas").parentNode.parentNode.appendChild(legendHolder.firstChild);
+
+            var table1 = document.getElementById('table_province');
+            for(var i = 0; i < datasets.length; i++ ) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                td1.innerHTML = datasets[i].label;
+                var td2 = document.createElement('td');
+                td2.innerHTML = datasets[i].value;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table1.appendChild(tr);
+            }
+
+            ctx1 = document.getElementById("canvas1").getContext("2d");
+			window.pie1 = new Chart(ctx1).Pie(datasets1, options );
+
+            legendHolder = document.createElement('div');
+		    legendHolder.innerHTML = pie1.generateLegend();
+		    // Include a html legend template after the module doughnut itself
+		    document.getElementById("canvas1").parentNode.parentNode.appendChild(legendHolder.firstChild);
         }
 
 	</script>

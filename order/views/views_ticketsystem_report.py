@@ -8,7 +8,6 @@ import json
 from ..httputils import *
 from ..dbutils import  *
 
-
 def ts_order_stat(request):
      return render(request, 'order/ts_order_stat.html', {})
 
@@ -106,3 +105,60 @@ def ticketorder_stat(request):
     context = {"paytype_datasets":paytype_datasets, "tickettype_datasets": tickettype_datasets}
 
     return render(request, 'order/ticketorder_stat.html', context)
+
+def network_order_area(request):
+    return render(request, 'order/ts_network_order_area.html')
+
+
+AREA_TYPE_PROVINCE = 'province'
+AREA_TYPE_CITY = 'city'
+
+def network_order_area_json(request):
+    province_datasets = _network_order_area_json(request, AREA_TYPE_PROVINCE)
+    city_datasets = _network_order_area_json(request, AREA_TYPE_CITY)
+    context = {'datasets': province_datasets, 'datasets1': city_datasets}
+    response_data = {}
+    response_data['data'] = context
+    response_data['status'] = 0
+    response_data['message'] = 'success'
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def _network_order_area_json(request, area_type):
+    filed_name = 'province'
+    if area_type == AREA_TYPE_CITY:
+        filed_name = 'city'
+    sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, SUM(DAmount) as total_money FROM (
+            SELECT a.Sellid, DTel, a.DDjNumber, a.DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
+            FROM iccard14.dbo.v_tbdTravelOk a inner join iccard14.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
+            WHERE a. Flag in (0,1) and
+            exists(select * from iccard14.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
+            and DComeDate >= '2014-1-1') as a
+            GROUP BY %s
+            order by total_money desc""" % (filed_name, filed_name, filed_name, filed_name)
+    rows = get_rows_from_orders(sql)
+    colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#B03060', '#CDC673', '#EEE8CD']
+    datasets = []
+    other = {filed_name: '其他', 'order_count': 0, 'people_count': 0, 'total_money': 0, 'color': colors[-1]}
+
+    index = 1
+    topN = 9
+    for row in rows:
+        province = row[filed_name]
+        if index >  topN:
+            other['order_count'] += row['order_count']
+            other['people_count'] += row['people_count']
+            other['total_money'] += row['total_money']
+        else:
+            row['color'] = colors[index-1]
+            datasets.append(row)
+        index += 1
+    datasets.append(other)
+    datasets = map(lambda(item): {  \
+                    'value':  int(item['total_money']), \
+					'color':  item['color'], \
+					'highlight': item['color'], \
+					'label': item[filed_name] if  item[filed_name] is not None else u'未知'\
+				 }, datasets)
+    return datasets
+
+
