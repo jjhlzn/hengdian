@@ -1,5 +1,5 @@
 # coding:UTF-8
-
+from __future__ import division
 from datetime import timedelta, date
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -7,6 +7,7 @@ from urlparse import urlparse, parse_qs
 import json
 from ..httputils import *
 from ..dbutils import  *
+
 
 def ts_order_stat(request):
      return render(request, 'order/ts_order_stat.html', {})
@@ -115,19 +116,19 @@ AREA_TYPE_CITY = 'city'
 
 def network_order_area_json(request):
     province_datasets = _network_order_area_json(request, AREA_TYPE_PROVINCE)
-    city_datasets = _network_order_area_json(request, AREA_TYPE_CITY)
-    context = {'datasets': province_datasets, 'datasets1': city_datasets}
+    city_datasets = _network_order_area_json(request, AREA_TYPE_CITY, 16)
+    context = {'datasets': province_datasets[0], 'datasets_src': province_datasets[1], 'datasets1': city_datasets[0], 'datasets1_src': city_datasets[1]}
     response_data = {}
     response_data['data'] = context
     response_data['status'] = 0
     response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-def _network_order_area_json(request, area_type):
+def _network_order_area_json(request, area_type,  topN = 9):
     filed_name = 'province'
     if area_type == AREA_TYPE_CITY:
         filed_name = 'city'
-    sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, SUM(DAmount) as total_money FROM (
+    sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
             SELECT a.Sellid, DTel, a.DDjNumber, a.DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
             FROM iccard14.dbo.v_tbdTravelOk a inner join iccard14.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
             WHERE a. Flag in (0,1) and
@@ -135,13 +136,23 @@ def _network_order_area_json(request, area_type):
             and DComeDate >= '2014-1-1') as a
             GROUP BY %s
             order by total_money desc""" % (filed_name, filed_name, filed_name, filed_name)
+
     rows = get_rows_from_orders(sql)
-    colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#B03060', '#CDC673', '#EEE8CD']
+    total = reduce(lambda x, y: x + y, map(lambda item: item['total_money'], rows) )
+    for row in rows:
+        row['percent'] = "{0:.3f}".format(row['total_money'] / total * 100) + '%'
+        row['label'] = row[filed_name]
+        row['value'] = row['total_money']
+        if row['label'] is None:
+            row['label'] = u'未知'
+
+    colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#CD69C9', '#CDC673', '#EEE8CD',
+              '#CD919E', '#C1CDC1', '#8B8878', '#7F7F7F', '#607B8B', '#4682B4', '#8C8C8C']
     datasets = []
     other = {filed_name: '其他', 'order_count': 0, 'people_count': 0, 'total_money': 0, 'color': colors[-1]}
 
     index = 1
-    topN = 9
+
     for row in rows:
         province = row[filed_name]
         if index >  topN:
@@ -159,6 +170,7 @@ def _network_order_area_json(request, area_type):
 					'highlight': item['color'], \
 					'label': item[filed_name] if  item[filed_name] is not None else u'未知'\
 				 }, datasets)
-    return datasets
+
+    return [datasets, rows]
 
 

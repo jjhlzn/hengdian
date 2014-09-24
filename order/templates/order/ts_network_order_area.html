@@ -9,7 +9,7 @@
 			<div class="row">
 				 <div class="col-md-12">
                      <div class="row">
-                         <div class="col-md-3">
+                         <div class="col-md-6">
                              <div class="dropdown">
                                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
                                     选择年份
@@ -21,19 +21,7 @@
                                   </ul>
                              </div>
                          </div>
-                         <div class="col-md-3">
-                             <div class="dropdown">
-                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
-                                    按省份还是城市
-                                    <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">省份</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">城市</a></li>
-                                  </ul>
-                             </div>
-                         </div>
-                         <div class="col-md-3">
+                         <div class="col-md-6">
                              <div class="dropdown">
                                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                     选择指标指标
@@ -63,12 +51,12 @@
 			</div>
             <div class="row">
                 <div class="col-md-6 labeled-chart-container">
-                    <table id="table_province">
+                    <table id="table_province" width="100%">
 
                     </table>
                 </div>
-                <div class="col-md-6 labeled-chart-container">
-                    <table id="table_city">
+                <div class="col-md-6 labeled-chart-container" >
+                    <table id="table_city" width="100%">
 
                     </table>
                 </div>
@@ -79,7 +67,9 @@
 	<script src="{% static "order/js/Chart.js" %}"></script>
 	<script>
         var datasets = {}
+        var datasets_src;
         var datasets1 = {}
+        var datasets1_src;
         var params = {};
 		window.onload = function() {
                 $.ajax({
@@ -98,7 +88,9 @@
             }
             params = respJSON.data.params;
             datasets = respJSON.data.datasets;
+            datasets_src = respJSON.data.datasets_src;
             datasets1 = respJSON.data.datasets1;
+            datasets1_src = respJSON.data.datasets1_src;
 
             draw_lines({responsive: true,
                         pointHitDetectionRadius: 1,
@@ -129,14 +121,17 @@
 		    document.getElementById("canvas").parentNode.parentNode.appendChild(legendHolder.firstChild);
 
             var table1 = document.getElementById('table_province');
-            for(var i = 0; i < datasets.length; i++ ) {
+            for(var i = 0; i < datasets_src.length; i++ ) {
                 var tr = document.createElement('tr');
                 var td1 = document.createElement('td');
-                td1.innerHTML = datasets[i].label;
+                td1.innerHTML = datasets_src[i].label;
                 var td2 = document.createElement('td');
-                td2.innerHTML = datasets[i].value;
+                td2.innerHTML = datasets_src[i].value;
+                var td3 = document.createElement('td');
+                td3.innerHTML = datasets_src[i].percent;
                 tr.appendChild(td1);
                 tr.appendChild(td2);
+                tr.appendChild(td3);
                 table1.appendChild(tr);
             }
 
@@ -147,6 +142,21 @@
 		    legendHolder.innerHTML = pie1.generateLegend();
 		    // Include a html legend template after the module doughnut itself
 		    document.getElementById("canvas1").parentNode.parentNode.appendChild(legendHolder.firstChild);
+
+            table1 = document.getElementById('table_city');
+            for(var i = 0; i < datasets1_src.length; i++ ) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                td1.innerHTML = datasets1_src[i].label;
+                var td2 = document.createElement('td');
+                td2.innerHTML = datasets1_src[i].value;
+                var td3 = document.createElement('td');
+                td3.innerHTML = datasets1_src[i].percent;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                table1.appendChild(tr);
+            }
         }
 
 	</script>
