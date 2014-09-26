@@ -115,34 +115,42 @@ AREA_TYPE_PROVINCE = 'province'
 AREA_TYPE_CITY = 'city'
 
 def network_order_area_json(request):
-    province_datasets = _network_order_area_json(request, AREA_TYPE_PROVINCE)
-    city_datasets = _network_order_area_json(request, AREA_TYPE_CITY, 16)
-    context = {'datasets': province_datasets[0], 'datasets_src': province_datasets[1], 'datasets1': city_datasets[0], 'datasets1_src': city_datasets[1]}
+    qs = parse_qs(request.META['QUERY_STRING'])
+    year = get_query_param(qs, 'year', '2014')
+    indicator = get_query_param(qs, 'indicator', 'total_money')
+    print indicator
+    params = {'year':year, 'indicator': indicator}
+    province_datasets = _network_order_area_json(year, indicator, AREA_TYPE_PROVINCE)
+    city_datasets = _network_order_area_json(year, indicator, AREA_TYPE_CITY, 16)
+    context = {'datasets': province_datasets[0], 'datasets_src': province_datasets[1], \
+               'datasets1': city_datasets[0], 'datasets1_src': city_datasets[1], 'params': params}
     response_data = {}
     response_data['data'] = context
     response_data['status'] = 0
     response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-def _network_order_area_json(request, area_type,  topN = 9):
+def _network_order_area_json(year, indicator, area_type,  topN = 9):
     filed_name = 'province'
+    database = 'iccard14'
     if area_type == AREA_TYPE_CITY:
         filed_name = 'city'
+    if year == '2013':
+        database = 'iccard13'
     sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
             SELECT a.Sellid, DTel, a.DDjNumber, a.DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
-            FROM iccard14.dbo.v_tbdTravelOk a inner join iccard14.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
+            FROM %s.dbo.v_tbdTravelOk a inner join %s.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
             WHERE a. Flag in (0,1) and
-            exists(select * from iccard14.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
-            and DComeDate >= '2014-1-1') as a
+            exists(select * from %s.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
+            and DComeDate >= '%s-1-1' and DComeDate <= '%s-12-31') as a
             GROUP BY %s
-            order by total_money desc""" % (filed_name, filed_name, filed_name, filed_name)
-
+            order by total_money desc""" % (filed_name, filed_name, filed_name, database, database, database,  year, year, filed_name)
     rows = get_rows_from_orders(sql)
-    total = reduce(lambda x, y: x + y, map(lambda item: item['total_money'], rows) )
+    total = reduce(lambda x, y: x + y, map(lambda item: item[indicator], rows) )
     for row in rows:
-        row['percent'] = "{0:.3f}".format(row['total_money'] / total * 100) + '%'
+        row['percent'] = "{0:.3f}".format(row[indicator] / total * 100) + '%'
         row['label'] = row[filed_name]
-        row['value'] = row['total_money']
+        row['value'] = row[indicator]
         if row['label'] is None:
             row['label'] = u'未知'
 
@@ -165,7 +173,7 @@ def _network_order_area_json(request, area_type,  topN = 9):
         index += 1
     datasets.append(other)
     datasets = map(lambda(item): {  \
-                    'value':  int(item['total_money']), \
+                    'value':  int(item[indicator]), \
 					'color':  item['color'], \
 					'highlight': item['color'], \
 					'label': item[filed_name] if  item[filed_name] is not None else u'未知'\
@@ -174,3 +182,8 @@ def _network_order_area_json(request, area_type,  topN = 9):
     return [datasets, rows]
 
 
+def network_order_area_compare(request):
+    pass
+
+def network_order_area_compare_json(request):
+    pass

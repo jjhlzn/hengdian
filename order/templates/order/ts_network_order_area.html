@@ -2,42 +2,43 @@
 {% load static from staticfiles %}
 {% load hengdian_extras %}
 
-{% block title %}订单统计{% endblock %}
+{% block title %}网络订单区域分析{% endblock %}
 
 {% block content %}
 <div style="width:100%">
-			<div class="row">
-				 <div class="col-md-12">
-                     <div class="row">
-                         <div class="col-md-6">
-                             <div class="dropdown">
-                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                    选择年份
-                                    <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '30days')">2014</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('time_scale', '3months')">2013</a></li>
-                                  </ul>
-                             </div>
+        <div class="row">
+             <div class="col-md-12">
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                                选择年份
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2014')">2014</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2013')">2013</a></li>
+                              </ul>
                          </div>
-                         <div class="col-md-6">
-                             <div class="dropdown">
-                                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                    选择指标指标
-                                    <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','success_order_count')">营收</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count')">人数</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'total_money')">订单数</a></li>
-                                  </ul>
-                              </div>
-                          </div>
                      </div>
-				</div>
-			</div>
-			<div class="row">
+                     <div class="col-md-4">
+                         <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                选择指标指标
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','total_money')">营收</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count')">人数</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'order_count')">订单数</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+        </div>
+        <div>
+            <div class="row">
                 <div class="col-md-6 labeled-chart-container">
                     <div class="canvas-holder">
                          <canvas id="canvas" height="150" width="300"></canvas>
@@ -48,7 +49,7 @@
                          <canvas id="canvas1" height="150" width="300"></canvas>
                     </div>
                 </div>
-			</div>
+            </div>
             <div class="row">
                 <div class="col-md-6 labeled-chart-container">
                     <table id="table_province" width="100%">
@@ -61,6 +62,7 @@
                     </table>
                 </div>
             </div>
+        </div>
 </div>
 {% endblock %}
 {% block javascript %}
@@ -75,7 +77,7 @@
                 $.ajax({
                      type: "GET",
                      url: "/order/json/ts_network_order_area",
-                     data: {year:'3months', indicator:'people_count'},
+                     data: {year:'2014', indicator:'total_money'},
                      dataType: "json",
                      success: deal_resonse_json
                  });
@@ -99,28 +101,33 @@
         }
 		
 		function change_dataset(key, value) {
-            //alert(window.myLine);
             window.pie.destroy();
+            window.pie1.destroy();
+            document.getElementById('table_province').innerHTML = "";
+            document.getElementById('table_city').innerHTML = "";
             params[key] = value;
+            $("ul.pie-legend").remove();
             $.ajax({
                  type: "GET",
-                 url: "/order/json/ts_order_stat",
-                 data: {time_scale: params.time_scale, time_unit: params.time_unit, indicator: params.indicator, accumulative: params.accumulative},
+                 url: "/order/json/ts_network_order_area",
+                 data: {year: params.year,  indicator: params.indicator},
                  dataType: "json",
                  success: deal_resonse_json
              });
         }
 
-        function draw_lines(options) {
-            var ctx = document.getElementById("canvas").getContext("2d");
-			window.pie = new Chart(ctx).Pie(datasets, options );
+        function draw_graph(canvas_id, datasets, datasets_src, graph_name, table_id, options) {
+            var ctx = document.getElementById(canvas_id).getContext("2d");
+			window[graph_name] = new Chart(ctx).Pie(datasets, options );
 
-            var legendHolder = document.createElement('div');
-		    legendHolder.innerHTML = pie.generateLegend();
+            var legendHolder = $("<div id='" + canvas_id + "_legend'>")[0];
+		    legendHolder.innerHTML = window[graph_name].generateLegend();
 		    // Include a html legend template after the module doughnut itself
-		    document.getElementById("canvas").parentNode.parentNode.appendChild(legendHolder.firstChild);
 
-            var table1 = document.getElementById('table_province');
+		    document.getElementById(canvas_id).parentNode.parentNode.appendChild(legendHolder.firstChild);
+
+            var table1 = document.getElementById(table_id);
+
             for(var i = 0; i < datasets_src.length; i++ ) {
                 var tr = document.createElement('tr');
                 var td1 = document.createElement('td');
@@ -134,29 +141,11 @@
                 tr.appendChild(td3);
                 table1.appendChild(tr);
             }
+        }
 
-            ctx1 = document.getElementById("canvas1").getContext("2d");
-			window.pie1 = new Chart(ctx1).Pie(datasets1, options );
-
-            legendHolder = document.createElement('div');
-		    legendHolder.innerHTML = pie1.generateLegend();
-		    // Include a html legend template after the module doughnut itself
-		    document.getElementById("canvas1").parentNode.parentNode.appendChild(legendHolder.firstChild);
-
-            table1 = document.getElementById('table_city');
-            for(var i = 0; i < datasets1_src.length; i++ ) {
-                var tr = document.createElement('tr');
-                var td1 = document.createElement('td');
-                td1.innerHTML = datasets1_src[i].label;
-                var td2 = document.createElement('td');
-                td2.innerHTML = datasets1_src[i].value;
-                var td3 = document.createElement('td');
-                td3.innerHTML = datasets1_src[i].percent;
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                table1.appendChild(tr);
-            }
+        function draw_lines(options) {
+            draw_graph('canvas', datasets, datasets_src,'pie', 'table_province', options);
+            draw_graph('canvas1', datasets1, datasets1_src, 'pie1', 'table_city', options);
         }
 
 	</script>
