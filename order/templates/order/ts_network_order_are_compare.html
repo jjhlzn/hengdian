@@ -1,0 +1,21 @@
+{% extends "order/base_generic.html" %}
+{% load static from staticfiles %}
+
+{% block title %} 网络订单区域分析 {% endblock %}
+
+{% block content %}
+
+<div style="width:100%">
+    <div class="row">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static "order/js/Chart.js" %}"></script>
+<script>
+
+</script>
+{% endblock %}

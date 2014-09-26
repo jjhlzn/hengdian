@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     url(r'^json/ts_order_stat$', views_ticketsystem_report.order_statistic_json, name='ts_order_stat_json'),
     url(r'^ts_network_order_area', views_ticketsystem_report.network_order_area, name='ts_network_order_area'),
     url(r'^json/ts_network_order_area$', views_ticketsystem_report.network_order_area_json, name='ts_network_order_area_json'),
+    url(r'^ts_network_order_area_compare', views_ticketsystem_report.network_order_area_compare, name='ts_network_order_area_compare'),
+    url(r'^json/ts_network_order_area_compare$', views_ticketsystem_report.network_order_area_compare_json, name='ts_network_order_area_compare_json'),
     url(r'^order_search$', views_search.order_search, name='order_search'),
 )
