@@ -7,6 +7,7 @@ from urlparse import urlparse, parse_qs
 import json
 from ..httputils import *
 from ..dbutils import  *
+from order.models.network_order_area_report import NetworkOrderAreaReport
 
 
 def ts_order_stat(request):
@@ -120,8 +121,9 @@ def network_order_area_json(request):
     indicator = get_query_param(qs, 'indicator', 'total_money')
     print indicator
     params = {'year':year, 'indicator': indicator}
-    province_datasets = _network_order_area_json(year, indicator, AREA_TYPE_PROVINCE)
-    city_datasets = _network_order_area_json(year, indicator, AREA_TYPE_CITY, 16)
+    service = NetworkOrderAreaReport()
+    province_datasets = service.get_report(year, AREA_TYPE_PROVINCE, indicator)
+    city_datasets = service.get_report(year, AREA_TYPE_CITY, indicator, topN=16)
     context = {'datasets': province_datasets[0], 'datasets_src': province_datasets[1], \
                'datasets1': city_datasets[0], 'datasets1_src': city_datasets[1], 'params': params}
     response_data = {}
@@ -129,58 +131,6 @@ def network_order_area_json(request):
     response_data['status'] = 0
     response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-def _network_order_area_json(year, indicator, area_type,  topN = 9):
-    filed_name = 'province'
-    database = 'iccard14'
-    if area_type == AREA_TYPE_CITY:
-        filed_name = 'city'
-    if year == '2013':
-        database = 'iccard13'
-    sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
-            SELECT a.Sellid, DTel, a.DDjNumber, a.DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
-            FROM %s.dbo.v_tbdTravelOk a inner join %s.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
-            WHERE a. Flag in (0,1) and
-            exists(select * from %s.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
-            and DComeDate >= '%s-1-1' and DComeDate <= '%s-12-31') as a
-            GROUP BY %s
-            order by total_money desc""" % (filed_name, filed_name, filed_name, database, database, database,  year, year, filed_name)
-    rows = get_rows_from_orders(sql)
-    total = reduce(lambda x, y: x + y, map(lambda item: item[indicator], rows) )
-    for row in rows:
-        row['percent'] = "{0:.3f}".format(row[indicator] / total * 100) + '%'
-        row['label'] = row[filed_name]
-        row['value'] = row[indicator]
-        if row['label'] is None:
-            row['label'] = u'未知'
-
-    colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#CD69C9', '#CDC673', '#EEE8CD',
-              '#CD919E', '#C1CDC1', '#8B8878', '#7F7F7F', '#607B8B', '#4682B4', '#8C8C8C']
-    datasets = []
-    other = {filed_name: '其他', 'order_count': 0, 'people_count': 0, 'total_money': 0, 'color': colors[-1]}
-
-    index = 1
-
-    for row in rows:
-        province = row[filed_name]
-        if index >  topN:
-            other['order_count'] += row['order_count']
-            other['people_count'] += row['people_count']
-            other['total_money'] += row['total_money']
-        else:
-            row['color'] = colors[index-1]
-            datasets.append(row)
-        index += 1
-    datasets.append(other)
-    datasets = map(lambda(item): {  \
-                    'value':  int(item[indicator]), \
-					'color':  item['color'], \
-					'highlight': item['color'], \
-					'label': item[filed_name] if  item[filed_name] is not None else u'未知'\
-				 }, datasets)
-
-    return [datasets, rows]
-
 
 def network_order_area_compare(request):
     pass
