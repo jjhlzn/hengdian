@@ -63,7 +63,7 @@ class NetworkOrderAreaReport:
     def get_sql(self, year, field_name, database, indicator, is_real_sell_info = False, is_consider_return  = False):
         if is_real_sell_info:
             sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
-                    SELECT a.Sellid, DTel, c.DSjNumber as DDjNumber, c.DSjAmount as DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
+                    SELECT a.Sellid, DTel, c.DSjNumber as DDjNumber, (c.DSjAmount - c.DSjYhAmount) as DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
                     FROM %s.dbo.v_tbdTravelOk a inner join %s.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
                     inner join %s.dbo.v_tbdTravelOkOther c on a.SellID = c.SellID
                     WHERE a. Flag = 1 and
