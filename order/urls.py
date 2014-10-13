@@ -5,7 +5,8 @@ from order.views import views_search
 from order.views import views_ticketsystem_report
 
 urlpatterns = patterns('',
-    url(r'^$', views_report.order_statistic, name='order_statistic'),
+    #url(r'^$', views_report.order_statistic, name='order_statistic'),
+     url(r'^$', views_ticketsystem_report.network_order_area, name='ts_network_order_area'),
     url(r'^order_statistic$',views_report.order_statistic, name='order_statistic'),
     url(r'^ticketorder_stat',views_report.ticketorder_stat, name='ticketorder_stat'),
     url(r'^json/order_statistic$',views_report.order_statistic_json, name='order_statistic_json'),

@@ -1,10 +1,15 @@
 import _mssql
 
-server = '192.168.1.110'
+#server = '192.168.1.110'
 #server = '10.1.87.110'
+#user = 'sa'
+#password = 'hdapp@)!@'
+#ticket_server = 'TicketServer'
+
+server = '127.0.0.1'
 user = 'sa'
-password = 'hdapp@)!@'
-ticket_server = 'TicketServer'
+password = '123456'
+ticket_server = ''
 
 __author__ = 'jjh'
 

@@ -30,8 +30,8 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','total_money', '营收')">营收</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count', '人数')">人数</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','total_money', '营收')">营收</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'order_count', '订单数')">订单数</a></li>
                               </ul>
                               <span id="lbl_indicator">营收</span>
@@ -92,7 +92,7 @@
         var params = {};
 		window.onload = function() {
                 params['year'] = '2014'
-                params['indicator'] = 'total_money'
+                params['indicator'] = 'people_count'
                 params['is_real_sell_info'] = '0'
                 $.ajax({
                      type: "GET",
@@ -102,8 +102,6 @@
                      success: deal_resonse_json
                  });
         };
-
-
 
         function deal_resonse_json(respJSON) {
             if (respJSON.status != 0) {

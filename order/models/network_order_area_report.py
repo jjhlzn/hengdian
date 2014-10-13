@@ -57,7 +57,7 @@ class NetworkOrderAreaReport:
                         'highlight': item['color'], \
                         'label': item[field_name] if  item[field_name] is not None else u'未知'\
                      }, datasets)
-
+        rows.append({'percent': '100%', 'label': '总和', 'value': total})
         return [datasets, rows]
 
     def get_sql(self, year, field_name, database, indicator, is_real_sell_info = False, is_consider_return  = False):
