@@ -16,10 +16,11 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2014')">2014</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2013')">2013</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2012')">2012</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2014', '2014')">2014</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2013', '2013')">2013</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('year', '2012', '2012')">2012</a></li>
                               </ul>
+                              <span id="lbl_year">2014年</span>
                          </div>
                      </div>
                      <div class="col-md-4">
@@ -29,10 +30,11 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','total_money')">营收</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count')">人数</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'order_count')">订单数</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator','total_money', '营收')">营收</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'people_count', '人数')">人数</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('indicator', 'order_count', '订单数')">订单数</a></li>
                               </ul>
+                              <span id="lbl_indicator">营收</span>
                           </div>
                       </div>
 
@@ -43,9 +45,10 @@
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info','0')">否</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info', '1')">是</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info','0', '否')">否</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info', '1', '是')">是</a></li>
                               </ul>
+                             <span id="lbl_is_real_sell_info">否</span>
                           </div>
                       </div>
                  </div>
@@ -88,14 +91,19 @@
         var datasets1_src;
         var params = {};
 		window.onload = function() {
+                params['year'] = '2014'
+                params['indicator'] = 'total_money'
+                params['is_real_sell_info'] = '0'
                 $.ajax({
                      type: "GET",
                      url: "/order/json/ts_network_order_area",
-                     data: {year:'2014', indicator:'total_money', is_real_sell_info: "0"},
+                     data: {year: params['year'], indicator: params['indicator'], is_real_sell_info: params['is_real_sell_info']},
                      dataType: "json",
                      success: deal_resonse_json
                  });
         };
+
+
 
         function deal_resonse_json(respJSON) {
             if (respJSON.status != 0) {
@@ -114,12 +122,13 @@
                         pointDot: respJSON.data.pointDot});
         }
 		
-		function change_dataset(key, value) {
+		function change_dataset(key, value, desc) {
             window.pie.destroy();
             window.pie1.destroy();
             document.getElementById('table_province').innerHTML = "";
             document.getElementById('table_city').innerHTML = "";
             params[key] = value;
+            $('#lbl_'+key).html(desc);
             $("ul.pie-legend").remove();
             $.ajax({
                  type: "GET",

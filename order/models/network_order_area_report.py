@@ -24,7 +24,7 @@ class NetworkOrderAreaReport:
         elif year == '2012':
             database = 'iccard12'
 
-        sql = self.get_sql(year, field_name, database, is_real_sell_info, is_consider_return)
+        sql = self.get_sql(year, field_name, database, indicator, is_real_sell_info, is_consider_return)
 
         rows = get_rows_from_orders(sql)
         total = reduce(lambda x, y: x + y, map(lambda item: item[indicator], rows) )
@@ -60,25 +60,25 @@ class NetworkOrderAreaReport:
 
         return [datasets, rows]
 
-    def get_sql(self, year, field_name, database, is_real_sell_info = False, is_consider_return  = False):
+    def get_sql(self, year, field_name, database, indicator, is_real_sell_info = False, is_consider_return  = False):
         if is_real_sell_info:
             sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
                     SELECT a.Sellid, DTel, c.DSjNumber as DDjNumber, c.DSjAmount as DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
                     FROM %s.dbo.v_tbdTravelOk a inner join %s.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
                     inner join %s.dbo.v_tbdTravelOkOther c on a.SellID = c.SellID
-                    WHERE a. Flag in (1) and
+                    WHERE a. Flag = 1 and
                     exists(select * from %s.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
                     and DComeDate >= '%s-1-1' and DComeDate <= '%s-12-31') as a
                     GROUP BY %s
-                    order by total_money desc""" % (field_name, field_name, field_name, database, database, database, database,  year, year, field_name)
+                    order by %s desc""" % (field_name, field_name, field_name, database, database, database, database,  year, year, field_name, indicator)
         else:
             sql = """SELECT %s, COUNT(*) as order_count, SUM(DDjNumber) as people_count, cast(SUM(DAmount) as int) as total_money FROM (
                     SELECT a.Sellid, DTel, a.DDjNumber, a.DAmount, (SELECT %s FROM report.dbo.t_phonenumber where phonenumber = SUBSTRING(DTel,0,8)) as %s
                     FROM %s.dbo.v_tbdTravelOk a inner join %s.dbo.v_tbdTravelOkCustomer b on a.SellID = b.SellID
-                    WHERE a. Flag in (1) and
+                    WHERE a. Flag = 1 and
                     exists(select * from %s.dbo.tbdGroupType b where a.DGroupType = b.DName and a.DGroupTypeAssort = b.sType and DGroupRoomType = '网络用房')
                     and DComeDate >= '%s-1-1' and DComeDate <= '%s-12-31') as a
                     GROUP BY %s
-                    order by total_money desc""" % (field_name, field_name, field_name, database, database, database,  year, year, field_name)
+                    order by %s desc""" % (field_name, field_name, field_name, database, database, database,  year, year, field_name, indicator)
         print sql
         return sql
