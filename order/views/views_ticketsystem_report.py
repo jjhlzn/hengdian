@@ -117,11 +117,12 @@ def network_order_area_json(request):
     year = get_query_param(qs, 'year', '2014')
     is_real_sell_info = get_query_param(qs, 'is_real_sell_info', '0')
     indicator = get_query_param(qs, 'indicator', 'total_money')
-    print indicator
+    topn = get_query_param(qs, 'topn', '10')
     params = {'year':year, 'indicator': indicator, 'is_real_sell_info': is_real_sell_info}
     service = NetworkOrderAreaReport()
-    province_datasets = service.get_report(year, NetworkOrderAreaReport.AREA_TYPE_PROVINCE, indicator, is_real_sell_info == '1')
-    city_datasets = service.get_report(year, NetworkOrderAreaReport.AREA_TYPE_CITY, indicator, is_real_sell_info == '1', topN=16)
+    print "topn = %s" %topn
+    province_datasets = service.get_report(year, NetworkOrderAreaReport.AREA_TYPE_PROVINCE, indicator, is_real_sell_info == '1', topN=int(topn))
+    city_datasets = service.get_report(year, NetworkOrderAreaReport.AREA_TYPE_CITY, indicator, is_real_sell_info == '1', topN=int(topn))
     context = {'datasets': province_datasets[0], 'datasets_src': province_datasets[1], \
                'datasets1': city_datasets[0], 'datasets1_src': city_datasets[1], 'params': params}
     response_data = {}

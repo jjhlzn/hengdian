@@ -9,7 +9,7 @@
         <div class="row">
              <div class="col-md-12">
                  <div class="row">
-                     <div class="col-md-4">
+                     <div class="col-md-3">
                          <div class="dropdown">
                               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
                                 选择年份
@@ -23,7 +23,7 @@
                               <span id="lbl_year">2014年</span>
                          </div>
                      </div>
-                     <div class="col-md-4">
+                     <div class="col-md-3">
                          <div class="dropdown">
                               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                 选择指标指标
@@ -38,17 +38,33 @@
                           </div>
                       </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-3">
                          <div class="dropdown">
-                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
                                 是否实际售票数据
                                 <span class="caret"></span>
                               </button>
-                              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info','0', '否')">否</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('is_real_sell_info', '1', '是')">是</a></li>
                               </ul>
                              <span id="lbl_is_real_sell_info">否</span>
+                          </div>
+                      </div>
+
+                     <div class="col-md-3">
+                         <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown">
+                                排名前N位
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('topn','5', '5')">5</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('topn', '10', '10')">10</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('topn', '15', '15')">15</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="change_dataset('topn', '20', '20')">20</a></li>
+                              </ul>
+                             <span id="lbl_topn">15</span>
                           </div>
                       </div>
                  </div>
@@ -94,10 +110,11 @@
                 params['year'] = '2014'
                 params['indicator'] = 'people_count'
                 params['is_real_sell_info'] = '0'
+                params['topn'] = '15'
                 $.ajax({
                      type: "GET",
                      url: "/order/json/ts_network_order_area",
-                     data: {year: params['year'], indicator: params['indicator'], is_real_sell_info: params['is_real_sell_info']},
+                     data: {year: params.year,  indicator: params.indicator, is_real_sell_info: params.is_real_sell_info, topn: params.topn},
                      dataType: "json",
                      success: deal_resonse_json
                  });
@@ -131,7 +148,7 @@
             $.ajax({
                  type: "GET",
                  url: "/order/json/ts_network_order_area",
-                 data: {year: params.year,  indicator: params.indicator, is_real_sell_info: params.is_real_sell_info},
+                 data: {year: params.year,  indicator: params.indicator, is_real_sell_info: params.is_real_sell_info, topn: params.topn},
                  dataType: "json",
                  success: deal_resonse_json
              });

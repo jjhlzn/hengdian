@@ -3,8 +3,9 @@ from __future__ import division
 from ..dbutils import *
 
 
-colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#CD69C9', '#CDC673', '#EEE8CD',
-          '#CD919E', '#C1CDC1', '#8B8878', '#7F7F7F', '#607B8B', '#4682B4', '#8C8C8C']
+colors = ['#659AC9', '#A0BFBE', '#ADC896', '#B58371', '#DA917A', '#BE98B7', '#8B814C', '#CD69C9', '#CDC673', '#EEE8CD',  #10
+          '#CD919E', '#C1CDC1', '#8B8878', '#7F7F7F', '#607B8B', '#4682B4', '#C67171', '#C0FF3E', '#C5C1AA', '#B9D3EE'
+        , '#8C8C8C']
 
 class NetworkOrderAreaReport:
     AREA_TYPE_PROVINCE = 'province'
