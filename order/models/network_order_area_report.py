@@ -30,10 +30,13 @@ class NetworkOrderAreaReport:
         rows = get_rows_from_orders(sql)
         total = reduce(lambda x, y: x + y, map(lambda item: item[indicator], rows) )
 
+        rank = 1
         for row in rows:
             row['percent'] = "{0:.3f}".format(row[indicator] / total * 100) + '%'
             row['label'] = row[field_name]
             row['value'] = row[indicator]
+            row['rank'] = rank
+            rank += 1
             if row['label'] is None:
                 row['label'] = u'未知'
 
@@ -58,7 +61,7 @@ class NetworkOrderAreaReport:
                         'highlight': item['color'], \
                         'label': item[field_name] if  item[field_name] is not None else u'未知'\
                      }, datasets)
-        rows.append({'percent': '100%', 'label': '总和', 'value': total})
+        rows.append({'percent': '100%', 'label': '总和', 'value': total, 'rank': ''})
         return [datasets, rows]
 
     def get_sql(self, year, field_name, database, indicator, is_real_sell_info = False, is_consider_return  = False):

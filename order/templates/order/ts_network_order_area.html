@@ -72,27 +72,29 @@
         </div>
         <div>
             <div class="row">
-                <div class="col-md-6 labeled-chart-container">
-                    <div class="canvas-holder">
-                         <canvas id="canvas" height="150" width="300"></canvas>
+                <div class="col-md-12">
+                    <div class="col-md-6 labeled-chart-container">
+                        <div class="canvas-holder">
+                             <canvas id="canvas" height="150" width="300"></canvas>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 labeled-chart-container">
-                    <div class="canvas-holder">
-                         <canvas id="canvas1" height="150" width="300"></canvas>
+                    <div class="col-md-6 labeled-chart-container">
+                        <div class="canvas-holder">
+                             <canvas id="canvas1" height="150" width="300"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 labeled-chart-container">
-                    <table id="table_province" width="100%">
-
-                    </table>
-                </div>
-                <div class="col-md-6 labeled-chart-container" >
-                    <table id="table_city" width="100%">
-
-                    </table>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                      <table id="table_province" class="table">
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table id="table_city" class="table">
+                      </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,15 +167,24 @@
 		    document.getElementById(canvas_id).parentNode.parentNode.appendChild(legendHolder.firstChild);
 
             var table1 = document.getElementById(table_id);
-
+            var topn = parseInt(params.topn);
+            console.log(params)
+            console.log("topn = "+topn)
             for(var i = 0; i < datasets_src.length; i++ ) {
-                var tr = document.createElement('tr');
+                var tr;
+                if (i < topn)
+                    tr = $('<tr>').addClass('topn')[0];
+                else
+                    tr = $('<tr>')[0];
+                var td0 = document.createElement('td');
+                td0.innerHTML = datasets_src[i].rank;
                 var td1 = document.createElement('td');
                 td1.innerHTML = datasets_src[i].label;
                 var td2 = document.createElement('td');
                 td2.innerHTML = datasets_src[i].value;
                 var td3 = document.createElement('td');
                 td3.innerHTML = datasets_src[i].percent;
+                tr.appendChild(td0);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
                 tr.appendChild(td3);
