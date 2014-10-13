@@ -16,13 +16,13 @@ class NetworkOrderAreaReport:
                    is_real_sell_info = False, is_consider_return = False, topN = 9):
 
         field_name = 'province'
-        database = 'iccard14'
+        database = "%s.iccard14" % ticket_server
         if area_type == self.AREA_TYPE_CITY:
             field_name = 'city'
         if year == '2013':
-            database = 'iccard13'
+            database = "%s.iccard13" % ticket_server
         elif year == '2012':
-            database = 'iccard12'
+            database = "%s.iccard12" % ticket_server
 
         sql = self.get_sql(year, field_name, database, indicator, is_real_sell_info, is_consider_return)
 
