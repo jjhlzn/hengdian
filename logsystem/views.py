@@ -58,7 +58,8 @@ def index(request):
 				   'start_time': start_time,
 				   'end_time': end_time,
 				   'search_content': search_content,
-				   'thread': thread},);
+				   'thread': thread,
+                   'date': day},);
 
 def IsNotNullOrEmpty(value):
     return value is not None and len(value) > 0
