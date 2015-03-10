@@ -17,21 +17,30 @@ my %attr = ( mysql_auto_reconnect=>1,
 			 PrintError=>0,  # turn off error reporting via warn()
              RaiseError=>1 );   # turn on error reporting via die()           
  
-my $dbh  = DBI->connect($dsn,$username,$password, \%attr);
-
-my $_sql = "set names utf8";
-my $stmt2 = $dbh->prepare($_sql);
-$stmt2->execute();
-$_sql = "insert into logsystem_ordersystemlogrecord (time, thread, level, 
-		clazz, content) values (?,?,?,?,?)";
-my $stmt = $dbh->prepare($_sql);
-
+my $dbh;
+my $stmt;
 while(1) {
-	eval{ parse_log('./log_root.txt') };
+	eval{ 
+	    $dbh  = DBI->connect($dsn,$username,$password, \%attr);
+
+		my $_sql = "set names utf8";
+		my $stmt2 = $dbh->prepare($_sql);
+		$stmt2->execute();
+		$_sql = "insert into logsystem_ordersystemlogrecord (time, thread, level, 
+				clazz, content) values (?,?,?,?,?)";
+	    $stmt = $dbh->prepare($_sql);
+		parse_log('./log_root.txt') 
+	};
 	sleep(20);
+	if($@){
+		print "$@\n";
+	}
+	eval{
+		$dbh->disconnect();
+	}
 }
 
-$dbh->disconnect();
+
 
 sub parse_log {
 	my $file_name = shift;
