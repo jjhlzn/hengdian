@@ -72,8 +72,9 @@
 <div id="toolbar"><form id="changelist-search" action="" method="get">
 <div><!-- DIV needed for valid HTML -->
 <label for="searchbar"><img src="{% static "logsystem/images/icon_searchbox.png" %}" alt="Search"></label>
-from: <input type="text" size="13" name="start_time" value="{{start_time}}" id="start_time">
-end: <input type="text" size="13" name="end_time" value="{{end_time}}" id="end_time">
+date: <input type="text" size="13" name="date" value="{{date}}" id="date">
+time_from: <input type="text" size="13" name="start_time" value="{{start_time}}" id="start_time">
+time_end: <input type="text" size="13" name="end_time" value="{{end_time}}" id="end_time">
 thread: <input type="text" size="5" name="thread" value="{{thread}}" id="thread">
 cotent: <input type="text" size="40" name="search_content" value="{{search_content}}" id="search_content">
 <input type="submit" value="Search">
@@ -91,7 +92,7 @@ cotent: <input type="text" size="40" name="search_content" value="{{search_conte
 {% if pagination_required %}
 <p class="paginator">
 	{% if page.has_previous %}
-		<a href="?page={{ page.previous_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}&thread={{thread}}">previous</a>
+		<a href="?page={{ page.previous_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}&thread={{thread}}&date={{ date }}">previous</a>
 	{% endif %}
 
 	<span class="current">
@@ -99,7 +100,7 @@ cotent: <input type="text" size="40" name="search_content" value="{{search_conte
 	</span>
 
 	{% if page.has_next %}
-		<a href="?page={{ page.next_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}&thread={{thread}}">next</a>
+		<a href="?page={{ page.next_page_number }}&start_time={{start_time}}&end_time={{end_time}}&search_content={{search_content}}&thread={{thread}}&date={{ date }}">next</a>
 	{% endif %}
 	total {{page.paginator.count}} records
 </p>
